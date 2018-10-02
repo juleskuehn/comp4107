@@ -18,6 +18,8 @@ A = np.fromfunction(g, (1401, 1401))
 
 U, s, V = sp.svd(A, full_matrices=True)
 
+print(s)
+
 # Diagonalize s vector to matrix
 s = np.diag(s)
 
@@ -35,3 +37,4 @@ print("\nA2 =\n", A2)
 
 diff = np.linalg.norm(A-A2)
 print("\n||A - A2|| =\n", diff)
+
