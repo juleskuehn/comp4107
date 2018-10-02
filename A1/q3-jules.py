@@ -22,6 +22,16 @@ U, s, V = sp.svd(A, full_matrices=True)
 s = np.diag(s)
 
 print("\nA =\n", A)
-print("\nU =\n", U)
-print("\nS =\n", s)
-print("\nV =\n", V)
+
+# The best rank(2) matrix takes the first 2 values from s
+# since s is sorted descending
+U2 = U[:, :2]
+V2 = V[:2, :]
+s2 = s[:2, :2]
+
+A2 = np.dot(U2, s2).dot(V2)
+
+print("\nA2 =\n", A2)
+
+diff = np.linalg.norm(A-A2)
+print("\n||A - A2|| =\n", diff)
