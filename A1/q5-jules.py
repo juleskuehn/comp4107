@@ -25,10 +25,10 @@ A = np.array([
 
 rref, indRows = sympy.Matrix(A).rref()
 print("\nA in rref:\n", rref)
-print("Independent rows:", indRows)
+print("Independent rows:", len(indRows))
 
 # To check if the columns are independent, transpose and then
 # put into reduced row echelon form
 rrefT, indCols = sympy.Matrix(A).T.rref()
 print("\nA^T in rref:\n", rrefT)
-print("Independent cols:", indCols)
+print("Independent cols:", len(indCols))
