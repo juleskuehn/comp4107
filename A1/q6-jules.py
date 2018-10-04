@@ -24,13 +24,13 @@ def read(dataset = "training", path = "."):
     """
 
     if dataset is "training":
-        fname_img = os.path.join(path, 'train-images-idx3-ubyte')
-        fname_lbl = os.path.join(path, 'train-labels-idx1-ubyte')
+        fname_img = os.path.join(path, 'train-images.idx3-ubyte')
+        fname_lbl = os.path.join(path, 'train-labels.idx1-ubyte')
     elif dataset is "testing":
-        fname_img = os.path.join(path, 't10k-images-idx3-ubyte')
-        fname_lbl = os.path.join(path, 't10k-labels-idx1-ubyte')
+        fname_img = os.path.join(path, 't10k-images.idx3-ubyte')
+        fname_lbl = os.path.join(path, 't10k-labels.idx1-ubyte')
     else:
-        raise ValueError, "dataset must be 'testing' or 'training'"
+        raise ValueError("dataset must be 'testing' or 'training'")
 
     # Load everything in some numpy arrays
     with open(fname_lbl, 'rb') as flbl:
@@ -44,7 +44,7 @@ def read(dataset = "training", path = "."):
     get_img = lambda idx: (lbl[idx], img[idx])
 
     # Create an iterator which returns each image in turn
-    for i in xrange(len(lbl)):
+    for i in range(len(lbl)):
         yield get_img(i)
 
 def show(image):
@@ -60,3 +60,32 @@ def show(image):
     ax.xaxis.set_ticks_position('top')
     ax.yaxis.set_ticks_position('left')
     pyplot.show()
+
+# Jules' code begins here
+
+training_data = list(read())
+print(len(training_data))
+label, pixels = training_data[0]
+images = [
+    [], [], [], [], [], [], [], [], [], []
+]
+for image_tuple in training_data:
+    label, pixels = image_tuple
+    # Stack pixels into single vector
+    i = len(images[label])
+    images[label].append([])
+    # print(images[label])
+    for row in pixels:
+        for pixel in row:
+            images[label][i].append(pixel)
+
+A = []
+
+for m in images:
+    A.append(np.array(m))
+
+print(label)
+print(pixels)
+# show(pixels)
+
+# Stack 
