@@ -80,12 +80,43 @@ for image_tuple in training_data:
             images[label][i].append(pixel)
 
 A = []
+Asvd = []
+U = []
+Aavg = []
 
 for m in images:
-    A.append(np.array(m))
+    A.append(np.transpose(np.array(m, dtype="uint8")))
+    # Asvd.append(sp.svd(A[-1], full_matrices=True))
+    # tmpU, s, V = Asvd[-1]
+    # U.append(tmpU)
+    Aavg.append(np.array(np.sum(A[-1], axis=1) / A[-1].shape[0]))
 
-print(label)
-print(pixels)
-# show(pixels)
+def reconstruct(Aa):
+    tmp = []
+    for i in range(0, 28):
+        tmp.append([])
+        for j in range(0, 28):
+            tmp[i].append(Aa[i*28 + j])
+    return np.array(tmp, dtype=np.uint8)
 
-# Stack 
+def showSum(A, i):
+    show(reconstruct(np.array(np.sum(A[i], axis=1) / A[i].shape[0])))
+
+def lowerRank(A):
+    U, s, V = sp.svd(A, full_matrices=True)
+
+    # Diagonalize s vector to matrix
+    sDiag = np.diag(s)
+
+    # print("\nA =\n", A)
+
+    # The best rank(2) matrix takes the first 2 values from s
+    # since s is sorted descending
+    U2 = U[:, :2]
+    V2 = V[:2, :]
+    s2 = sDiag[:2, :2]
+
+    A2 = np.dot(U2, s2).dot(V2)
+
+    return A2
+
