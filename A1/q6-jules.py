@@ -11,6 +11,11 @@ import sympy
 import os
 import struct
 
+from matplotlib import pyplot
+import matplotlib as mpl
+
+import math
+
 """
 Code for reading the MNIST set (read() and show() functions) from:
 https://gist.github.com/akesling/5358964
@@ -51,11 +56,9 @@ def show(image):
     """
     Render a given numpy.uint8 2D array of pixel data.
     """
-    from matplotlib import pyplot
-    import matplotlib as mpl
     fig = pyplot.figure()
     ax = fig.add_subplot(1,1,1)
-    imgplot = ax.imshow(image, cmap=mpl.cm.Greys)
+    imgplot = ax.imshow(image, cmap=pyplot.get_cmap('Greys'))
     imgplot.set_interpolation('nearest')
     ax.xaxis.set_ticks_position('top')
     ax.yaxis.set_ticks_position('left')
@@ -91,6 +94,9 @@ for m in images:
     # U.append(tmpU)
     Aavg.append(np.array(np.sum(A[-1], axis=1) / A[-1].shape[0]))
 
+print("Generated A = [[2**n, m], ...] for digits 0-9")
+print("A[0].shape=",A[0].shape)
+
 def reconstruct(Aa):
     tmp = []
     for i in range(0, 28):
@@ -102,7 +108,7 @@ def reconstruct(Aa):
 def showSum(A, i):
     show(reconstruct(np.array(np.sum(A[i], axis=1) / A[i].shape[0])))
 
-def lowerRank(A):
+def kRank(A, k):
     U, s, V = sp.svd(A, full_matrices=True)
 
     # Diagonalize s vector to matrix
@@ -112,11 +118,78 @@ def lowerRank(A):
 
     # The best rank(2) matrix takes the first 2 values from s
     # since s is sorted descending
-    U2 = U[:, :2]
-    V2 = V[:2, :]
-    s2 = sDiag[:2, :2]
+    Uk = U[:, :k]
+    Vk = V[:k, :]
+    sk = sDiag[:k, :k]
 
-    A2 = np.dot(U2, s2).dot(V2)
+    A2 = np.dot(Uk, sk).dot(Vk)
 
     return A2
 
+def kRankU(A, k):
+    U, s, V = sp.svd(A, full_matrices=True)
+    return U[:, :k]
+
+def bestRank(A, proportionEnergy):
+    # What rank of matrix contains >= 99.9% energy?
+    U, s, V = sp.svd(A, full_matrices=True)
+    sumS = np.sum(s)
+    k = 0
+    e = 0
+    while e < sumS * proportionEnergy :
+        e += s[k]
+        k += 1
+
+    # print("\nbest k =", k)
+
+    Ak = np.dot(U[:, :k], (np.diag(s))[:k, :k]).dot(V[:k, :])
+
+    # print(f"\nA{k} =\n", Ak)
+
+    # diff = np.linalg.norm(A-Ak)
+    # print(f"\n||A - A{k}|| =\n", diff)
+    # print(f"\n||A - A{k}|| / ||A|| = {diff / np.linalg.norm(A):10.10}") 
+
+    return Ak, k
+
+# Generate the Ak approx
+U10 = [kRankU(a, 10) for a in A]
+
+
+testing_data = list(read("testing"))
+print(len(testing_data))
+label, pixels = testing_data[0]
+
+
+
+def categorize(image_tuple):
+    label, pixels = image_tuple
+    # Stack pixels into single vector
+    col = []
+    # print(images[label])
+    for row in pixels:
+        for pixel in row:
+            col.append(pixel)
+    # Now we have column vector ready to test
+    bestIndex = 0
+    bestResidual = math.inf
+    for i in range(0,10):
+        residual = sp.norm(
+            (np.identity(784) - U10[i].dot(U10[i].transpose())).dot(col)
+        )
+        if residual < bestResidual: 
+            bestIndex = i
+            bestResidual = residual
+    return bestIndex, label
+
+print(categorize(testing_data[0]))
+
+numCorrect = 0
+for i in testing_data:
+    guess, label = categorize(i)
+    if guess == label:
+        numCorrect += 1
+    else:
+        print(guess, label)
+
+print(f"{numCorrect} correct out of {len(testing_data)} tests = {numCorrect / len(testing_data) * 100}% accurate.")
