@@ -9,8 +9,8 @@ import scipy.linalg as sp
 import math
 
 def f(i, j):
-    x = -0.7 + 0.001*(i - 1)
-    y = -0.7 + 0.001*(j - 1)
+    x = -0.7 + 0.001*(i)
+    y = -0.7 + 0.001*(j)
     return math.sqrt(1 - x**2 - y**2)
 
 g = np.vectorize(f)
