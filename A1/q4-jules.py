@@ -17,7 +17,7 @@ b = np.array([1,1,1,1]).transpose()
 X = np.array([1,1,1]).transpose()
 
 tolerance = 0.01
-steps = [0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.05]
+steps = [0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5]
 
 At = A.transpose()
 AtA = np.dot(At, A)
@@ -50,7 +50,7 @@ for step in steps:
         x = x - step*L
         if (np.linalg.norm(L) > 100000):
             break
-        if True:
+        if False:
             print(f" step: {step:.3f}: {arrToString(x)}   {i}")
     print(f" step: {step:.3f}: {arrToString(x)}   {i}")
 
