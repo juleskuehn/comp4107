@@ -251,3 +251,8 @@ results = [
     95.14
 ]
 
+pyplot.plot(results, marker='x', color='r')
+pyplot.xticks(range(0,51,5))
+pyplot.ylabel('Classification Percentage')
+pyplot.xlabel('# of Basis Images')
+pyplot.show()
