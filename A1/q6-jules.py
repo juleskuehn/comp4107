@@ -133,7 +133,7 @@ def categorize(image_tuple, Ures):
 
 # Takes columnized testing_data, a number of tests,
 # and Uk = [Uj[:, :k] for Uj in [sp.svd(Aj)[0] for Aj in A]]
-# Returns a tuple of (proportion correct,
+# Returns a tuple of (percentage correct,
 # dictionary of <which digits confused>: <how often>)
 def testCategorize(testing_data, numTests, Uk):
     # Ures is what's needed for calculating residuals
@@ -156,33 +156,98 @@ def testCategorize(testing_data, numTests, Uk):
     # print(f"{numCorrect} correct out of {numTests} tests = {numCorrect / numTests * 100}% accurate.")
     # 9485 correct out of 10000 tests = 94.85% accurate
     # (with k = 10)
-    return numCorrect / numTests, confused
+    return numCorrect / numTests * 100, confused
 
 # Log results, since they take so long to compute
 # for k in range(1, 50, 2)
 
 # Test the above functions
-# def main():
 
-testing_data = list(read("testing"))
-print("Read testing data:", len(testing_data), "images.")
+results = []
+confused = []
 
-training_data = list(read())
-print("Read training data:", len(training_data), "images.")
-A = getTrainingA(training_data)
+def genResults():
 
-testing_data = columnize(testing_data)
+    global results
+    results = []
+    global confused
 
-# try:
-#     U = open('./q6-U', 'r')
-#     # Store configuration file values
-# except FileNotFoundError:
-print("Generating U for all Aj in A")
-U = [sp.svd(Aj)[0] for Aj in A]
+    testing_data = list(read("testing"))
+    print("Read testing data:", len(testing_data), "images.")
 
-numTests = 10000
-print("Testing categorization with k= [1...50] and numTests=", numTests)
-for k in range(1,51,1):
-    c = testCategorize(testing_data, numTests, [Uj[:, :k] for Uj in U])
-    print(f"k={k:>2}: {c[0] * 100:.2f}% accurate.")
-    # print("Most confused:", sorted(c[1].items(), key=lambda kv: kv[1])[::-1][:3])
+    training_data = list(read())
+    print("Read training data:", len(training_data), "images.")
+    A = getTrainingA(training_data)
+
+    testing_data = columnize(testing_data)
+
+    print("Generating U for all Aj in A")
+    U = [sp.svd(Aj)[0] for Aj in A]
+
+    # Rather than randomly sampling, running on entire data set
+    # so as to reproduce results shown in paper
+    numTests = 10000
+
+    print("Testing categorization with k= [1...50] and numTests=", numTests)
+    for k in range(1,51,1):
+        c = testCategorize(testing_data, numTests, [Uj[:, :k] for Uj in U])
+        print(f"k={k:>2}: {c[0]:.2f}% accurate.")
+        results.append(c[0])
+        confused.append(c[1])
+        # print("Most confused:", sorted(c[1].items(), key=lambda kv: kv[1])[::-1][:3])
+
+# Previously generated results stored here, to save repeated
+# computations. Can be regenerated with genResults()
+results = [
+    81.84,
+    87.16,
+    90.26,
+    91.54,
+    92.63,
+    93.44,
+    94.02,
+    94.21,
+    94.77,
+    94.85,
+    94.93,
+    94.89,
+    94.98,
+    95.09,
+    95.27,
+    95.24,
+    95.39,
+    95.56,
+    95.63,
+    95.73,
+    95.73,
+    95.68,
+    95.85,
+    95.78,
+    95.76,
+    95.79,
+    95.68,
+    95.82,
+    95.82,
+    95.74,
+    95.72,
+    95.65,
+    95.78,
+    95.74,
+    95.83,
+    95.74,
+    95.75,
+    95.72,
+    95.64,
+    95.70,
+    95.61,
+    95.63,
+    95.55,
+    95.44,
+    95.41,
+    95.23,
+    95.09,
+    95.01,
+    95.03,
+    95.14
+]
+
