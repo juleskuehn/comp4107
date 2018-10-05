@@ -152,17 +152,11 @@ def bestRank(A, proportionEnergy):
 
     return Ak, k
 
-# Generate the Ak approx
-U10 = [kRankU(a, 10) for a in A]
-
-
 testing_data = list(read("testing"))
 print(len(testing_data))
 label, pixels = testing_data[0]
 
-
-
-def categorize(image_tuple):
+def categorize(image_tuple, Ures):
     label, pixels = image_tuple
     # Stack pixels into single vector
     col = []
@@ -174,22 +168,38 @@ def categorize(image_tuple):
     bestIndex = 0
     bestResidual = math.inf
     for i in range(0,10):
-        residual = sp.norm(
-            (np.identity(784) - U10[i].dot(U10[i].transpose())).dot(col)
-        )
+        residual = sp.norm(Ures[i].dot(col))
         if residual < bestResidual: 
             bestIndex = i
             bestResidual = residual
     return bestIndex, label
 
-print(categorize(testing_data[0]))
+# print(categorize(testing_data[0]))
 
-numCorrect = 0
-for i in testing_data:
-    guess, label = categorize(i)
-    if guess == label:
-        numCorrect += 1
-    else:
-        print(guess, label)
+def testCategorize(testing_data, numTests, k):
+    # Generate the Ak approx
+    Uk = [kRankU(a, k) for a in A]
+    # This is what's needed for calculating residuals
+    Ures = [np.identity(784) - u.dot(u.transpose()) for u in Uk]
+    numCorrect = 0
+    numTests = min(numTests, len(testing_data))
+    confused = {}
+    for i in testing_data[:numTests]:
+        guess, label = categorize(i, Ures)
+        if guess == label:
+            numCorrect += 1
+        else:
+            print(guess, label)
+            key = f"{min(guess,label)}-{max(guess,label)}"
+            if key in confused.keys():
+                confused[f"{min(guess,label)}-{max(guess,label)}"] += 1
+            else:
+                confused[key] = 1
 
-print(f"{numCorrect} correct out of {len(testing_data)} tests = {numCorrect / len(testing_data) * 100}% accurate.")
+    print(f"With k = {k} basis images:")
+    print(f"{numCorrect} correct out of {numTests} tests = {numCorrect / numTests * 100}% accurate.")
+    # 9485 correct out of 10000 tests = 94.85% accurate
+    # (with k = 10)
+    return confused
+
+confused = testCategorize(testing_data, 1000, 100)
