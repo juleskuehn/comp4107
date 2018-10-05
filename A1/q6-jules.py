@@ -7,13 +7,10 @@
 import numpy as np
 import scipy.linalg as sp
 import sympy
-
 import os
 import struct
-
 from matplotlib import pyplot
 import matplotlib as mpl
-
 import math
 
 """
@@ -66,37 +63,11 @@ def show(image):
 
 # Jules' code begins here
 
-training_data = list(read())
-print(len(training_data))
-label, pixels = training_data[0]
-images = [
-    [], [], [], [], [], [], [], [], [], []
-]
-for image_tuple in training_data:
-    label, pixels = image_tuple
-    # Stack pixels into single vector
-    i = len(images[label])
-    images[label].append([])
-    # print(images[label])
-    for row in pixels:
-        for pixel in row:
-            images[label][i].append(pixel)
+# MISC (debugging) FUNCTIONS
 
-A = []
-Asvd = []
-U = []
-Aavg = []
-
-for m in images:
-    A.append(np.transpose(np.array(m, dtype="uint8")))
-    # Asvd.append(sp.svd(A[-1], full_matrices=True))
-    # tmpU, s, V = Asvd[-1]
-    # U.append(tmpU)
-    Aavg.append(np.array(np.sum(A[-1], axis=1) / A[-1].shape[0]))
-
-print("Generated A = [[2**n, m], ...] for digits 0-9")
-print("A[0].shape=",A[0].shape)
-
+# Reconstruct a 2D numpy uint8 array of 28x28
+# from a vector of length 28**2
+# (So it can be displayed as an image)
 def reconstruct(Aa):
     tmp = []
     for i in range(0, 28):
@@ -105,70 +76,54 @@ def reconstruct(Aa):
             tmp[i].append(Aa[i*28 + j])
     return np.array(tmp, dtype=np.uint8)
 
-def showSum(A, i):
-    show(reconstruct(np.array(np.sum(A[i], axis=1) / A[i].shape[0])))
-
-def kRank(A, k):
-    U, s, V = sp.svd(A, full_matrices=True)
-
-    # Diagonalize s vector to matrix
-    sDiag = np.diag(s)
-
-    # print("\nA =\n", A)
-
-    # The best rank(2) matrix takes the first 2 values from s
-    # since s is sorted descending
-    Uk = U[:, :k]
-    Vk = V[:k, :]
-    sk = sDiag[:k, :k]
-
-    A2 = np.dot(Uk, sk).dot(Vk)
-
-    return A2
-
-def kRankU(A, k):
-    U, s, V = sp.svd(A, full_matrices=True)
-    return U[:, :k]
-
-def bestRank(A, proportionEnergy):
-    # What rank of matrix contains >= 99.9% energy?
-    U, s, V = sp.svd(A, full_matrices=True)
+# How many singular values contain desired proportion of energy?
+def bestRank(s, proportionEnergy):
     sumS = np.sum(s)
     k = 0
     e = 0
     while e < sumS * proportionEnergy :
         e += s[k]
         k += 1
+    return k
 
-    # print("\nbest k =", k)
+# REQUIRED FUNCTIONS
 
-    Ak = np.dot(U[:, :k], (np.diag(s))[:k, :k]).dot(V[:k, :])
+# Format training data into desired form:
+# a list A, of matrices Aj with shape (2**n, m)
+# for each digit, where j = the digit
+def getTrainingA(training_data):
+    images = [
+        [], [], [], [], [], [], [], [], [], []
+    ]
+    for image_tuple in training_data:
+        label, pixels = image_tuple
+        # Stack pixels into single vector
+        images[label].append((np.ndarray.flatten(pixels)))
+    A = []
+    for m in images:
+        A.append(np.transpose(np.array(m, dtype="uint8")))
+    print("Generated A = [[2**n, m], ...] for digits 0-9")
+    print("A[0].shape=",A[0].shape)
+    return A
 
-    # print(f"\nA{k} =\n", Ak)
+# Put all images into columns
+def columnize(image_data):
+    columnized_data = []
+    for image_tuple in image_data:
+        label, pixels = image_tuple
+        columnized_tuple = (label, np.ndarray.flatten(pixels))
+        columnized_data.append(columnized_tuple)
+    return columnized_data
 
-    # diff = np.linalg.norm(A-Ak)
-    # print(f"\n||A - A{k}|| =\n", diff)
-    # print(f"\n||A - A{k}|| / ||A|| = {diff / np.linalg.norm(A):10.10}") 
-
-    return Ak, k
-
-testing_data = list(read("testing"))
-print(len(testing_data))
-label, pixels = testing_data[0]
-
+# Takes a columnized image_tuple and
+# Ures = [np.identity(784) - u.dot(u.transpose()) for u in Uk]
+# Returns a tuple of (guess, actual) integers
 def categorize(image_tuple, Ures):
     label, pixels = image_tuple
-    # Stack pixels into single vector
-    col = []
-    # print(images[label])
-    for row in pixels:
-        for pixel in row:
-            col.append(pixel)
-    # Now we have column vector ready to test
-    bestIndex = 0
+    bestIndex = -1
     bestResidual = math.inf
     for i in range(0,10):
-        residual = sp.norm(Ures[i].dot(col))
+        residual = sp.norm(Ures[i].dot(pixels))
         if residual < bestResidual: 
             bestIndex = i
             bestResidual = residual
@@ -176,10 +131,12 @@ def categorize(image_tuple, Ures):
 
 # print(categorize(testing_data[0]))
 
-def testCategorize(testing_data, numTests, k):
-    # Generate the Ak approx
-    Uk = [kRankU(a, k) for a in A]
-    # This is what's needed for calculating residuals
+# Takes columnized testing_data, a number of tests,
+# and Uk = [Uj[:, :k] for Uj in [sp.svd(Aj)[0] for Aj in A]]
+# Returns a tuple of (proportion correct,
+# dictionary of <which digits confused>: <how often>)
+def testCategorize(testing_data, numTests, Uk):
+    # Ures is what's needed for calculating residuals
     Ures = [np.identity(784) - u.dot(u.transpose()) for u in Uk]
     numCorrect = 0
     numTests = min(numTests, len(testing_data))
@@ -189,17 +146,43 @@ def testCategorize(testing_data, numTests, k):
         if guess == label:
             numCorrect += 1
         else:
-            print(guess, label)
+            # print(guess, label)
             key = f"{min(guess,label)}-{max(guess,label)}"
             if key in confused.keys():
                 confused[f"{min(guess,label)}-{max(guess,label)}"] += 1
             else:
                 confused[key] = 1
 
-    print(f"With k = {k} basis images:")
-    print(f"{numCorrect} correct out of {numTests} tests = {numCorrect / numTests * 100}% accurate.")
+    # print(f"{numCorrect} correct out of {numTests} tests = {numCorrect / numTests * 100}% accurate.")
     # 9485 correct out of 10000 tests = 94.85% accurate
     # (with k = 10)
-    return confused
+    return numCorrect / numTests, confused
 
-confused = testCategorize(testing_data, 1000, 100)
+# Log results, since they take so long to compute
+# for k in range(1, 50, 2)
+
+# Test the above functions
+# def main():
+
+testing_data = list(read("testing"))
+print("Read testing data:", len(testing_data), "images.")
+
+training_data = list(read())
+print("Read training data:", len(training_data), "images.")
+A = getTrainingA(training_data)
+
+testing_data = columnize(testing_data)
+
+# try:
+#     U = open('./q6-U', 'r')
+#     # Store configuration file values
+# except FileNotFoundError:
+print("Generating U for all Aj in A")
+U = [sp.svd(Aj)[0] for Aj in A]
+
+numTests = 10000
+print("Testing categorization with k= [1...50] and numTests=", numTests)
+for k in range(1,51,1):
+    c = testCategorize(testing_data, numTests, [Uj[:, :k] for Uj in U])
+    print(f"k={k:>2}: {c[0] * 100:.2f}% accurate.")
+    # print("Most confused:", sorted(c[1].items(), key=lambda kv: kv[1])[::-1][:3])
