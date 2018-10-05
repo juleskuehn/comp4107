@@ -41,7 +41,7 @@ for step in lr:
     x = X
     L = computeLoss(x)
     i = 0
-    while np.linalg.norm(np.dot(ATA, x)**2 - np.dot(AT, b)**2) > tolerance:
+    while np.linalg.norm(np.dot(ATA, x) - np.dot(AT, b)) > tolerance:
         i += 1
         L = computeLoss(x)
         x = x - step*L
