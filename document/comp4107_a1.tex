@@ -25,9 +25,12 @@ Implementation for question 3 can be found in q3.py. The rank-2 approximation an
 \includegraphics{q3_result}
 
 \item Question 4\newline
-Implementation for question 4 can be found in q4.py. The only learning rate that will work is when $ε = 0.01$, which will lead to the correct result with $\approx 420$ iterations. The other ones won't work as we are descending too quickly, and therefore we will miss the correct answer and failed to come back. We set the program to stop
+Implementation for question 4 can be found in q4.py. The only learning rate that will work is when $ε = 0.01$, which will lead to the correct result with $\approx 420$ iterations. The other ones won't work as we are descending too quickly, and therefore we will miss the correct answer and failed to come back. We set the program to stop once the norm of the vector is greater than $100000$, which is obviously too big and therefore it's impossible to get the result.
+\includegraphics{q4_result}
 
 \item Question 5\newline
+The implementation for q5 can be found in q5.py. $A = \begin{bmatrix} 3 & 2 & -1 & 4 \\ 1 & 0 & 2 & 3 \\ -2 & -2 & 3 & 3\end{bmatrix}$. It's clear that the rows of $A$ are not linearly independent. To see this, we reduce $A$ to its RREF form and we will get $A = \begin{bmatrix} 1 & 0 & 2 & 3 \\ 0 & 1 & -7/2 & -5/2 \\ 0 & 0 & 0 & 0\end{bmatrix}$, rank of rows of $A$ equals to $2$. The columns of $A$ are not linearly independent as well. Since as we reduce $A^T$ to RREF form, we will get $A = \begin{bmatrix} 1 &0 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0\end{bmatrix}$, clearly that rank of the columns of $A$ equal to $2$, so the columns are not linearly independent. The inverse of $A$ cannot be calculated as $A$ is not a square matrix, and the rows and columns of $A$ are not linearly independent.\\
+\includegraphics{q5_result}
 
 \item Question 6\newline
 
