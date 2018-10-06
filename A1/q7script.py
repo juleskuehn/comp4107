@@ -162,7 +162,7 @@ pyplot.plot([size for size in range(600, 901, 50)], result08, marker='x', color=
 pyplot.plot([size for size in range(600, 901, 50)], result05, marker='x', color='g')
 pyplot.plot([size for size in range(600, 901, 50)], result02, marker='x', color='b')
 
-pyplot.xticks(range(600, 900, 50))
+pyplot.xticks(range(600, 901, 50))
 pyplot.ylabel('MAE')
 pyplot.xlabel('Folding-in Model Size')
 pyplot.show()
