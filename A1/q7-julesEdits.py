@@ -5,6 +5,7 @@ import numpy.linalg as nl
 from math import sqrt
 from numpy import zeros
 from matplotlib import pyplot
+import scipy.linalg as sp
 
 # the optimal value of k
 k = 14
@@ -76,7 +77,23 @@ for training_rate in training_rates:
         # prevAvgRating = 0.0
         # prevUserID = -1
 
-        UKM, SKSQRT, VK = decompose_matrix(R, basis_size)
+        # Don't worry about folding for now!
+        # UKM, SKSQRT, VK = decompose_matrix(R, basis_size)
+
+        U, s, Vt = sp.svd(R)
+        S = np.diag(s)
+
+        # reduce the space of these vectors
+        Uk = U[:, :k]
+        Sk = S[:k, :k]
+        Vkt = Vt[:k, :]
+
+        # UKM = Uk
+        # SKSQRT = np.sqrt(Sk)
+        # VK = Vkt
+
+        pseudoCustomers = Uk.dot(np.sqrt(Sk))
+        pseudoProducts = Sk.dot(Vkt)
 
         for rating in testData:
             userID = rating[0] # index from 0 to 942
@@ -87,11 +104,8 @@ for training_rate in training_rates:
             # Should the initial average be 2.5, not 0, if the user hasn't rated anything yet?
             userAverageRating = 2.5 if userRated == 0 else sum(R[userID]) / userRated
 
-            firstHalf = UKM.dot(SKSQRT.transpose())[userID]
-            secondHalf = SKSQRT.dot(VK)[:, itemID]
-            product = firstHalf.dot(secondHalf)
-            predictRating = userAverageRating + product
-            error += abs(predictRating - userRating)
+            Pij = userAverageRating + pseudoCustomers[userID].dot(pseudoProducts[:,itemID])
+            error += abs(Pij - userRating)
 
         print("Basis size is ", basis_size, "Error is ", error, "/", count, "=", error/count)
         
