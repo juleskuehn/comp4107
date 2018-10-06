@@ -13,11 +13,12 @@ from matplotlib import pyplot
 import matplotlib as mpl
 import math
 
-"""
-Code for reading the MNIST set (read() and show() functions) from:
-https://gist.github.com/akesling/5358964
-"""
+# Keep this global to avoid recalculating every time
+U = -1
 
+# read() function from
+# https://gist.github.com/akesling/5358964
+# All other code written by Jules
 def read(dataset = "training", path = "."):
     """
     Python function for importing the MNIST data set.  It returns an iterator
@@ -49,76 +50,39 @@ def read(dataset = "training", path = "."):
     for i in range(len(lbl)):
         yield get_img(i)
 
-def show(image):
-    """
-    Render a given numpy.uint8 2D array of pixel data.
-    """
-    fig = pyplot.figure()
-    ax = fig.add_subplot(1,1,1)
-    imgplot = ax.imshow(image, cmap=pyplot.get_cmap('Greys'))
-    imgplot.set_interpolation('nearest')
-    ax.xaxis.set_ticks_position('top')
-    ax.yaxis.set_ticks_position('left')
-    pyplot.show()
-
-# Jules' code begins here
-
-# MISC (debugging) FUNCTIONS
-
-# Reconstruct a 2D numpy uint8 array of 28x28
-# from a vector of length 28**2
-# (So it can be displayed as an image)
-def reconstruct(Aa):
-    tmp = []
-    for i in range(0, 28):
-        tmp.append([])
-        for j in range(0, 28):
-            tmp[i].append(Aa[i*28 + j])
-    return np.array(tmp, dtype=np.uint8)
-
-# How many singular values contain desired proportion of energy?
-def bestRank(s, proportionEnergy):
-    sumS = np.sum(s)
-    k = 0
-    e = 0
-    while e < sumS * proportionEnergy :
-        e += s[k]
-        k += 1
-    return k
-
-# REQUIRED FUNCTIONS
-
-# Format training data into desired form:
-# a list A, of matrices Aj with shape (2**n, m)
-# for each digit, where j = the digit
 def getTrainingA(training_data):
-    images = [
-        [], [], [], [], [], [], [], [], [], []
-    ]
+    """
+    Format training data into desired form:
+    a list A, of matrices Aj with shape (2**n, m)
+    for each digit, where j = the digit
+    """
+    A = [[] for _ in range(10)]
     for image_tuple in training_data:
         label, pixels = image_tuple
         # Stack pixels into single vector
-        images[label].append((np.ndarray.flatten(pixels)))
-    A = []
-    for m in images:
-        A.append(np.transpose(np.array(m, dtype="uint8")))
-    print("Generated A = [[2**n, m], ...] for digits 0-9")
-    print("A[0].shape=",A[0].shape)
-    return A
+        A[label].append((np.ndarray.flatten(pixels)))
+    return [np.array(Aj, dtype="uint8").transpose() for Aj in A]
 
-# Put all images into columns
 def columnize(image_data):
+    """
+    Put all images into columns
+    Used on testing data set
+    """
     columnized_data = []
     for image_tuple in image_data:
         label, pixels = image_tuple
+        # Stack pixels into single vector
         columnized_tuple = (label, np.ndarray.flatten(pixels))
         columnized_data.append(columnized_tuple)
     return columnized_data
 
-# Takes a columnized image_tuple and
-# Ures = [np.identity(784) - u.dot(u.transpose()) for u in Uk]
-# Returns a tuple of (guess, actual) integers
 def categorize(image_tuple, Ures):
+    """
+    Takes a columnized image_tuple to compare with
+    Ures = [np.identity(784) - u.dot(u.transpose()) for u in Uk]
+    Returns a tuple of (guess, actual) integers
+    This follows from formula (2) in the paper.
+    """
     label, pixels = image_tuple
     bestIndex = -1
     bestResidual = math.inf
@@ -129,75 +93,65 @@ def categorize(image_tuple, Ures):
             bestResidual = residual
     return bestIndex, label
 
-# print(categorize(testing_data[0]))
-
-# Takes columnized testing_data, a number of tests,
-# and Uk = [Uj[:, :k] for Uj in [sp.svd(Aj)[0] for Aj in A]]
-# Returns a tuple of (percentage correct,
-# dictionary of <which digits confused>: <how often>)
-def testCategorize(testing_data, numTests, Uk):
+def testCategorize(testing_data, indices, Uk):
+    """
+    Takes columnized testing_data, sample indices, and
+    Uk = [Uj[:, :k] for Uj in [sp.svd(Aj)[0] for Aj in A]]
+    Returns percentage of tests correct
+    """
     # Ures is what's needed for calculating residuals
+    # Calculate it once to save time in categorize()
     Ures = [np.identity(784) - u.dot(u.transpose()) for u in Uk]
+    
     numCorrect = 0
-    numTests = min(numTests, len(testing_data))
-    confused = {}
-    for i in testing_data[:numTests]:
-        guess, label = categorize(i, Ures)
+    for i in indices:
+        guess, label = categorize(testing_data[i], Ures)
         if guess == label:
             numCorrect += 1
-        else:
-            # print(guess, label)
-            key = f"{min(guess,label)}-{max(guess,label)}"
-            if key in confused.keys():
-                confused[f"{min(guess,label)}-{max(guess,label)}"] += 1
-            else:
-                confused[key] = 1
+    return numCorrect / len(indices) * 100
 
-    # print(f"{numCorrect} correct out of {numTests} tests = {numCorrect / numTests * 100}% accurate.")
-    # 9485 correct out of 10000 tests = 94.85% accurate
-    # (with k = 10)
-    return numCorrect / numTests * 100, confused
+def genResults(sample_size):
+    """
+    Script to replicate the results of paper
+    Returns a list of categorization success percentages
+    for k = [1...50] for MNIST training and test data
+    """
+    # Read training and testing data from files,
+    # and process into suitable formats
+    A = getTrainingA(list(read("testing")))
+    testing_data = columnize(list(read("training")))
 
-# Log results, since they take so long to compute
-# for k in range(1, 50, 2)
+    global U
+    # If not already generated,
+    if U == -1:
+        # Generate U for all Aj in A
+        U = [sp.svd(Aj)[0] for Aj in A]
 
-# Test the above functions
+    if sample_size < len(testing_data):
+        sampleIndices = np.random.choice(len(testing_data), sample_size, replace=False)
+    else:
+        sampleIndices = range(0, len(testing_data))
 
-results = []
-confused = []
-
-def genResults():
-
-    global results
     results = []
-    global confused
-
-    testing_data = list(read("testing"))
-    print("Read testing data:", len(testing_data), "images.")
-
-    training_data = list(read())
-    print("Read training data:", len(training_data), "images.")
-    A = getTrainingA(training_data)
-
-    testing_data = columnize(testing_data)
-
-    print("Generating U for all Aj in A")
-    U = [sp.svd(Aj)[0] for Aj in A]
-
-    # Rather than randomly sampling, running on entire data set
-    # so as to reproduce results shown in paper
-    numTests = 10000
-
-    print("Testing categorization with k= [1...50] and numTests=", numTests)
     for k in range(1,51,1):
-        c = testCategorize(testing_data, numTests, [Uj[:, :k] for Uj in U])
-        print(f"k={k:>2}: {c[0]:.2f}% accurate.")
-        results.append(c[0])
-        confused.append(c[1])
-        # print("Most confused:", sorted(c[1].items(), key=lambda kv: kv[1])[::-1][:3])
+        c = testCategorize(testing_data, sampleIndices, [Uj[:, :k] for Uj in U])
+        results.append(c)
+
+    return results
+
+def plot(results):
+    """
+    Plot the results as per the paper
+    """
+    pyplot.plot(results, marker='x', color='r')
+    pyplot.xticks(range(0,51,5))
+    pyplot.ylabel('Classification Percentage')
+    pyplot.xlabel('# of Basis Images')
+    pyplot.show()
 
 # Previously generated results stored here, to save repeated
-# computations. Can be regenerated with genResults()
+# computations. Can be regenerated with genResults(10000)
+# These results are for the entire test set (10000 images).
 results = [
     81.84,
     87.16,
@@ -251,3 +205,8 @@ results = [
     95.14
 ]
 
+# Plot the results for the entire test set
+plot(results)
+
+# Take a random sample of 100 and plot the results
+# plot(genResults(100))

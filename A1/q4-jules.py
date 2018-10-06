@@ -32,10 +32,6 @@ def arrToString(arr):
         s += f"{el:>12.6f}"
     return s
 
-x = X
-L = computeLoss()
-i = 0
-
 print("|    Step     |                  x                 |  Iter  |")
 print("=============================================================")
 print(" P-inv sol'n:", arrToString(np.dot(Apinv, b)))
@@ -44,14 +40,13 @@ for step in steps:
     x = X
     L = computeLoss()
     i = 0
-    while np.linalg.norm(np.dot(AtA, x)**2 - np.dot(At, b)**2) > tolerance:
+    while np.linalg.norm(np.dot(AtA, x) - np.dot(At, b)) > tolerance:
         i += 1
         L = computeLoss()
         x = x - step*L
         if (np.linalg.norm(L) > 100000):
             break
-        if False:
-            print(f" step: {step:.3f}: {arrToString(x)}   {i}")
+        # print(f" step: {step:.3f}: {arrToString(x)}   {i}")
     print(f" step: {step:.3f}: {arrToString(x)}   {i}")
 
 # print(L)
