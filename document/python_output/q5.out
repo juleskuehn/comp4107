@@ -1,0 +1,7 @@
+A in rref:
+ Matrix([[1, 0, 2, 3], [0, 1, -7/2, -5/2], [0, 0, 0, 0]])
+Independent rows: 2
+
+A^T in rref:
+ Matrix([[1, 0, -1], [0, 1, 1], [0, 0, 0], [0, 0, 0]])
+Independent cols: 2
