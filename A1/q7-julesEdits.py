@@ -1,5 +1,6 @@
 
 # import library
+import time
 import numpy as np
 import numpy.linalg as nl
 from math import sqrt
@@ -91,10 +92,12 @@ def fillAndNormalize(R):
 
 training_rates = [0.8, 0.5, 0.2]
 result08 = []
+performance08 = []
 result05 = []
+performance05 = []
 result02 = []
+performance02 = []
 for training_rate in training_rates:
-    result = []
     R, testData = read_data(training_rate)
     R, userAverages = fillAndNormalize(R)
 
@@ -105,29 +108,38 @@ for training_rate in training_rates:
 
         Uk, Sk, Vkt = decompose_matrix(R, basis_size)
 
-        pseudoUsers = Uk.dot(np.sqrt(Sk))
-        pseudoFilms = np.sqrt(Sk).dot(Vkt)
+        ts = time.time()
 
         for rating in testData:
             userID = rating[0] # index from 0 to 942
             itemID = rating[1]
             actual = rating[2]
 
+            pseudoUsers = Uk.dot(np.sqrt(Sk))
+            pseudoFilms = np.sqrt(Sk).dot(Vkt)
+
             Pij = (userAverages[userID]
                     + pseudoUsers[userID].dot(pseudoFilms[:,itemID]))
             error += abs(Pij - actual)
 
-        print("Basis size:", basis_size, ", Error:", error/count)
-        
+        caltime = time.time() - ts
+
+        print("Basis size:", basis_size, ", Error:", error/count,
+              ", Number of test data: ", count, ", calculation time:", caltime,
+              ", Throughput:", count/caltime)
+
         if training_rate == 0.8:
             result08.append(error / count)
+            performance08.append(count / caltime)
         elif training_rate == 0.5:
             result05.append(error / count)
+            performance05.append(count / caltime)
         else:
             result02.append(error / count)
+            performance02.append(count / caltime)
     print("---------------------------------")
 
-
+pyplot.figure(1)
 pyplot.plot([size for size in range(600, 901, 50)], result08, marker='x', color='r')
 pyplot.plot([size for size in range(600, 901, 50)], result05, marker='x', color='g')
 pyplot.plot([size for size in range(600, 901, 50)], result02, marker='x', color='b')
@@ -135,4 +147,14 @@ pyplot.plot([size for size in range(600, 901, 50)], result02, marker='x', color=
 pyplot.xticks(range(600, 901, 50))
 pyplot.ylabel('MAE')
 pyplot.xlabel('Folding-in Model Size')
+pyplot.show()
+
+pyplot.figure(2)
+pyplot.plot([size for size in range(600, 901, 50)], performance08, marker='x', color='r')
+pyplot.plot([size for size in range(600, 901, 50)], performance05, marker='x', color='g')
+pyplot.plot([size for size in range(600, 901, 50)], performance02, marker='x', color='b')
+
+pyplot.xticks(range(600, 901, 50))
+pyplot.ylabel('Throughput')
+pyplot.xlabel('Basis Size')
 pyplot.show()

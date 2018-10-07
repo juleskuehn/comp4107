@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{fullpage,amsmath,mathtools, algorithm2e, forest}
 \usepackage[mathletters]{ucs}
+\usepackage{hyperref}
 \usepackage[utf8x]{inputenc}
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
@@ -15,6 +16,9 @@ Student Name: Jules Kuehn\\
 \begin{enumerate}
 
 \item Question 1
+Implementation for question 1 can be found in q1.py. The result is\\
+\includegraphics[width=0.5\columnwidth]{q1_result}\\
+Notice that the matrices $U, V$ are different with the matrices in the slide, however, in order to generate the same result, we have to take the transpose of the original matrix, which is not something that we decided to go with since I don't think we are allowed to do that.
 
 \item Question 2\newline
 Implementation for question 2 can be found in q2.py. The results is\\
@@ -35,7 +39,11 @@ The implementation for q5 can be found in q5.py. $A = \begin{bmatrix} 3 & 2 & -1
 \item Question 6\newline
 
 \item Question 7\newline
-\includegraphics[width=0.7\columnwidth]{q7_result}
+To accomplish question 7, we read another paper online which can be found at \href{https://drive.google.com/file/d/0BylQe2cRVWE_RmZoUTJYSGZNaXM/view}{here}. We used the normalization method and the folding in method mention in the paper and are able to produce these following graphs.
+
+\includegraphics[width=0.7\columnwidth]{q7_result1}\\
+\includegraphics[width=0.7\columnwidth]{q7_result2}\\
+\includegraphics[width=0.7\columnwidth]{q7_result3}
 
 \end{enumerate}
 \end{document}
