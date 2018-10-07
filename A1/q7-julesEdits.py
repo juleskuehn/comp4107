@@ -45,20 +45,49 @@ def decompose_matrix(R, n=600):
     basis = R[:n]
     foldInUser = R[n:]
 
-    U, S, V = nl.svd(basis, full_matrices=True)
-    S = np.diag(S)
+    U, s, Vt = nl.svd(basis, full_matrices=True)
+    S = np.diag(s)
 
     # reduce the space of these vectors
-    UK = U[:, :k]
-    SK = S[:k, :k]
-    VK = V[:k, :]
+    Uk = U[:, :k]
+    Sk = S[:k, :k]
+    Vkt = Vt[:k, :]
 
-    projection = foldInUser.dot(VK.transpose()).dot(nl.inv(SK))
+    projection = foldInUser.dot(Vkt.transpose()).dot(nl.inv(Sk))
 
     # U(k+m) with all users' ratings
-    UKM = np.concatenate((UK, projection))
-    SKSQRT = np.sqrt(SK)
-    return UKM, SKSQRT, VK
+    Ukm = np.concatenate((Uk, projection))
+    return Ukm, Sk, Vkt
+
+def fillAndNormalize(R):
+    rows, cols = R.shape
+
+    # FILL:
+    # Get overall average rating for all films
+    numRatings = np.count_nonzero(R)
+    avgRating = np.sum(R) / numRatings
+    for j in range(0, cols):
+        # Get average rating for specific film
+        itemCol = R[:,j]
+        numRatings = np.count_nonzero(itemCol)
+        # If the film has never been rated, give it the overall average
+        itemAvgRating = (avgRating if numRatings == 0
+                else sum(itemCol) / numRatings)
+        # Fill in empty ratings with item average
+        for i in range(0, rows):
+            if R[i, j] == 0:
+                R[i, j] = itemAvgRating
+
+    # NORMALIZE:
+    # Need to store user averages before normalization
+    userAverages = []
+    # Subtract user average from each rating
+    for i in range(0, rows):
+        userAvgRating = np.average(R[i])
+        userAverages.append(userAvgRating)
+        R[i] = R[i] - userAvgRating
+
+    return R, userAverages
 
 training_rates = [0.8, 0.5, 0.2]
 result08 = []
@@ -67,47 +96,28 @@ result02 = []
 for training_rate in training_rates:
     result = []
     R, testData = read_data(training_rate)
-    basis_size = 943
+    R, userAverages = fillAndNormalize(R)
 
     print("Using ", training_rate, " as training/test rate")
-    for basis_size in range(600, 601, 50):
+    for basis_size in range(600, 901, 50):
         error = 0.0
         count = len(testData)
-        # just used to save calculation
-        # prevAvgRating = 0.0
-        # prevUserID = -1
 
-        # Don't worry about folding for now!
-        # UKM, SKSQRT, VK = decompose_matrix(R, basis_size)
+        Uk, Sk, Vkt = decompose_matrix(R, basis_size)
 
-        U, s, Vt = sp.svd(R)
-        S = np.diag(s)
-
-        # reduce the space of these vectors
-        Uk = U[:, :k]
-        Sk = S[:k, :k]
-        Vkt = Vt[:k, :]
-
-        # UKM = Uk
-        # SKSQRT = np.sqrt(Sk)
-        # VK = Vkt
-
-        pseudoCustomers = Uk.dot(np.sqrt(Sk))
-        pseudoProducts = Sk.dot(Vkt)
+        pseudoUsers = Uk.dot(np.sqrt(Sk))
+        pseudoFilms = np.sqrt(Sk).dot(Vkt)
 
         for rating in testData:
             userID = rating[0] # index from 0 to 942
             itemID = rating[1]
-            userRating = rating[2]
+            actual = rating[2]
 
-            userRated = np.count_nonzero(R[userID])
-            # Should the initial average be 2.5, not 0, if the user hasn't rated anything yet?
-            userAverageRating = 2.5 if userRated == 0 else sum(R[userID]) / userRated
+            Pij = (userAverages[userID]
+                    + pseudoUsers[userID].dot(pseudoFilms[:,itemID]))
+            error += abs(Pij - actual)
 
-            Pij = userAverageRating + pseudoCustomers[userID].dot(pseudoProducts[:,itemID])
-            error += abs(Pij - userRating)
-
-        print("Basis size is ", basis_size, "Error is ", error, "/", count, "=", error/count)
+        print("Basis size:", basis_size, ", Error:", error/count)
         
         if training_rate == 0.8:
             result08.append(error / count)
@@ -118,11 +128,11 @@ for training_rate in training_rates:
     print("---------------------------------")
 
 
-# pyplot.plot([size for size in range(600, 901, 50)], result08, marker='x', color='r')
-# pyplot.plot([size for size in range(600, 901, 50)], result05, marker='x', color='g')
-# pyplot.plot([size for size in range(600, 901, 50)], result02, marker='x', color='b')
+pyplot.plot([size for size in range(600, 901, 50)], result08, marker='x', color='r')
+pyplot.plot([size for size in range(600, 901, 50)], result05, marker='x', color='g')
+pyplot.plot([size for size in range(600, 901, 50)], result02, marker='x', color='b')
 
-# pyplot.xticks(range(600, 901, 50))
-# pyplot.ylabel('MAE')
-# pyplot.xlabel('Folding-in Model Size')
-# pyplot.show()
+pyplot.xticks(range(600, 901, 50))
+pyplot.ylabel('MAE')
+pyplot.xlabel('Folding-in Model Size')
+pyplot.show()
