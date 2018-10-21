@@ -78,8 +78,8 @@ def trainTest(n_hidden=50, epochs=3000, lr=0.5):
     b2 = tf.Variable(tf.zeros([n_output]))
 
     L2 = tf.sigmoid(tf.matmul(X, W1) + b1)
-    hy = tf.sigmoid(tf.matmul(L2, W2) + b2)
-    cost = tf.reduce_mean(-Y*tf.log(hy) - (1-Y) * tf.log(1-hy))
+    hy = tf.matmul(L2, W2) + b2
+    cost = tf.reduce_mean((hy - Y)**2)
     optimizer = tf.train.GradientDescentOptimizer(lr).minimize(cost)
 
     init = tf.global_variables_initializer()
@@ -106,7 +106,7 @@ def trainTest(n_hidden=50, epochs=3000, lr=0.5):
     pred = np.concatenate((testData[:,:2], np.array(pred).reshape(len(pred), 1)),axis=1)
     return pred, mse
 
-epochs = 50000
+epochs = 30000
 pred2, mse2 = trainTest(2, epochs)
 pred8, mse8 = trainTest(8, epochs)
 pred50, mse50 = trainTest(50, epochs)
