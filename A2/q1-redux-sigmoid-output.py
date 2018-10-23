@@ -61,7 +61,7 @@ def pltData(data, color=''):
 
 
 def trainTest(n_hidden=50, epochs=3000, lr=0.02):
-    trainData = genGridData(100, f)
+    trainData = genGridData(10, f)
     testData = genGridData(9, f)
     # validationData = genRandData(100, f)
 
@@ -78,20 +78,20 @@ def trainTest(n_hidden=50, epochs=3000, lr=0.02):
     b2 = tf.Variable(tf.zeros([n_output]))
 
     L2 = tf.sigmoid(tf.matmul(X, W1) + b1)
-    hy = tf.matmul(L2, W2) + b2
-    cost = tf.reduce_mean((hy - Y)**2)
+    hy = tf.sigmoid(tf.matmul(L2, W2) + b2)
+    cost = tf.reduce_mean(-Y*tf.log(hy) - (1-Y) * tf.log(1-hy))
     optimizer = tf.train.GradientDescentOptimizer(lr).minimize(cost)
 
     init = tf.global_variables_initializer()
 
     td = trainData[:,:]
+    np.random.shuffle(td)
+    x = td[:,:2]
+    y = td[:,2].reshape(len(td), 1)
     
     with tf.Session() as sess:
         sess.run(init)
         for step in range(epochs):
-            np.random.shuffle(td)
-            x = td[:,:2]
-            y = td[:,2].reshape(len(td), 1)
             _, c = sess.run([optimizer, cost], feed_dict = {X: x, Y: y})
             # pred = sess.run([hy], feed_dict = {X: validationData[:,:2]})
             # if satisfied(pred, validationData[:,2], TOLERANCE):
@@ -106,7 +106,7 @@ def trainTest(n_hidden=50, epochs=3000, lr=0.02):
     pred = np.concatenate((testData[:,:2], np.array(pred).reshape(len(pred), 1)),axis=1)
     return pred, mse
 
-epochs = 5000
+epochs = 50000
 lr = 0.02
 pred2, mse2 = trainTest(2, epochs, lr)
 pred8, mse8 = trainTest(8, epochs, lr)

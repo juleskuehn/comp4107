@@ -61,7 +61,7 @@ def pltData(data, color=''):
 
 
 def trainTest(n_hidden=50, epochs=3000, lr=0.02):
-    trainData = genGridData(100, f)
+    trainData = genGridData(10, f)
     testData = genGridData(9, f)
     # validationData = genRandData(100, f)
 
@@ -88,10 +88,10 @@ def trainTest(n_hidden=50, epochs=3000, lr=0.02):
     
     with tf.Session() as sess:
         sess.run(init)
+        np.random.shuffle(td)
+        x = td[:,:2]
+        y = td[:,2].reshape(len(td), 1)
         for step in range(epochs):
-            np.random.shuffle(td)
-            x = td[:,:2]
-            y = td[:,2].reshape(len(td), 1)
             _, c = sess.run([optimizer, cost], feed_dict = {X: x, Y: y})
             # pred = sess.run([hy], feed_dict = {X: validationData[:,:2]})
             # if satisfied(pred, validationData[:,2], TOLERANCE):
@@ -107,7 +107,7 @@ def trainTest(n_hidden=50, epochs=3000, lr=0.02):
     return pred, mse
 
 epochs = 5000
-lr = 0.02
+lr = 0.1
 pred2, mse2 = trainTest(2, epochs, lr)
 pred8, mse8 = trainTest(8, epochs, lr)
 pred50, mse50 = trainTest(50, epochs, lr)
@@ -124,6 +124,7 @@ pltData(testData, 'black')
 pltData(pred2, 'green')
 pltData(pred8, 'red')
 pltData(pred50, 'blue')
-print(mse2, mse8, mse50)
 plt.show()
 
+print(f"MSE: 2 neurons | 8 neurons | 50 neurons ")
+print(f"     {mse2:.7f}| {mse8:.7f}| {mse50:.7f}")

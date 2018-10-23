@@ -1,20 +1,18 @@
 import numpy as np
-import scipy.linalg as sp
-import math
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import tensorflow as tf
 import random
-import pandas as pd
+import math
+from timeit import Timer
 
-TOLERANCE = 0.02  # MSE
+TARGET_MSE = 0.02
 MAX_EPOCHS = 100
 LR = 0.02
 
-
-def satisfied(fpx, fx, ε):
-    return np.linalg.norm(fpx - fx, ord=1) < ε
-
+# GradientDescentOptimizer
+# MomentumOptimizer
+# RMSPropOptimizer
 
 def f(x, y):  # x, y ∈ [-1 1]
     return math.cos(x + 6*0.35*y) + 2*0.35*x*y
@@ -60,70 +58,89 @@ def pltData(data, color=''):
     )
 
 
-def trainTest(n_hidden=50, epochs=3000, lr=0.02):
-    trainData = genGridData(100, f)
+def trainTest(n_hidden, epochs, lr, optimizer):
+    # Generate training and test data
+    # 10x10 and 9x9 grids: x, y ∈ [-1 1]
+    trainData = genGridData(10, f)
     testData = genGridData(9, f)
-    # validationData = genRandData(100, f)
 
-    # Hyperparamters
+    # 2 input neurons (x, y), 1 output (z)
     n_input = 2
     n_output = 1
-    display_step = 1000
 
+    # X: input, Y: output
     X = tf.placeholder(tf.float32)
     Y = tf.placeholder(tf.float32)
+
+    # Weights and biases
     W1 = tf.Variable(tf.random_uniform([n_input, n_hidden], -1.0, 1.0))
     W2 = tf.Variable(tf.random_uniform([n_hidden, n_output], -1.0, 1.0))
     b1 = tf.Variable(tf.zeros([n_hidden]))
     b2 = tf.Variable(tf.zeros([n_output]))
 
+    # Hidden layer with sigmoid activation function
     L2 = tf.sigmoid(tf.matmul(X, W1) + b1)
-    hy = tf.matmul(L2, W2) + b2
-    cost = tf.reduce_mean((hy - Y)**2)
-    optimizer = tf.train.GradientDescentOptimizer(lr).minimize(cost)
 
+    # Output with linear activation function
+    hy = tf.matmul(L2, W2) + b2
+
+
+    cost = tf.reduce_mean((hy - Y)**2)
+    optimizers = [
+        tf.train.GradientDescentOptimizer(lr).minimize(cost),
+        tf.train.MomentumOptimizer(lr, 0.9).minimize(cost),
+        tf.train.RMSPropOptimizer(lr, momentum=0.9).minimize(cost)
+    ]
+    optimizer = optimizers[optimizer]
     init = tf.global_variables_initializer()
 
-    td = trainData[:,:]
-    
+    # Randomize the order of training data
+    np.random.seed(0)
+    np.random.shuffle(trainData)
+    x = trainData[:,:2]
+    y = trainData[:,2].reshape(len(trainData), 1)
+
+    # Keep track of costs so as to graph reduction in cost over epochs
+    costs = []
+
+    # At what epoch is the goal reached?
+    goal_reached = -1
+
     with tf.Session() as sess:
+
         sess.run(init)
-        for step in range(epochs):
-            np.random.shuffle(td)
-            x = td[:,:2]
-            y = td[:,2].reshape(len(td), 1)
+        for i in range(epochs):
             _, c = sess.run([optimizer, cost], feed_dict = {X: x, Y: y})
-            # pred = sess.run([hy], feed_dict = {X: validationData[:,:2]})
-            # if satisfied(pred, validationData[:,2], TOLERANCE):
-            #     break
-            if step % display_step == 0:
-                print("Cost: ", c)
-            
+            costs.append(c)
+            if c <= TARGET_MSE and goal_reached == -1:
+                goal_reached = i
+                # Stop and test once goal is reached
+                break
+        
+        # Get prediction for testData, for comparison to actual f(x, y)
         pred = sess.run([hy], feed_dict = {X: testData[:,:2]})
 
     pred = [x[0] for x in pred[0]]
     mse = np.square(pred - testData[:,2]).mean()
+
+    # Reshape prediction into format of testData for comparison [[x, y, z]]
     pred = np.concatenate((testData[:,:2], np.array(pred).reshape(len(pred), 1)),axis=1)
-    return pred, mse
+    return pred, mse, costs, goal_reached
 
-epochs = 5000
-lr = 0.02
-pred2, mse2 = trainTest(2, epochs, lr)
-pred8, mse8 = trainTest(8, epochs, lr)
-pred50, mse50 = trainTest(50, epochs, lr)
 
-testData = genGridData(9, f)
+# Part (b) 2.
+def runExperiment(num_neurons, epochs, lr):
+    results = []
 
-legendT = mpatches.Patch(color='black', label='target')
-legend2 = mpatches.Patch(color='green', label='2 neurons')
-legend8 = mpatches.Patch(color='red', label='8 neurons')
-legend50 = mpatches.Patch(color='blue', label='50 neurons')
-plt.legend(handles=[legendT, legend2, legend8, legend50])
+    # Run experiments and get results for each optimizer
+    for i in range(3):
+        pred, mse, c, g = trainTest(num_neurons, epochs, lr, i)
+        results.append((pred, mse, c, g))
 
-pltData(testData, 'black')
-pltData(pred2, 'green')
-pltData(pred8, 'red')
-pltData(pred50, 'blue')
-print(mse2, mse8, mse50)
-plt.show()
+    print("MSE with LR =", lr, "and", epochs, "epochs:")
+    for i in range(3):
+        print(results[i][1], ": Goal reached after", results[i][3], "epochs.")
 
+
+runExperiment(8, 50000, LR)
+# timeCPU(8, 1000, LR)
