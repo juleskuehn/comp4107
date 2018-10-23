@@ -1,0 +1,27 @@
+Using  0.8  as training/test rate
+Basis size: 600 , Error: 0.7972111972363619
+Basis size: 650 , Error: 0.7957876675655522
+Basis size: 700 , Error: 0.7949468783224024
+Basis size: 750 , Error: 0.7940886277044001
+Basis size: 800 , Error: 0.7930407111576059
+Basis size: 850 , Error: 0.791941014251666
+Basis size: 900 , Error: 0.7908558142151606
+---------------------------------
+Using  0.5  as training/test rate
+Basis size: 600 , Error: 0.8072631069473807
+Basis size: 650 , Error: 0.8071935186411143
+Basis size: 700 , Error: 0.8071934221331365
+Basis size: 750 , Error: 0.8071933384906437
+Basis size: 800 , Error: 0.8071932653017063
+Basis size: 850 , Error: 0.8071932007219131
+Basis size: 900 , Error: 0.8071931433165886
+---------------------------------
+Using  0.2  as training/test rate
+Basis size: 600 , Error: 0.8324159212635108
+Basis size: 650 , Error: 0.8324158286720662
+Basis size: 700 , Error: 0.8324157493082648
+Basis size: 750 , Error: 0.8324156805264993
+Basis size: 800 , Error: 0.8324156203426499
+Basis size: 850 , Error: 0.8324155672393692
+Basis size: 900 , Error: 0.8324155200365596
+---------------------------------

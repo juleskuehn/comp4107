@@ -1,0 +1,14 @@
+Test MSE with LR = 0.02 and 100 epochs:
+0.061681683118449925 (GradientDescentOptimizer)
+0.058683357733909404 (MomentumOptimizer)
+0.005489751198996285 (RMSPropOptimizer) <- BEST
+
+Test MSE with LR = 0.02 and 200 epochs (as shown in Figure 3):
+0.060366321060214334 (GradientDescentOptimizer)
+0.059178147674373405 (MomentumOptimizer)
+0.000918757108116926 (RMSPropOptimizer) <- BEST
+
+Test MSE with LR = 0.02 (Stopping when the training error < 0.02):
+0.020440891382299493 (GradientDescentOptimizer - Goal reached after 9623 epochs)
+0.020200175134976295 (MomentumOptimizer - Goal reached after 918 epochs)
+0.011620827855204354 (RMSPropOptimizer - Goal reached after 109 epochs) <- BEST

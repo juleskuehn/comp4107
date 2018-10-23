@@ -1,0 +1,4 @@
+Test MSE with LR = 0.02, 50 neurons:
+0.001858 at 10000 epochs
+0.019969 at goal reached (2031 epochs)   
+0.075565 at early stop (399 epochs) 
