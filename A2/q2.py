@@ -63,7 +63,11 @@ def genData():
             input.append(pixels)
 
     # create output array containing 1 - 31
-    output = [[1 if i == counter + 1 else 0 for i in range(31)] for counter in range(31)]
+    output = [[1 if i == counter else 0 for i in range(31)] for counter in range(31)]
+
+    print(input[30])
+    print(output[30])
+
     return input, output
 
 # generate data with some errors
@@ -117,51 +121,22 @@ def degit_recognition(n_hidden = 15, noise = 0, lr = 0.05):
 
     with tf.Session() as sess:
         epoch = 0
+        accuracy = 0
         tf.global_variables_initializer().run()
-        while True:
+
+        # step 1: training with noise-free data
+        # training until accuracy goes to 100%
+        while not accuracy == 1:
             epoch += 1
             _, c = sess.run([train_op, cost], feed_dict = {X: tr_input, Y: tr_output})
             # Show progress
             if epoch % 100 == 0:
-                print("Cost: ", c)
-                print(np.mean(np.argmax(tr_output, axis=1) ==
-                                 sess.run(predict_op, feed_dict={X: tr_input})))
                 print(sess.run(predict_op, feed_dict={X: tr_input}))
             if epoch % 10 == 0:
                 costs.append(c)
-            if epoch >= 1000:
-                break
+            accuracy = np.mean(np.argmax(tr_output, axis=1) ==
+                             sess.run(predict_op, feed_dict={X: tr_input}))
 
     print("Finished step 1 with ", epoch, " epochs")
 
-
-    error = 0
-    pred = pred[0]
-    for i in range(len(pred)):
-        x = pred[i]
-        max = -math.inf
-        pos = 0
-        for j in range(len(x)):
-            if x[j] > max:
-                max = x[j]
-                pos = j
-
-        y = te_output[i]
-        max = -math.inf
-        y_pos = 0
-        for j in range(len(y)):
-            if x[j] > max:
-                max = y[j]
-                pos = j
-
-        if not pos == y_pos:
-            error += 1
-
-    print("Number of incorrect prediction: ", error)
-    print("Error rate: ", error / len(pred))
-
-    # Reshape prediction into format of testData for comparison [[x, y, z]]
-    pred = np.concatenate((testData[:,:35], np.array(pred).reshape(len(pred), 1)),axis=1)
-    return pred, mse, costs
-pred, mse, costs = degit_recognition()
-print(pred, mse, costs)
+degit_recognition()
