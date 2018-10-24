@@ -65,9 +65,6 @@ def genData():
     # create output array containing 1 - 31
     output = [[1 if i == counter else 0 for i in range(31)] for counter in range(31)]
 
-    print(input[30])
-    print(output[30])
-
     return input, output
 
 # generate data with some errors
@@ -88,9 +85,9 @@ def genTestData(numInverseBit = 0):
 def init_weights(shape):
     return tf.Variable(tf.random_normal(shape, stddev=0.01))
 
-def model(X, w_h1, w_o):
-    h = tf.nn.sigmoid(tf.matmul(X, w_h1))
-    return tf.matmul(h, w_o)
+def model(X, w_h1, b1, w_o, b2):
+    h = tf.nn.sigmoid(tf.matmul(X, w_h1) + b1)
+    return tf.matmul(h, w_o) + b2
 
 def degit_recognition(n_hidden = 15, noise = 0, lr = 0.05):
     tr_input, tr_output = genData()
@@ -111,7 +108,11 @@ def degit_recognition(n_hidden = 15, noise = 0, lr = 0.05):
     # Hidden layer 1 -> Output layer
     w_o = init_weights([size_h1, 31])
 
-    py_x = model(X, w_h1, w_o)
+    # bias
+    b1 = tf.Variable(tf.zeros([n_hidden]))
+    b2 = tf.Variable(tf.zeros([31]))
+
+    py_x = model(X, w_h1, b1, w_o, b2)
 
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=py_x, labels=Y)) # compute costs
     train_op = tf.train.AdamOptimizer().minimize(cost) # construct an optimizer
