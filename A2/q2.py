@@ -63,13 +63,13 @@ def genData():
             input.append(pixels)
 
     # create output array containing 1 - 31
-    output = [[1 if i == counter else 0 for i in range(31)] for counter in range(31)]
+    output = np.array([counter for counter in range(31)]).reshape(31, 1)
 
-    return input, output
+    return np.concatenate((input, output), axis=1)
 
 # generate data with some errors
 def genTestData(numInverseBit = 0):
-    input, output = genData()
+    input = genData()
 
     for line in input:
         # reverse some of the pixels as 'noise'
@@ -79,7 +79,7 @@ def genTestData(numInverseBit = 0):
                 line[pos] = 0
             else:
                 line[pos] = 1
-    return input, output
+    return input
 
 
 def init_weights(shape):
@@ -89,11 +89,32 @@ def model(X, w_h1, b1, w_o, b2):
     h = tf.nn.sigmoid(tf.matmul(X, w_h1) + b1)
     return tf.matmul(h, w_o) + b2
 
-def degit_recognition(n_hidden = 15, noise = 0, lr = 0.05):
-    tr_input, tr_output = genData()
+def train(sess, t_op, p_op, cost, X, Y, input, output, error_rate = 0):
+    accuracy = 0
+    epoch = 0
+    accuracies = []
+    while not accuracy >= 1 - error_rate:
+        epoch += 1
+        _, c = sess.run([t_op, cost], feed_dict = {X: input, Y: output})
+        # Show progress
+        if epoch % 10 == 0:
+            print("epoch: ", epoch, ", accurage:", np.mean(np.argmax(output, axis=1) ==
+                             sess.run(p_op, feed_dict={X: input})))
+        accuracy = np.mean(np.argmax(output, axis=1) ==
+                         sess.run(p_op, feed_dict={X: input}))
+        accuracies.append(accuracy)
+
+    return epoch, accuracies
+
+def degit_recognition(n_hidden = 15, noise = 0, lr = 0.01):
+    tr_data = genData()
+    np.random.shuffle(tr_data)
+    tr_input = tr_data[:, :35]
+    output = tr_data[:, 35]
+    tr_output = [[1 if i == j else 0 for j in range(31)] for i in output]
 
     # generate training data with 3 bits of error
-    tr_e_input, tr_e_output = genTestData(3)
+    # tr_e_input, tr_e_output = genTestData(3)
 
     # Input: 35 pixels
     X = tf.placeholder("float", [None, 35])
@@ -115,28 +136,15 @@ def degit_recognition(n_hidden = 15, noise = 0, lr = 0.05):
     py_x = model(X, w_h1, b1, w_o, b2)
 
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=py_x, labels=Y)) # compute costs
-    train_op = tf.train.AdamOptimizer().minimize(cost) # construct an optimizer
+    train_op = tf.train.AdamOptimizer(lr).minimize(cost) # construct an optimizer
     predict_op = tf.argmax(py_x, 1)
 
-    costs = []
-
     with tf.Session() as sess:
-        epoch = 0
-        accuracy = 0
         tf.global_variables_initializer().run()
 
         # step 1: training with noise-free data
         # training until accuracy goes to 100%
-        while not accuracy == 1:
-            epoch += 1
-            _, c = sess.run([train_op, cost], feed_dict = {X: tr_input, Y: tr_output})
-            # Show progress
-            if epoch % 100 == 0:
-                print(sess.run(predict_op, feed_dict={X: tr_input}))
-            if epoch % 10 == 0:
-                costs.append(c)
-            accuracy = np.mean(np.argmax(tr_output, axis=1) ==
-                             sess.run(predict_op, feed_dict={X: tr_input}))
+        epoch, accuracies = train(sess, train_op, predict_op, cost, X, Y, tr_input, tr_output)
 
     print("Finished step 1 with ", epoch, " epochs")
 
