@@ -33,78 +33,123 @@ Part C
 
 import tensorflow as tf
 import numpy as np
-
+from random import randint
+import math
 
 tf.logging.set_verbosity(tf.logging.ERROR)
 
-# Input: 35 pixels
-X = tf.placeholder("float", [None, 35])
+# create array containing A to Z
+characters = [chr(letter) for letter in range(65, 91)]
 
-# Output: 31 characters
-Y = tf.placeholder("float", [None, 31])
+# add last five characters to the array
+characters.extend(['j', 'i', 'n', 'y', 'u'])
 
-# creating input array
-# the input are stored in q2-patterns.txt, which basically convert the 7 * 5 pixels into a 7 * 5 array for each input character
-input = []
-with open('q2-patterns.txt', 'r') as f:
+# generate noise-free data
+def genData(numInverseBit=0):
 
-    # read all 62 images
-    for _ in range(62):
-        pixels = []
-        # read the pixels that represent one image into 1-D array
-        for i in range(7):
-            line = list(f.readline())
-            for j in range(5):
-                pixels.append(int(line[j]))
-        f.readline()  # skip the empty line between images
-        input.append(pixels)
+    # if number of inverse bit is not 0, then the data getting generated is the test data, so we don't read those reversed bit
+    size = 2 if numInverseBit == 0 else 1
 
+    # creating input array
+    # the input are stored in q2-patterns.txt, which basically convert the 7 * 5 pixels into a 7 * 5 array for each input character
+    input = []
+    with open('q2-patterns.txt', 'r') as f:
 
-# create output array containing A to Z
-output = [chr(letter) for letter in range(65, 91)]
+        # read all 62 images
+        for _ in range(size * 31):
+            pixels = []
+            # read the pixels that represent one image into 1-D array
+            for i in range(7):
+                line = list(f.readline())
+                for j in range(5):
+                    pixels.append(int(line[j]))
+            f.readline()  # skip the empty line between images
 
-# add last five characters to the output array
-output.extend(['j', 'i', 'n', 'y', 'u'])
+            # reverse some of the pixels as 'noise'
+            for _ in range(numInverseBit):
+                pos = randint(35)
+                pixels[pos] = 0 if pixels[pos] == 1 else 1
+            input.append(pixels)
 
-def degit_recognition(hidden):
+    # create output array containing 1 - 31
+    output = [[1 if i == counter + 1 else 0 for i in range(31)] for _ in range(size) for counter in range(31)]
 
-    def init_weights(shape):
-        return tf.Variable(tf.random_normal(shape, stddev=0.01))
+    return input, output
 
-    def model(X, w_h1, w_o):
-        h = tf.nn.sigmoid(tf.matmul(X, w_h1))
-        return tf.matmul(h, w_o)
+def init_weights(shape):
+    return tf.Variable(tf.random_normal(shape, stddev=0.01))
 
-    size_h1 = tf.constant(hidden, dtype=tf.int32)
+def model(X, w_h1, w_o):
+    h = tf.nn.sigmoid(tf.matmul(X, w_h1))
+    return tf.matmul(h, w_o)
+
+def degit_recognition(n_hidden = 15, epochs=3000, noise = 0, lr = 0.05):
+    display_step = 1000
+    tr_input, tr_output = genData()
+    te_input, te_output = genData(noise)
+
+    # Input: 35 pixels
+    X = tf.placeholder("float", [None, 35])
+
+    # Output: 31 characters
+    Y = tf.placeholder("float", [None, 31])
+
+    size_h1 = tf.constant(n_hidden, dtype=tf.int32)
 
     # Input layer -> Hidden Layer 1
     w_h1 = init_weights([35, size_h1])
     # Hidden layer 1 -> Output layer
-    w_o = init_weights([size_h2, 31])
+    w_o = init_weights([size_h1, 31])
 
     py_x = model(X, w_h1, w_o)
 
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
-        logits=py_x, labels=Y))  # compute costs
-
-    train_op = tf.train.RMSPropOptimizer(
-        0.05).minimize(cost)  # construct an optimizer
-
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=py_x, labels=Y)) # compute costs
+    train_op = tf.train.GradientDescentOptimizer(0.05).minimize(cost) # construct an optimizer
     predict_op = tf.argmax(py_x, 1)
 
-    saver = tf.train.Saver()
+    costs = []
 
-    # Launch the graph in a session
     with tf.Session() as sess:
-        # you need to initialize all variables
+
         tf.global_variables_initializer().run()
-        print(range(0, len(trX), 128))
-        for i in range(3): # Epochs
-            for start, end in zip(range(0, len(trX), 128), range(128, len(trX)+1, 128)): # Stochastic gradient descent (in small batches, backprop)
-                # print((start, end))
-                sess.run(train_op, feed_dict={
-                         X: trX[start:end], Y: trY[start:end]})
-            predict = sess.run(py_x, feed_dict={X: teX})
-            print(i, np.mean(np.argmax(teY, axis=1) ==
-                             predict))
-        saver.save(sess, "mlp/session.ckpt")
+        for step in range(epochs):
+            _, c = sess.run([train_op, cost], feed_dict = {X: tr_input, Y: tr_output})
+            # Show progress
+            if step % display_step == 0:
+                print("Cost: ", c)
+            if step % 10 == 0:
+                costs.append(c)
+
+        # Get prediction for testData, for comparison to actual f(x, y)
+        pred = sess.run([py_x], feed_dict = {X: te_input})
+
+    error = 0
+    pred = pred[0]
+    for i in range(len(pred)):
+        x = pred[i]
+        max = -math.inf
+        pos = 0
+        for j in range(len(x)):
+            if x[j] > max:
+                max = x[j]
+                pos = j
+
+        y = te_output[i]
+        max = -math.inf
+        y_pos = 0
+        for j in range(len(y)):
+            if x[j] > max:
+                max = y[j]
+                pos = j
+
+        if not pos == y_pos:
+            error += 1
+
+    print("Number of incorrect prediction: ", error)
+    print("Error rate: ", error / len(pred))
+
+    # Reshape prediction into format of testData for comparison [[x, y, z]]
+    pred = np.concatenate((testData[:,:35], np.array(pred).reshape(len(pred), 1)),axis=1)
+    return pred, mse, costs
+pred, mse, costs = degit_recognition()
+print(pred, mse, costs)
