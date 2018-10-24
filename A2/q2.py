@@ -45,18 +45,14 @@ characters = [chr(letter) for letter in range(65, 91)]
 characters.extend(['j', 'i', 'n', 'y', 'u'])
 
 # generate noise-free data
-def genData(numInverseBit=0):
-
-    # if number of inverse bit is not 0, then the data getting generated is the test data, so we don't read those reversed bit
-    size = 2 if numInverseBit == 0 else 1
-
+def genData():
     # creating input array
     # the input are stored in q2-patterns.txt, which basically convert the 7 * 5 pixels into a 7 * 5 array for each input character
     input = []
     with open('q2-patterns.txt', 'r') as f:
 
         # read all 62 images
-        for _ in range(size * 31):
+        for _ in range(31):
             pixels = []
             # read the pixels that represent one image into 1-D array
             for i in range(7):
@@ -64,17 +60,26 @@ def genData(numInverseBit=0):
                 for j in range(5):
                     pixels.append(int(line[j]))
             f.readline()  # skip the empty line between images
-
-            # reverse some of the pixels as 'noise'
-            for _ in range(numInverseBit):
-                pos = randint(35)
-                pixels[pos] = 0 if pixels[pos] == 1 else 1
             input.append(pixels)
 
     # create output array containing 1 - 31
-    output = [[1 if i == counter + 1 else 0 for i in range(31)] for _ in range(size) for counter in range(31)]
-
+    output = [[1 if i == counter + 1 else 0 for i in range(31)] for counter in range(31)]
     return input, output
+
+# generate data with some errors
+def genTestData(numInverseBit = 0):
+    input, output = genData()
+
+    for line in input:
+        # reverse some of the pixels as 'noise'
+        for _ in range(numInverseBit):
+            pos = randint(0, 34)
+            if line[pos] == 1:
+                line[pos] = 0
+            else:
+                line[pos] = 1
+    return input, output
+
 
 def init_weights(shape):
     return tf.Variable(tf.random_normal(shape, stddev=0.01))
@@ -83,10 +88,11 @@ def model(X, w_h1, w_o):
     h = tf.nn.sigmoid(tf.matmul(X, w_h1))
     return tf.matmul(h, w_o)
 
-def degit_recognition(n_hidden = 15, epochs=3000, noise = 0, lr = 0.05):
-    display_step = 1000
+def degit_recognition(n_hidden = 15, noise = 0, lr = 0.05):
     tr_input, tr_output = genData()
-    te_input, te_output = genData(noise)
+
+    # generate training data with 3 bits of error
+    tr_e_input, tr_e_output = genTestData(3)
 
     # Input: 35 pixels
     X = tf.placeholder("float", [None, 35])
@@ -104,24 +110,24 @@ def degit_recognition(n_hidden = 15, epochs=3000, noise = 0, lr = 0.05):
     py_x = model(X, w_h1, w_o)
 
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=py_x, labels=Y)) # compute costs
-    train_op = tf.train.GradientDescentOptimizer(0.05).minimize(cost) # construct an optimizer
+    train_op = tf.train.AdamOptimizer().minimize(cost) # construct an optimizer
     predict_op = tf.argmax(py_x, 1)
 
     costs = []
 
     with tf.Session() as sess:
-
+        c = -1
+        epoch = 0
         tf.global_variables_initializer().run()
-        for step in range(epochs):
+        while c != 0:
+            epoch += 1
             _, c = sess.run([train_op, cost], feed_dict = {X: tr_input, Y: tr_output})
             # Show progress
-            if step % display_step == 0:
+            if epoch % 100 == 0:
                 print("Cost: ", c)
-            if step % 10 == 0:
+            if epoch % 10 == 0:
                 costs.append(c)
-
-        # Get prediction for testData, for comparison to actual f(x, y)
-        pred = sess.run([py_x], feed_dict = {X: te_input})
+    print("Finished step 1 with ", epoch, " epochs")
 
     error = 0
     pred = pred[0]
