@@ -116,18 +116,24 @@ def degit_recognition(n_hidden = 15, noise = 0, lr = 0.05):
     costs = []
 
     with tf.Session() as sess:
-        c = -1
         epoch = 0
         tf.global_variables_initializer().run()
-        while c != 0:
+        while True:
             epoch += 1
             _, c = sess.run([train_op, cost], feed_dict = {X: tr_input, Y: tr_output})
             # Show progress
             if epoch % 100 == 0:
                 print("Cost: ", c)
+                print(np.mean(np.argmax(tr_output, axis=1) ==
+                                 sess.run(predict_op, feed_dict={X: tr_input})))
+                print(sess.run(predict_op, feed_dict={X: tr_input}))
             if epoch % 10 == 0:
                 costs.append(c)
+            if epoch >= 1000:
+                break
+
     print("Finished step 1 with ", epoch, " epochs")
+
 
     error = 0
     pred = pred[0]
