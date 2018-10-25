@@ -216,7 +216,7 @@ def partA():
         for i in range(4):
             t_acc[i] = (1 - t_acc[i] / 10) * 100
         results.append(t_acc)
-        print("Number of hidden neuron: ", n_hidden, ", accuracies: ", t_acc)
+        print("Number of hidden neuron: ", n_hidden, ", error rate: ", t_acc)
 
     plt.figure(1)
     plt.xlabel('Noise level')
@@ -237,8 +237,7 @@ def partB():
     step3_error = [1 - acc for acc in step3_accuracies]
     plt.figure(2)
     plt.xlabel('Epoch number')
-    plt.xticks(np.arange(0, max(step1_error), step=0.01))
-    plt.yticks(np.arange(0, epoch1, step=10))
+    plt.xticks(np.arange(0, epoch1, step=10))
     plt.ylabel('Percentage of recognition error')
     plt.plot([count for count in range(0, epoch1)], step1_error, 'black')
 
@@ -279,9 +278,9 @@ def partC():
     plt.plot(noises, t_acc_noisy, 'r')
 
 def experiment():
-    # partA()
-    # partB()
-    # partC()
-    pass
+    partA()
+    partB()
+    partC()
+    # pass
 
 experiment()

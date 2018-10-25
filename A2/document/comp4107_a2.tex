@@ -103,9 +103,49 @@ Figure 8 shows that having an early stopping mechanism for this function makes n
 
 
 \item Question 2\newline
-Implementation for question 2 can be found in q2.py. The result is\\
+
+Instructions on how to run this file:\\
+To run this file, if you simply run by 'python3 q2.py' without changing anything, then  it will run all these three parts, which may take a while as in our code, we modified so that it runs 10 experiments for each number of hidden neurons, and after one is finished, then a new NN is created to run the second one, etc. Therefore, it will take about 1 min for it to finish and plot the graphs. If you want to run parts only, then comment out the corresponding line in the experiment function.\\
+
 % \lstinputlisting{python_output/q2.out}
 % \includegraphics[width=0.7\columnwidth]{q7_result3}
+\begin{enumerate}
+\item We did the experiment with 5, 10, 15, 20, 25 hidden neurons and we are able to produce the following result by running each experiment 10 times and take the average of all the accuracies. In the following graph, the lines are coloured using red, blue, green, black, purple, each corresponds to a number of hidden neurons. The line in red is the line for using 5 as number of hidden neurons, etc.\newline
+
+\begin{figure}[h!]
+    \centering
+     \includegraphics[height=0.5\textwidth, width=0.5\textwidth]{q2-a-1}
+        \caption{Percentage of Recognition Errors}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+     \includegraphics[width=0.9\textwidth]{q2-a-accuracy}
+        \caption{Error rate for different number of hidden neurons}
+\end{figure}
+
+\item 15 is chosen as the number of hidden neurons, since 15 is more accurate compared with 10, but using more neurons don't really make a big difference. When we used 15 neurons in the hidden layer, the number of epochs is less than the number of epochs in the question, which we think is fine. So here is the graph,\\
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+    
+    	\centering
+     	\includegraphics[width=0.9\textwidth]{q2-b-1} % first figure itself
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+    
+    	\centering
+     	\includegraphics[width=0.9\textwidth]{q2-b-2} % first figure itself
+    \end{minipage}\hfill
+\end{figure}
+
+\item With 15 hidden neurons, we are able to produce the following graph. The blue dashed line is trained without noisy data, and the red line is trained with noisy data.\\
+\begin{figure}[h!]
+    \centering
+     \includegraphics[height=0.5\textwidth, width=0.5\textwidth]{q2-c}
+        \caption{Percentage of Recognition Errors}
+\end{figure}
+
+\end{enumerate}
 
 
 \end{enumerate}
