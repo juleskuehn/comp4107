@@ -106,6 +106,7 @@ Figure 8 shows that having an early stopping mechanism for this function makes n
 
 Instructions on how to run this file:\\
 To run this file, if you simply run by 'python3 q2.py' without changing anything, then  it will run all these three parts, which may take a while as in our code, we modified so that it runs 10 experiments for each number of hidden neurons, and after one is finished, then a new NN is created to run the second one, etc. Therefore, it will take about 1 min for it to finish and plot the graphs. If you want to run parts only, then comment out the corresponding line in the experiment function.\\
+For the learning rate, we started by using the default learning rate for adamoptimizer, which is 0.001, and it will take about 400-700 epochs to converge to the result. However, if we use 0.01 as the learning rate, the result converges faster and it converges within 100 epochs every time. Therefore, we use 0.01 as the learning rate for this question.\\
 
 % \lstinputlisting{python_output/q2.out}
 % \includegraphics[width=0.7\columnwidth]{q7_result3}

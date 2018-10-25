@@ -233,17 +233,19 @@ n_hidden = 15
 def partB():
     print("--------Running PART B------------")
     _, epoch1, step1_accuracies, epoch3, step3_accuracies = digit_recognition(n_hidden)
-    step1_error = [1 - acc for acc in step1_accuracies]
-    step3_error = [1 - acc for acc in step3_accuracies]
+    step1_error = np.array([1 - acc for acc in step1_accuracies])
+    step3_error = np.array([1 - acc for acc in step3_accuracies])
     plt.figure(2)
     plt.xlabel('Epoch number')
     plt.xticks(np.arange(0, epoch1, step=10))
     plt.ylabel('Percentage of recognition error')
+    plt.yscale('log')
     plt.plot([count for count in range(0, epoch1)], step1_error, 'black')
 
     plt.figure(3)
     plt.xlabel('Epoch number')
     plt.ylabel('Percentage of recognition error')
+    plt.yscale('log')
     plt.plot([count for count in range(0, epoch3)], step3_error, 'black')
 
     plt.show()
@@ -278,9 +280,9 @@ def partC():
     plt.plot(noises, t_acc_noisy, 'r')
 
 def experiment():
-    partA()
+    # partA()
     partB()
-    partC()
+    # partC()
     # pass
 
 experiment()
