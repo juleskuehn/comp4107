@@ -110,20 +110,18 @@ We started by using the default learning rate for AdamOptimizer (0.001). This to
 % \lstinputlisting{python_output/q2.out}
 % \includegraphics[width=0.7\columnwidth]{q7_result3}
 \begin{enumerate}
-\item We took the averages of 10 experiments for each of 5, 10, 15, 20, and 25 hidden neurons. These are plotted with red (5), blue (10), green (15), black (20), and purple (25) lines.\newline
+\item We took the averages of 10 experiments for each of 5, 10, 15, 20, and 25 hidden neurons. The results are shown below.\newline
 
 \begin{figure}[h!]
     \centering
      \includegraphics[height=0.5\textwidth, width=0.5\textwidth]{q2-a-1}
         \caption{Percentage of Recognition Errors}
 \end{figure}
-\begin{figure}[h!]
-    \centering
-     \includegraphics[width=0.9\textwidth]{q2-a-accuracy}
-        \caption{Error rate for different number of hidden neurons}
-\end{figure}
 
-\item 15 is chosen as the number of hidden neurons, since 15 is more accurate than 10, but using more than 15 neurons is less accurate on the noisy data. When we used 15 neurons in the hidden layer, the number of epochs to reach zero errors is much less than is shown in the assignment question, which we think is fine. Perhaps this is due to a different learning rate.\\
+The table below corresponds to the experiment shown in the graph above.\newline
+\lstinputlisting{python_output/q2a-results.txt}
+
+\item 15 is chosen as the number of hidden neurons, since 15 is more accurate than 10, but using more than 15 neurons is not much better (if at all). When we used 15 neurons in the hidden layer, the number of epochs to reach zero errors is much less than is shown in the assignment question, which we think is fine. Perhaps this is due to a different learning rate.\\
 \begin{figure}[h!]
     \centering
     \begin{minipage}{0.45\textwidth}

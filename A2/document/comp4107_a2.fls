@@ -347,11 +347,9 @@ INPUT ./images/q2-a-1.png
 INPUT ./images/q2-a-1.png
 INPUT ./images/q2-a-1.png
 INPUT ./images/q2-a-1.png
-INPUT images/q2-a-accuracy.png
-INPUT ./images/q2-a-accuracy.png
-INPUT ./images/q2-a-accuracy.png
-INPUT ./images/q2-a-accuracy.png
-INPUT ./images/q2-a-accuracy.png
+INPUT python_output/q2a-results.txt
+INPUT python_output/q2a-results.txt
+INPUT python_output/q2a-results.txt
 INPUT images/q2-b-1.png
 INPUT ./images/q2-b-1.png
 INPUT ./images/q2-b-1.png
