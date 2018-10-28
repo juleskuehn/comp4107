@@ -39,7 +39,6 @@ The 10x10 grid described in the assignment was created and the order randomized.
     \end{minipage}
 \end{figure}\newline
 Using 8 neurons for the hidden layer is appropriate for this function. The MSE for the test data with 8 neurons is better that is required, and the training converges after fewer epochs than the network using 50 neurons for the hidden layer.\newline
-\newline
 The table below corresponds to the experiment shown in the graph above.\newline
 \lstinputlisting{python_output/q1a-results.txt}
 
@@ -101,10 +100,10 @@ Figure 7 shows the MSE at each epoch near where the training goal is reached. Th
 \newline
 Figure 8 shows that having an early stopping mechanism for this function makes no difference, as the early stopping mechanism is never triggered (8 hidden neurons, 4000 epochs, 0.02 LR). Thus, the two contours are virtually identical, differing only by the stochastic elements of the experiments (initial weights, order of training data). 
 
-
+\pagebreak
 \item Instructions on how to run q2.py:\newline
 \newline
-Running q2.py without changing anything will run all three parts. This may take a while as it runs 10 experiments for each number of hidden neurons, and after one is finished, a new NN is created to run the second one, etc. Therefore, it will take about 1 min for it to finish and plot the graphs. If you want to run parts only, then comment out the corresponding line in the experiment function.\\
+Running q2.py without changing anything will run all three parts. This may take a while as it runs 10 experiments for each number of hidden neurons, and after one is finished, a new neural net is created to run the second one, etc. Therefore, it will take about 1 min for it to finish and plot the graphs. To run a single part only, comment out the other lines in the experiment() function.\\
 We started by using the default learning rate for AdamOptimizer (0.001). This took 400-700 epochs to converge to the result. However, if we use 0.01 as the learning rate, it converges faster -- within 100 epochs every time. Therefore, we chose 0.01 as the learning rate for this question.\\
 
 % \lstinputlisting{python_output/q2.out}
@@ -114,7 +113,7 @@ We started by using the default learning rate for AdamOptimizer (0.001). This to
 
 \begin{figure}[h!]
     \centering
-     \includegraphics[height=0.5\textwidth, width=0.5\textwidth]{q2-a-1}
+     \includegraphics[width=0.5\textwidth]{q2-a-1}
         \caption{Percentage of Recognition Errors}
 \end{figure}
 
@@ -136,10 +135,10 @@ The table below corresponds to the experiment shown in the graph above.\newline
     \end{minipage}\hfill
 \end{figure}
 
-\item The network trained with both perfect and noisy data performed just as well on perfect data, and better on noisy data. The chart below is for the network with 15 neurons. The blue dashed line is trained with only perfect data, and the red line is trained with both perfect and noisy data.\\
+\item The network trained with both perfect and noisy data performed just as well on perfect data, and better on noisy data. The chart below is for the network with 15 neurons.\\
 \begin{figure}[h!]
     \centering
-     \includegraphics[height=0.5\textwidth, width=0.5\textwidth]{q2-c}
+     \includegraphics[width=0.5\textwidth]{q2-c}
         \caption{Percentage of Recognition Errors}
 \end{figure}
 
