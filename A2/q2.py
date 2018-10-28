@@ -9,6 +9,7 @@ import tensorflow as tf
 import numpy as np
 from random import sample
 import math
+import matplotlib.patches as mpatches
 
 VERBOSE = False
 
@@ -194,6 +195,17 @@ def partA():
     plt.figure(1)
     plt.xlabel('Noise level')
     plt.ylabel('Percentage of recognition error')
+
+    # Legends
+    legends = [
+        mpatches.Patch(color='red', label='5 neurons'),
+        mpatches.Patch(color='blue', label='10 neurons'),
+        mpatches.Patch(color='green', label='15 neurons'),
+        mpatches.Patch(color='black', label='20 neurons'),
+        mpatches.Patch(color='purple', label='25 neurons')
+    ]
+    plt.legend(handles=legends)
+
     for i in range(len(results)):
         plt.plot(noises, results[i], colors[i])
 
@@ -255,7 +267,7 @@ def partC():
 def experiment():
     partA()
     partB()
-    partC()
+    # partC()
     # pass
 
 experiment()

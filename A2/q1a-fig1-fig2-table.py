@@ -99,8 +99,7 @@ def trainTest(n_hidden=50, epochs=3000, lr=0.02):
             # Show progress
             if step % display_step == 0:
                 print("Cost: ", c)
-            if step % 10 == 0:
-                costs.append(c)
+            costs.append(c)
         
         # Get prediction for testData, for comparison to actual f(x, y)
         pred = sess.run([hy], feed_dict = {X: testData[:,:2]})
