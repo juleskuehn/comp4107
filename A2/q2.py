@@ -237,6 +237,8 @@ def partB():
 
 # part c
 def partC():
+    noises = [i for i in range(4)]
+
     print("--------Running PART C------------")
     results = []
     t_acc = [0 for _ in range(4)] # total accuracy trained with noise-free data only
