@@ -40,7 +40,6 @@ The 10x10 grid described in the assignment was created and the order randomized.
 \end{figure}\newline
 Using 8 neurons for the hidden layer is appropriate for this function. The MSE for the test data with 8 neurons is better that is required, and the training converges after fewer epochs than the network using 50 neurons for the hidden layer.\newline
 \newline
-
 The table below corresponds to the experiment shown in the graph above.\newline
 \lstinputlisting{python_output/q1a-results.txt}
 
@@ -52,7 +51,7 @@ b) With a tolerance of 0.02 for MSE of the training data, the appropriate number
     \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[width=0.9\textwidth]{q1b-2b} % first figure itself
-        \caption{Optimizers}
+        \caption{Convergence vs optimizer}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
         \centering
@@ -89,7 +88,7 @@ The network with 50 hidden neurons also is very slow to converge to the target M
     \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[width=0.9\textwidth]{q1c-3} % first figure itself
-        \caption{Optimizers}
+        \caption{Reaching training goal}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
         \centering
@@ -99,47 +98,45 @@ The network with 50 hidden neurons also is very slow to converge to the target M
 \end{figure}
 
 Figure 7 shows the MSE at each epoch near where the training goal is reached. This captures the expected trend - that the training error will decrease consistently, while the test error (9x9 grid) has more variation. The validation data is most different from the training data (as it is randomly sampled from the function), so it is expected that its error would also have the highest variance.\newline
+\newline
 Figure 8 shows that having an early stopping mechanism for this function makes no difference, as the early stopping mechanism is never triggered (8 hidden neurons, 4000 epochs, 0.02 LR). Thus, the two contours are virtually identical, differing only by the stochastic elements of the experiments (initial weights, order of training data). 
 
 
-\item Question 2\newline
-
-Instructions on how to run this file:\\
-To run this file, if you simply run by 'python3 q2.py' without changing anything, then  it will run all these three parts, which may take a while as in our code, we modified so that it runs 10 experiments for each number of hidden neurons, and after one is finished, then a new NN is created to run the second one, etc. Therefore, it will take about 1 min for it to finish and plot the graphs. If you want to run parts only, then comment out the corresponding line in the experiment function.\\
-For the learning rate, we started by using the default learning rate for adamoptimizer, which is 0.001, and it will take about 400-700 epochs to converge to the result. However, if we use 0.01 as the learning rate, the result converges faster and it converges within 100 epochs every time. Therefore, we use 0.01 as the learning rate for this question.\\
+\item Instructions on how to run q2.py:\newline
+\newline
+Running q2.py without changing anything will run all three parts. This may take a while as it runs 10 experiments for each number of hidden neurons, and after one is finished, a new NN is created to run the second one, etc. Therefore, it will take about 1 min for it to finish and plot the graphs. If you want to run parts only, then comment out the corresponding line in the experiment function.\\
+We started by using the default learning rate for AdamOptimizer (0.001). This took 400-700 epochs to converge to the result. However, if we use 0.01 as the learning rate, it converges faster -- within 100 epochs every time. Therefore, we chose 0.01 as the learning rate for this question.\\
 
 % \lstinputlisting{python_output/q2.out}
 % \includegraphics[width=0.7\columnwidth]{q7_result3}
 \begin{enumerate}
-\item We did the experiment with 5, 10, 15, 20, 25 hidden neurons and we are able to produce the following result by running each experiment 10 times and take the average of all the accuracies. In the following graph, the lines are coloured using red, blue, green, black, purple, each corresponds to a number of hidden neurons. The line in red is the line for using 5 as number of hidden neurons, etc.\newline
+\item We took the averages of 10 experiments for each of 5, 10, 15, 20, and 25 hidden neurons. The results are shown below.\newline
 
 \begin{figure}[h!]
     \centering
      \includegraphics[height=0.5\textwidth, width=0.5\textwidth]{q2-a-1}
         \caption{Percentage of Recognition Errors}
 \end{figure}
-\begin{figure}[h!]
-    \centering
-     \includegraphics[width=0.9\textwidth]{q2-a-accuracy}
-        \caption{Error rate for different number of hidden neurons}
-\end{figure}
 
-\item 15 is chosen as the number of hidden neurons, since 15 is more accurate compared with 10, but using more neurons don't really make a big difference. When we used 15 neurons in the hidden layer, the number of epochs is less than the number of epochs in the question, which we think is fine. So here is the graph,\\
+The table below corresponds to the experiment shown in the graph above.\newline
+\lstinputlisting{python_output/q2a-results.txt}
+
+\item 15 is chosen as the number of hidden neurons, since 15 is more accurate than 10, but using more than 15 neurons is not much better (if at all). When we used 15 neurons in the hidden layer, the number of epochs to reach zero errors is much less than is shown in the assignment question, which we think is fine. Perhaps this is due to a different learning rate.\\
 \begin{figure}[h!]
     \centering
     \begin{minipage}{0.45\textwidth}
-    
     	\centering
-     	\includegraphics[width=0.9\textwidth]{q2-b-1} % first figure itself
+        \includegraphics[width=0.9\textwidth]{q2-b-1} % first figure itself
+        \caption{Training on perfect data}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
-    
     	\centering
-     	\includegraphics[width=0.9\textwidth]{q2-b-2} % first figure itself
+         \includegraphics[width=0.9\textwidth]{q2-b-2} % first figure itself
+         \caption{Re-training after noisy data}
     \end{minipage}\hfill
 \end{figure}
 
-\item With 15 hidden neurons, we are able to produce the following graph. The blue dashed line is trained without noisy data, and the red line is trained with noisy data.\\
+\item The network trained with both perfect and noisy data performed just as well on perfect data, and better on noisy data. The chart below is for the network with 15 neurons. The blue dashed line is trained with only perfect data, and the red line is trained with both perfect and noisy data.\\
 \begin{figure}[h!]
     \centering
      \includegraphics[height=0.5\textwidth, width=0.5\textwidth]{q2-c}
@@ -147,7 +144,6 @@ For the learning rate, we started by using the default learning rate for adamopt
 \end{figure}
 
 \end{enumerate}
-
 
 \end{enumerate}
 \end{document}
