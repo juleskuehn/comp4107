@@ -6,7 +6,7 @@ from functions import *
 
 n_features = 2
 n_clusters = 5
-k = 10
+k = 20
 n_samples_per_cluster = 100
 seed = 700
 embiggen_factor = 70
@@ -38,8 +38,8 @@ with tf.Session() as session:
     print('epoch ' + str(step+1))
     print(updated_centroid_value)
 
-import imageio
-with imageio.get_writer('animation.gif', mode='I', duration=0.5) as writer:
-    for filename in filenames:
-        image = imageio.imread(filename)
-        writer.append_data(image)
+# import imageio
+# with imageio.get_writer('animation.gif', mode='I', duration=0.5) as writer:
+#     for filename in filenames:
+#         image = imageio.imread(filename)
+#         writer.append_data(image)
