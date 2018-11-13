@@ -54,7 +54,8 @@ def create_samples(n_clusters, n_samples_per_cluster, n_features, embiggen_facto
     # Create samples for each cluster
     for i in range(n_clusters):
         samples = tf.random_normal((n_samples_per_cluster, n_features),
-                                   mean=0.0, stddev=5.0, dtype=tf.float32, seed=seed, name="cluster_{}".format(i))
+                                   mean=0.0, stddev=5.0, dtype=tf.float32,
+                                   seed=seed, name="cluster_{}".format(i))
         current_centroid = (np.random.random((1, n_features))
                             * embiggen_factor) - (embiggen_factor/2)
         centroids.append(current_centroid)
@@ -64,28 +65,46 @@ def create_samples(n_clusters, n_samples_per_cluster, n_features, embiggen_facto
     samples = tf.concat(slices, 0, name='samples')
     centroids = tf.concat(centroids, 0, name='centroids')
     with tf.Session() as session:
-        return samples.eval()
+        return samples.eval(), centroids.eval()
 
 
 # Testing
-k = 5
+k = 8
 n_features = 2 # Keep it 2 dimensional for visualization
 
 n_samples_per_cluster = 100
 # seed = 700
-embiggen_factor = 50 # A higher value makes for denser clusters
-points = create_samples(k, n_samples_per_cluster, n_features, embiggen_factor)
+embiggen_factor = 75 # A higher value makes for denser clusters
+points, true_centers = create_samples(
+                        k, n_samples_per_cluster, n_features, embiggen_factor)
 
-history = k_means(points, k, verbose=True)
+history = k_means(points, k, verbose=True, sample_centers=True)
 
 # Create animated gif of history
 for i, state in enumerate(history):
     centers, assignments = state
     plot_clusters(points, centers, assignments, label=str(i))
 
-with imageio.get_writer('./q2_plots/animation'+datetime.datetime.today().strftime("%Y-%m-%d-%H-%M-%S")+'.gif', mode='I', duration=0.5) as writer:
+# Finally, show actual cluster centers
+centers = true_centers
+# Show actual clusters (may change colors)
+assignments = []
+for i in range(k):
+    assignments += [i for _ in range(n_samples_per_cluster)]
+
+plot_clusters(points, centers, assignments, label=str(len(history)))
+
+time = datetime.datetime.today().strftime("%Y-%m-%d-%H-%M-%S")
+gif_path = './q2_plots/animation' + time + '.gif'
+
+# Slow down animation towards end
+durations = [1.5] + [1 * i / (len(history) + 1) + .2 for i in range(len(history) - 1)] + [3]
+
+with imageio.get_writer(gif_path, mode='I', duration=durations) as writer:
     print("Generating animation...")
-    for i in range(len(history)):
+    for i in range(len(history) + 1):
         image = imageio.imread('./q2_plots/' + str(i) + '.png')
         writer.append_data(image)
-        os.remove('./q2_plots/' + str(i) + '.png')
+
+for i in range(len(history) + 1):
+    os.remove('./q2_plots/' + str(i) + '.png')

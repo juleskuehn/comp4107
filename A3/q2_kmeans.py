@@ -9,12 +9,12 @@ import math
 import random
 
 
-def init_centers(points, k):
+def init_centers_random(points, k):
     """ 
     points: a 2d numpy array where each row is a point.
     k: number of cluster centers for k-means.
     Returns a 2d numpy array where each row is a cluster center,
-    found by randomly sampling within min/max for each dimension in points.
+    generated from random numbers within min/max for each dimension in points.
     """
     mins = [min(points[:, i]) for i in range(len(points[0, :]))]
     maxs = [max(points[:, i]) for i in range(len(points[0, :]))]
@@ -22,6 +22,16 @@ def init_centers(points, k):
         [random.uniform(mins[i], maxs[i]) for i in range(len(mins))]
         for _ in range(k)
     ])
+
+
+def init_centers_sampling(points, k):
+    """ 
+    points: a 2d numpy array where each row is a point.
+    k: number of cluster centers for k-means.
+    Returns a 2d numpy array where each row is a cluster center,
+    found by randomly sampling from points.
+    """
+    return random.sample(list(points), k)
 
 
 def assign_nearest(points, centers):
@@ -55,7 +65,7 @@ def update_centers(points, assignments, centers):
             centers[i] = np.average(gathered_points, axis=0)
 
 
-def k_means(points, k, max_epochs=1000, verbose=False):
+def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
     """ 
     points: a 2d numpy array where each row is a point.
     k: number of cluster centers for k-means.
@@ -64,7 +74,10 @@ def k_means(points, k, max_epochs=1000, verbose=False):
     Returns an array of tuples of (centers, assignments).
     """
     # Initialization
-    centers = init_centers(points, k)
+    if sample_centers:
+        centers = init_centers_sampling(points, k)
+    else:
+        centers = init_centers_random(points, k)
     assignments = assign_nearest(points, centers)
 
     # For visualization and debugging, keep history of centers and assignments
