@@ -52,7 +52,7 @@ def update_centers(points, assignments, centers):
     # Assign centers to mean of assigned points, if any assigned
     for i, gathered_points in enumerate(points_by_center):
         if len(gathered_points) > 0:
-            centers[i] = np.average(gathered_points)
+            centers[i] = np.average(gathered_points, axis=0)
 
 
 def k_means(points, k, max_epochs=1000, verbose=False):
