@@ -65,6 +65,28 @@ def update_centers(points, assignments, centers):
             centers[i] = np.average(gathered_points, axis=0)
 
 
+def calc_betas(points, assignments, centers):
+    betas = [0] * len(centers)
+
+    points_by_center = [[] for _ in range(len(centers))]
+    # Gather all points assigned to a given center
+    for i, point in enumerate(points):
+        points_by_center[assignments[i]].append(point)
+    # Assign centers to mean of assigned points, if any assigned
+    for i, gathered_points in enumerate(points_by_center):
+        if len(gathered_points) > 0:
+            bottom = (2 * (np.average([
+                                    np.linalg.norm(point - centers[i], 1)
+                                    for point in gathered_points
+                                ]) ** 2))
+            if bottom == 0:
+                betas[i] = 100 # Prevent possible division by zero
+            else:
+                betas[i] = 1 / bottom
+                # betas[i] = 0.5
+    return betas
+
+
 def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
     """ 
     points: a 2d numpy array where each row is a point.
@@ -80,8 +102,9 @@ def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
         centers = init_centers_random(points, k)
     assignments = assign_nearest(points, centers)
 
-    # For visualization and debugging, keep history of centers and assignments
-    history = [(np.copy(centers), assignments)]
+    if verbose:
+        # For visualization and debugging, keep history of centers and assignments
+        history = [(np.copy(centers), assignments, calc_betas(points, assignments, centers))]
 
     # Training: Iterate until convergence (when assignments don't change)
     last_assignments = assignments
@@ -93,7 +116,11 @@ def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
             break
         last_assignments = assignments
         if verbose:
-            history.append((np.copy(centers), assignments))
+            betas = calc_betas(points, assignments, centers)
+            history.append((np.copy(centers), assignments, betas))
+
+    # Calculate betas
+    betas = calc_betas(points, assignments, centers)
 
     if verbose:
         if step < max_epochs:
@@ -104,5 +131,4 @@ def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
     if verbose:
         return history
     else:
-        return centers
-
+        return centers, betas
