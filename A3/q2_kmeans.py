@@ -9,13 +9,15 @@ import math
 import random
 
 
-def init_centers_random(points, k):
+def init_centers_random(points, k, seed=False):
     """ 
     points: a 2d numpy array where each row is a point.
     k: number of cluster centers for k-means.
     Returns a 2d numpy array where each row is a cluster center,
     generated from random numbers within min/max for each dimension in points.
     """
+    if seed:
+        random.seed(seed)
     mins = [min(points[:, i]) for i in range(len(points[0, :]))]
     maxs = [max(points[:, i]) for i in range(len(points[0, :]))]
     return np.array([
@@ -24,17 +26,19 @@ def init_centers_random(points, k):
     ])
 
 
-def init_centers_sampling(points, k):
+def init_centers_sampling(points, k, seed=False):
     """ 
     points: a 2d numpy array where each row is a point.
     k: number of cluster centers for k-means.
     Returns a 2d numpy array where each row is a cluster center,
     found by randomly sampling from points.
     """
+    if seed:
+        random.seed(seed)
     return random.sample(list(points), k)
 
 
-def assign_nearest(points, centers):
+def assign_nearest(points, centers, seed=False):
     """
     points: a 2d numpy array where each row is a point.
     centers: a 2d numpy array where each row is a cluster center.
@@ -87,7 +91,7 @@ def calc_betas(points, assignments, centers):
     return betas
 
 
-def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
+def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False, seed=False):
     """ 
     points: a 2d numpy array where each row is a point.
     k: number of cluster centers for k-means.
@@ -97,9 +101,9 @@ def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
     """
     # Initialization
     if sample_centers:
-        centers = init_centers_sampling(points, k)
+        centers = init_centers_sampling(points, k, seed=seed)
     else:
-        centers = init_centers_random(points, k)
+        centers = init_centers_random(points, k, seed=seed)
     assignments = assign_nearest(points, centers)
 
     if verbose:
@@ -122,11 +126,10 @@ def k_means(points, k, max_epochs=1000, verbose=False, sample_centers=False):
     # Calculate betas
     betas = calc_betas(points, assignments, centers)
 
-    if verbose:
-        if step < max_epochs:
-            print('Converged after', step, 'iterations.')
-        else:
-            print('Never converged - stopped after', max_epochs, 'iterations.')
+    if step < max_epochs:
+        print('Converged after', step, 'iterations.')
+    else:
+        print('Never converged - stopped after', max_epochs, 'iterations.')
 
     if verbose:
         return history
