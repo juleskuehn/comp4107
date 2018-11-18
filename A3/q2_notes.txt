@@ -1,0 +1,69 @@
+Reference (with 1000 samples)
+88%: 100 epochs, 3 folds, no RBF or hidden layer, no dropout
+
+With RBF (with 1000 samples)
+65%: 100 epochs, 3 folds, 20 centers, no dropout
+75%: 100 epochs, 3 folds, 50 centers, no dropout
+78%: 100 epochs, 3 folds, 100 centers, no dropout
+81%: 100 epochs, 3 folds, 200 centers, no dropout
+80%: 100 epochs, 3 folds, 300 centers, no dropout
+200 centers seems appropriate.
+
+More epochs are better:
+78%: 100 epochs, 3 folds, 100 centers, no dropout
+83%: 300 epochs, 3 folds, 100 centers, no dropout
+86%: 1000 epochs, 3 folds, 100 centers, no dropout
+
+More folds don't change much:
+78%: 100 epochs, 3 folds, 100 centers, no dropout
+vs
+80%: 100 epochs, 5 folds, 100 centers, no dropout
+
+Dropout doesn't help:
+83%: 300 epochs, 3 folds, 100 centers, no dropout
+vs
+80%: 300 epochs, 3 folds, 100 centers, 0.5 dropout
+
+K-means prohibitively slow on 10000 samples, but more samples improves:
+88%: 100 epochs, 3 folds, 100 centers, no dropout
+
+Moving k-means initialization of centers out of k-fold loop improves:
+78%: 100 epochs, 3 folds, 100 centers, no dropout (initiate centers in loop)
+vs
+81%: 100 epochs, 3 folds, 100 centers, no dropout (initiate centers before loop)
+
+Mini-batches improves:
+81%: 100 epochs, 3 folds, 100 centers, no dropout (initiate centers before loop)
+vs
+83% with minibatch of size 10
+
+K-means limited to 1000 samples, but train on 10000 samples:
+89%: 100 epochs, 3 folds, 100 centers, no dropout
+
+Small number of k for k-folds makes things worse than just using 9/10 for train
+(and 1/10 for test). Note this would be same as using k=10. 1000 samples.
+90%: 1000 epochs, no folds (9/10 train), 200 centers, no dropout
+89%: same as above but no mini-batches
+
+Large number of samples makes biggest difference: 70000 samples (full set):
+94% after 100 epochs, 9/10 train, 200 centers, no dropout
+
+Epoch 1000/1000
+63000/63000 [==============================] - 2s 27us/step - loss: 0.1469 - acc: 0.9538
+7000/7000 [==============================] - 0s 14us/step
+acc: 95.31%
+
+Good results with 1000 samples:
+94% after 1000 epochs, 200 centers, 9/10 train, no dropout
+
+
+----
+
+DOH it was just a low learning rate.
+With adam optimizer and LR=0.01
+90-95% after **100** epochs, 200 centers, 9/10 train, no dropout, 1000 samples
+
+Again, dropout seems to only make things worse
+
+K-means limited to 1000 samples, but train on 10000 samples:
+94%: after 100 epochs, 200 centers, 9/10 train, no dropout
