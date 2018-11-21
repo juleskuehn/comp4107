@@ -29,6 +29,8 @@ def getTrainingData(num_data=10):
     ones = partition(x_train, y_train, 1)
     fives = partition(x_train, y_train, 5)
 
+    # pick random data from both 1's and 5's with equal amount to make
+    # sure that the network will be able to learn both digits
     picked_ones = pick_random_data(ones, num_data)
     picked_fives = pick_random_data(fives, num_data)
 
@@ -37,11 +39,12 @@ def getTrainingData(num_data=10):
 
     return trainingData
 
-def getTestingData(num_data=10):
+def getTestingData(num_data=5):
     # get the datas for 1 and 5
     ones = partition(x_test, y_test, 1)
     fives = partition(x_test, y_test, 5)
 
+    # pick random data for both 1's and 5's to check the network's accuracy
     picked_ones = pick_random_data(ones, num_data)
     picked_fives = pick_random_data(fives, num_data)
     testingData = picked_ones + picked_fives
@@ -92,6 +95,8 @@ def test(weight, input, threshold=127):
         # print(vector.reshape(28, 28))
     return vector
 
+# compute the sum by adding up the weights of all active edges that connects to the
+# given node
 def compute_sum(weight, vector, node_index):
     sum = 0
     for index in range(len(vector)):
@@ -99,14 +104,10 @@ def compute_sum(weight, vector, node_index):
             sum += weight[node_index][index]
     return sum
 
-num_training_data = 10 # number of training data feed to the network
-
-# pick random number of vectors as input to the network
-trainingData = getTrainingData(num_training_data)
-W = cal_weight(trainingData)
-
 # amoung the training data, find the data that's closest to the stable state and
 # pick the label that corresponds to that data as the label for the state
+# PROBLEM: seems like it always classsify all the digits as the same digit no
+# matter what
 def classify(vector, data):
     closestDis = float('inf')
     closestLabel = None
@@ -118,15 +119,33 @@ def classify(vector, data):
             closestLabel = label
     return closestLabel
 
-# print(testData[0][0].reshape(28, 28))
-# print(vector.reshape(28, 28))
+num_training_data = 10 # number of training data feed to the network
 
-
-# print(classify(vector, trainingData), trainingData[0][1])
+# pick random number of vectors as input to the network
+trainingData = getTrainingData(num_training_data)
+W = cal_weight(trainingData)
 
 testData = getTestingData()
-for pixels, actual_label in testData:
+for pixels, actual_label in trainingData:
     vector = test(W, pixels)
     label = classify(vector, trainingData)
     print(actual_label, label)
             
+
+# ----------------------------------------------------------------
+# code for testing the network on the small example given in class
+# input_len = 4 # testing small images
+
+# # data found on slide 59 of Hopfield network
+# x1 = np.array([1, -1, -1, 1])
+# x2 = np.array([1, 1, -1, 1])
+# x3 = np.array([-1, 1, 1, -1])
+# # testing on the small example to find the problem
+# trainingData = [[x1, 1], [x2, 2], [x3, 3]]
+# W = cal_weight(trainingData, threshold=0)
+# print(W)
+# for pixels, actual_label in trainingData:
+#     print("Start to test on pixels: ", pixels)
+#     vector = test(W, pixels, threshold=0)
+#     label = classify(vector, trainingData)
+#     print(actual_label, label)
