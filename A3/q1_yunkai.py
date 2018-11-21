@@ -1,3 +1,7 @@
+# COMP4107 Assignment 3
+# quesion 1 implementation by Yunkai Wang, student number 100968473
+# Using the scikit-learn utilities to load the MNIST data, implement a Hopfield network that can classify the image data for a subset of the handwritten digits. Subsample the data to only include images of '1' and '5'. Here, correct classification means that if we present an image of a '1' an image of a '1' will be recovered; however, it may not be the original image owing to the degenerate property of this type of network. You are expected to document classification accuracy as a function of the number of images used to train the network. Remember, a Hopfield network can only store approximately 0.15N patterns with the "one shot" learning described in the lecture (slides 58-74).
+
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
