@@ -119,17 +119,16 @@ def classify(vector, data):
             closestLabel = label
     return closestLabel
 
-num_training_data = 10 # number of training data feed to the network
+def test_network(num_training_data=5):
+    # pick random number of vectors as input to the network
+    trainingData = getTrainingData(num_training_data)
+    W = cal_weight(trainingData)
 
-# pick random number of vectors as input to the network
-trainingData = getTrainingData(num_training_data)
-W = cal_weight(trainingData)
-
-testData = getTestingData()
-for pixels, actual_label in trainingData:
-    vector = test(W, pixels)
-    label = classify(vector, trainingData)
-    print(actual_label, label)
+    testData = getTestingData()
+    for pixels, actual_label in trainingData:
+        vector = test(W, pixels)
+        label = classify(vector, trainingData)
+        print(actual_label, label)
             
 
 # ----------------------------------------------------------------
