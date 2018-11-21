@@ -2,7 +2,10 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
+from math import ceil, sqrt
 from random import shuffle
+
+# minisom library found at https://github.com/JustGlowing/minisom
 from minisom import MiniSom
 
 mnist = tf.keras.datasets.mnist
@@ -32,14 +35,14 @@ def getTestingData():
 
     return testingData
 
-# The grid should contains > 5 * sqrt(n) neurons, where n is the number of samples,
-# there are 14190 data, 5 * sqrt(n) = 595, so we pick 25 * 25 neurons
-x = 25
-y = 25
-
 input_len = 784 # each image in MNIST database contains 784 pixels
 sigma = 1 # not sure what to choose for now, just testing 1
 learning_rate = 0.1 # not sure what to choose for now, just testing 0.1
+
+# calculate the number of output neurons, n is the number of samples,
+# given the number of samples n, there should be >= 5 * sqrt(n) neurons
+def calculate_dimension(n):
+    return ceil(sqrt(5 * sqrt(n)))
 
 def draw(som, x, y, data, title, figure_num = 1):
     plt.figure(figure_num)
@@ -47,12 +50,16 @@ def draw(som, x, y, data, title, figure_num = 1):
         pixels, label = item
         i, j = som.winner(pixels)
         plt.text(i, j, label)
+
     plt.axis([0, x, 0, y])
     plt.title(title)
-    plt.show()
+    # plt.show()
 
-def train(trainingData, x, y, num_epoch=500, num_split=2, input_len=784, sigma=1, learning_rate=0.1):
+def train(trainingData, num_epoch=500, num_split=2, input_len=784, sigma=1, learning_rate=0.1):
     figure_count = 1
+
+    x = calculate_dimension(len(trainingData))
+    y = calculate_dimension(len(trainingData))
 
     # create the self organizing map
     som = MiniSom(x, y, input_len, sigma=sigma, learning_rate=learning_rate)
@@ -74,9 +81,5 @@ def train(trainingData, x, y, num_epoch=500, num_split=2, input_len=784, sigma=1
     
     return som
 
-# def check_accuracy(som, testingData):
-#     for pixels, label in testingData:
-
-
-
-som = train(getTestingData(), x, y, num_epoch=500, learning_rate=0.25)
+som = train(getTrainingData()[:1024], num_epoch=500, learning_rate=0.25)
+plt.show()
