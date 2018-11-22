@@ -62,13 +62,21 @@ def getTestingData(num_data=5, threshold=127):
 
     return thresholdData(testingData, threshold)
 
-# calculate the weight based on the given input vectors using Hebbian's rule
-def cal_weight(data):
+# calculate the weight based on the given input vectors using Hebbian's rule or
+# Storkey's rule based on the choise
+def cal_weight(data, use_storkey_rule=False):
     p = len(data)
     W = np.zeros((input_len, input_len))
 
     for pixels, _ in data:
-        # threshold the given vector
+        # code for the bonus mark, Storkey's rule of learning
+        if use_storkey_rule:
+            # these variables relate to the terms used in Storkey's learning rule
+            local_field = W.dot(pixels.transpose())
+            term1 = np.outer(local_field, pixels) / input_len
+            term2 = np.outer(pixels, local_field) / input_len
+            W -= np.add(term1, term2)
+
         W += (pixels.transpose()).dot(pixels)
     W -= np.dot(np.identity(input_len), p)
     return W
@@ -121,7 +129,7 @@ def classify(vector, data):
             closestLabel = label
     return closestLabel
 
-def test_network(num_training_data=5, num_testing_data=10, threshold=127):
+def test_network(num_training_data=5, num_testing_data=10, threshold=127, use_storkey_rule=False):
     # pick random number of vectors as input to the network
     trainingData = getTrainingData(num_training_data, threshold)
 
@@ -139,8 +147,8 @@ def test_network(num_training_data=5, num_testing_data=10, threshold=127):
 # It seems like feed the network with 10 input(5 each) will cause the network
 # to forget everything even if the original training data was given. If I gave
 # only 2 training data, the network will do a relatively good job.
-for i in range(1, 11):
-    accuracy = test_network(i)
+for i in range(1, 3):
+    accuracy = test_network(i, use_storkey_rule=True)
     print("number of training data for each digit: ", i, " accuracy is ", accuracy)
 
 # ----------------------------------------------------------------
