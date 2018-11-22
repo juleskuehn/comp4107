@@ -53,7 +53,7 @@ def train_weights(train_data):
         x = np.array(
             [1 if e > 127 else -1 for e in x]
         )
-        print(x)
+        
         W += x.dot(x.transpose())
         # print(W)
     W -= np.dot(np.identity(p), p)
