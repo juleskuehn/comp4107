@@ -24,7 +24,17 @@ def pick_random_data(data, num_data):
         random_data.append(data[index])
     return random_data
 
-def getTrainingData(num_data=10):
+def thresholdData(data, threshold=127):
+    thresholdDatas = [] # data after thresholded
+    for pixels, label in data:
+        thresholdData = np.array(
+            [[1 if pixel >= threshold else -1 for pixel in pixels]]
+        )
+        thresholdDatas.append((thresholdData, label))
+
+    return thresholdDatas
+
+def getTrainingData(num_data=10, threshold=127):
     # get the datas for 1 and 5
     ones = partition(x_train, y_train, 1)
     fives = partition(x_train, y_train, 5)
@@ -37,9 +47,9 @@ def getTrainingData(num_data=10):
     trainingData = picked_ones + picked_fives
     shuffle(trainingData)
 
-    return trainingData
+    return thresholdData(trainingData, threshold)
 
-def getTestingData(num_data=5):
+def getTestingData(num_data=5, threshold=127):
     # get the datas for 1 and 5
     ones = partition(x_test, y_test, 1)
     fives = partition(x_test, y_test, 5)
@@ -50,31 +60,24 @@ def getTestingData(num_data=5):
     testingData = picked_ones + picked_fives
     shuffle(testingData)
 
-    return testingData
+    return thresholdData(testingData, threshold)
 
 # calculate the weight based on the given input vectors using Hebbian's rule
-def cal_weight(data, threshold = 127):
+def cal_weight(data):
     p = len(data)
     W = np.zeros((input_len, input_len))
 
     for pixels, _ in data:
         # threshold the given vector
-        x = np.array(
-            [[1 if pixel >= threshold else -1 for pixel in pixels]]
-        )
-        W += (x.transpose()).dot(x)
+        W += (pixels.transpose()).dot(pixels)
     W -= np.dot(np.identity(input_len), p)
     return W
 
 # feed the input vector to the network with the weight and threshold value
-def test(weight, input, threshold=127):
+def test(weight, input):
     changed = True # a variable that indicates if there exist any node which changes its state
     
-    # threshold the input vector
-    vector = np.array(
-        [1 if pixel >= threshold else -1 for pixel in input]
-    )
-    # print(vector.reshape(28, 28))
+    vector = input[0]
     indices = list(range(0, len(vector))) # do it for every node in the network
 
     while changed:  # repeat until converge
@@ -92,7 +95,6 @@ def test(weight, input, threshold=127):
         
         changed = not np.allclose(vector, new_vector)
         vector = new_vector
-        # print(vector.reshape(28, 28))
     return vector
 
 # compute the sum by adding up the weights of all active edges that connects to the
@@ -119,17 +121,27 @@ def classify(vector, data):
             closestLabel = label
     return closestLabel
 
-def test_network(num_training_data=5):
+def test_network(num_training_data=5, num_testing_data=10, threshold=127):
     # pick random number of vectors as input to the network
-    trainingData = getTrainingData(num_training_data)
+    trainingData = getTrainingData(num_training_data, threshold)
+
     W = cal_weight(trainingData)
 
-    testData = getTestingData()
-    for pixels, actual_label in trainingData:
+    testData = getTestingData(num_testing_data)
+    correct = 0 # number of correct identified image
+    for pixels, actual_label in testData:
         vector = test(W, pixels)
         label = classify(vector, trainingData)
-        print(actual_label, label)
+        if actual_label == label: # correctly identified one image
+            correct += 1
+    return correct / (2 * num_testing_data) # calculate the accuracy
             
+# It seems like feed the network with 10 input(5 each) will cause the network
+# to forget everything even if the original training data was given. If I gave
+# only 2 training data, the network will do a relatively good job.
+for i in range(1, 11):
+    accuracy = test_network(i)
+    print("number of training data for each digit: ", i, " accuracy is ", accuracy)
 
 # ----------------------------------------------------------------
 # code for testing the network on the small example given in class
