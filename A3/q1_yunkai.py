@@ -115,8 +115,10 @@ def classify(vector, data):
         if dis < closestDis:
             closestDis = dis
             closestLabel = label
+
     print("Output vector, classified as", str(closestLabel))
     printVector(vector)
+
     return closestLabel
 
 
@@ -126,19 +128,6 @@ def printVector(vector):
         row_str = ''
         for char in row:
             if char == 1:
-                row_str += ' '
-            else:
-                row_str += '#'
-        print(row_str)
-    print('-' * 28)
-
-
-def printNum(grid):
-    print(grid)
-    for row in grid:
-        row_str = ''
-        for char in row:
-            if char < 128:
                 row_str += ' '
             else:
                 row_str += '#'
@@ -156,6 +145,7 @@ def test_network(num_training_data=5, num_testing_data=10, threshold=127, use_st
     for pixels, actual_label in testData:
         print("Input digit, with actual label", str(actual_label))
         printVector(pixels)
+
         vector = test(W, pixels)
         label = classify(vector, trainingData)
         if actual_label == label: # correctly identified one image
