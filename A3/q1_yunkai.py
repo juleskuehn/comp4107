@@ -29,7 +29,7 @@ def pick_random_data(data, num_data):
 
 def thresholdData(data, threshold=127):
     return [
-        (np.array([[1 if pixel >= threshold else -1 for pixel in pixels]]),
+        (np.array([[1 if pixel <= threshold else -1 for pixel in pixels]]),
         label) for pixels, label in data
         ]
 
