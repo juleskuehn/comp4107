@@ -11,59 +11,47 @@ from random import shuffle, sample
 mnist = tf.keras.datasets.mnist
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
+# No need to separate training and test data here
+x_data = np.concatenate((x_train, x_test), axis=0)
+y_data = np.concatenate((y_train, y_test), axis=0)
+
 input_len = 784 # 784 pixels for each image
 
+
 # return part of the data that matches the given label
-def partition(x_data, y_data,label):
-    return [(np.array(input).ravel(), label) for (input, output) in zip(x_data, y_data) if output == label]
+def partition(x_data, y_data, label):
+    return [(np.array(x).ravel(), y) for (x, y) in zip(x_data, y_data) if y == label]
+
 
 def pick_random_data(data, num_data):
-    random_data = []
-    indices = sample(list(range(len(data))), num_data)
-    for index in indices:
-        random_data.append(data[index])
-    return random_data
+    return list(np.array(data)[sample(list(range(len(data))), num_data)])
+
 
 def thresholdData(data, threshold=127):
-    thresholdDatas = [] # data after thresholded
-    for pixels, label in data:
-        thresholdData = np.array(
-            [[1 if pixel >= threshold else -1 for pixel in pixels]]
-        )
-        thresholdDatas.append((thresholdData, label))
+    return [
+        (np.array([[1 if pixel >= threshold else -1 for pixel in pixels]]),
+        label) for pixels, label in data
+        ]
 
-    return thresholdDatas
 
-def getTrainingData(num_data=10, threshold=127):
+def getOnesAndFives(num_data=10, threshold=127):
     # get the datas for 1 and 5
-    ones = partition(x_train, y_train, 1)
-    fives = partition(x_train, y_train, 5)
+    ones = partition(x_data, y_data, 1)
+    fives = partition(x_data, y_data, 5)
 
     # pick random data from both 1's and 5's with equal amount to make
     # sure that the network will be able to learn both digits
     picked_ones = pick_random_data(ones, num_data)
     picked_fives = pick_random_data(fives, num_data)
 
-    trainingData = picked_ones + picked_fives
-    shuffle(trainingData)
+    onesAndFives = picked_ones + picked_fives
+    shuffle(onesAndFives)
 
-    return thresholdData(trainingData, threshold)
+    return thresholdData(onesAndFives, threshold)
 
-def getTestingData(num_data=5, threshold=127):
-    # get the datas for 1 and 5
-    ones = partition(x_test, y_test, 1)
-    fives = partition(x_test, y_test, 5)
-
-    # pick random data for both 1's and 5's to check the network's accuracy
-    picked_ones = pick_random_data(ones, num_data)
-    picked_fives = pick_random_data(fives, num_data)
-    testingData = picked_ones + picked_fives
-    shuffle(testingData)
-
-    return thresholdData(testingData, threshold)
 
 # calculate the weight based on the given input vectors using Hebbian's rule or
-# Storkey's rule based on the choise
+# Storkey's rule based on the choice
 def cal_weight(data, use_storkey_rule=False):
     p = len(data)
     W = np.zeros((input_len, input_len))
@@ -80,6 +68,7 @@ def cal_weight(data, use_storkey_rule=False):
         W += (pixels.transpose()).dot(pixels)
     W -= np.dot(np.identity(input_len), p)
     return W
+
 
 # feed the input vector to the network with the weight and threshold value
 def test(weight, input):
@@ -103,20 +92,19 @@ def test(weight, input):
         
         changed = not np.allclose(vector, new_vector)
         vector = new_vector
+
     return vector
+
 
 # compute the sum by adding up the weights of all active edges that connects to the
 # given node
 def compute_sum(weight, vector, node_index):
-    sum = 0
-    for index in range(len(vector)):
-        if vector[index] == 1: # only sum up the nodes that are active
-            sum += weight[node_index][index]
-    return sum
+    return sum([weight[node_index][index] for index in range(len(vector)) if vector[index] == 1])
 
-# amoung the training data, find the data that's closest to the stable state and
+
+# Among the training data, find the data that's closest to the stable state and
 # pick the label that corresponds to that data as the label for the state
-# PROBLEM: seems like it always classsify all the digits as the same digit no
+# PROBLEM: seems like it always classifies all the digits as the same digit no
 # matter what
 def classify(vector, data):
     closestDis = float('inf')
@@ -127,29 +115,64 @@ def classify(vector, data):
         if dis < closestDis:
             closestDis = dis
             closestLabel = label
+    print("Output vector, classified as", str(closestLabel))
+    printVector(vector)
     return closestLabel
+
+
+def printVector(vector):
+    grid = list(np.array(vector).reshape(28, 28))
+    for row in grid:
+        row_str = ''
+        for char in row:
+            if char == 1:
+                row_str += ' '
+            else:
+                row_str += '#'
+        print(row_str)
+    print('-' * 28)
+
+
+def printNum(grid):
+    print(grid)
+    for row in grid:
+        row_str = ''
+        for char in row:
+            if char < 128:
+                row_str += ' '
+            else:
+                row_str += '#'
+        print(row_str)
+    print('-' * 28)
+
 
 def test_network(num_training_data=5, num_testing_data=10, threshold=127, use_storkey_rule=False):
     # pick random number of vectors as input to the network
-    trainingData = getTrainingData(num_training_data, threshold)
-
+    trainingData = getOnesAndFives(num_training_data)
     W = cal_weight(trainingData)
-
-    testData = getTestingData(num_testing_data)
+    testData = getOnesAndFives(num_testing_data)
     correct = 0 # number of correct identified image
+
     for pixels, actual_label in testData:
+        print("Input digit, with actual label", str(actual_label))
+        printVector(pixels)
         vector = test(W, pixels)
         label = classify(vector, trainingData)
         if actual_label == label: # correctly identified one image
             correct += 1
+
+    # (2 * num_testing_data) because num_testing_data is for each of 1 and 5
     return correct / (2 * num_testing_data) # calculate the accuracy
-            
-# It seems like feed the network with 10 input(5 each) will cause the network
-# to forget everything even if the original training data was given. If I gave
-# only 2 training data, the network will do a relatively good job.
-for i in range(1, 3):
-    accuracy = test_network(i, use_storkey_rule=True)
-    print("number of training data for each digit: ", i, " accuracy is ", accuracy)
+
+
+# It seems like feeding the network with 5 of each digit will cause the network
+# to forget everything, even if the original training data is tested. If I gave
+# only 1 image of each digit, the network will do a relatively good job.
+storkey = True
+for i in range(1, 4):
+    accuracy = test_network(i, 1, 127, use_storkey_rule=storkey)
+    print("number of training data for each digit: ", i, " accuracy is ", accuracy, f'with{"out" if storkey else ""} Storky rule')
+
 
 # ----------------------------------------------------------------
 # code for testing the network on the small example given in class
