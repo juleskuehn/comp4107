@@ -158,10 +158,13 @@ def test_network(num_training_data=5, num_testing_data=10, threshold=127, use_st
 # It seems like feeding the network with 5 of each digit will cause the network
 # to forget everything, even if the original training data is tested. If I gave
 # only 1 image of each digit, the network will do a relatively good job.
-storkey = True
-for i in range(1, 4):
-    accuracy = test_network(i, 1, 127, use_storkey_rule=storkey)
-    print("number of training data for each digit: ", i, " accuracy is ", accuracy, f'with{"out" if storkey else ""} Storky rule')
+storkey = False
+numTest = 1
+for i in range(1, 2):
+    accuracy = test_network(i, numTest, 127, use_storkey_rule=storkey)
+    print("number of training data for each digit:", i)
+    print("number of test data for each digit:", numTest)
+    print("accuracy:", accuracy, f'(with{"out" if not storkey else ""} Storky rule)')
 
 
 # ----------------------------------------------------------------
