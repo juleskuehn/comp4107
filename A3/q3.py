@@ -81,14 +81,14 @@ def train(trainingData, num_epoch=500, num_split=2, input_len=784, sigma=1, lear
     data = [pixels for pixels, _ in trainingData]
 
     # draw the SOM before training
-    draw(som, x, y, trainingData, "Before training")
+    draw(som, x, y, trainingData, "Before_training")
 
     for i in range(num_split):
         # training the SOM for the number of epochs specified
         som.train_random(data, int(num_epoch / num_split))
 
         # draw the SOM after training
-        draw(som, x, y, trainingData, 'After training for %s epochs' % int((i + 1) * (num_epoch / num_split)))
+        draw(som, x, y, trainingData, 'After_training_for_%s_epochs' % int((i + 1) * (num_epoch / num_split)))
     
     return som
 
@@ -103,7 +103,7 @@ def display_PCA(trainingData):
     pca.fit(data)
     pca_list = pca.transform(data) # reduce the data to 2D for displaying purpose
     plt.scatter(pca_list[:, 0], pca_list[:, 1], c=labels, s=0.5)
-    title = "Without kmeans"
+    title = "Without_kmeans"
     plt.title(title)
     plt.savefig("./document/" + title + ".png")
     plt.clf() # clear current figure for the next plot
@@ -112,7 +112,7 @@ def display_PCA(trainingData):
     for cluster_size in num_clusters:
         kmeans = KMeans(n_clusters=cluster_size)
         kmeans.fit(data)
-        title = "With " + str(cluster_size) + " clusters"
+        title = "With_" + str(cluster_size) + "_clusters"
         plt.scatter(pca_list[:, 0], pca_list[:, 1], c=kmeans.labels_, s=0.5)
         plt.title(title)
         plt.savefig("./document/" + title + ".png")
@@ -127,7 +127,7 @@ input_len = 784 # each image in MNIST database contains 784 pixels
 sigma = 1 # not sure what to choose for now, just testing 1
 learning_rate = 0.1 # not sure what to choose for now, just testing 0.1
 
-# som = train(trainingData, num_epoch=500, learning_rate=learning_rate, sigma=sigma, input_len=input_len)
+som = train(trainingData, num_epoch=500, learning_rate=learning_rate, sigma=sigma, input_len=input_len)
 # plt.show()
 
 display_PCA(trainingData)
