@@ -1,84 +1,10 @@
-# COMP4107 Assignment 3
-# Question 1 implementation by Yunkai Wang, student number 100968473
-# Using the scikit-learn utilities to load the MNIST data, implement a Hopfield network that can classify the image data for a subset of the handwritten digits. Subsample the data to only include images of '1' and '5'. Here, correct classification means that if we present an image of a '1' an image of a '1' will be recovered; however, it may not be the original image owing to the degenerate property of this type of network. You are expected to document classification accuracy as a function of the number of images used to train the network. Remember, a Hopfield network can only store approximately 0.15N patterns with the "one shot" learning described in the lecture (slides 58-74).
+# COMP 4107
+# Fall 2018
+# Assignment 3
+# Yunkai Wang, student number 100968473
+# Jules Kuehn, student number 100661464
 
-import tensorflow as tf
-import matplotlib.pyplot as plt
-import numpy as np
-from math import ceil, sqrt
-from random import shuffle, sample
-import random
-
-from q2_kmeans import k_means
-
-mnist = tf.keras.datasets.mnist
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-
-# No need to separate training and test data here
-x_data = np.concatenate((x_train, x_test), axis=0)
-y_data = np.concatenate((y_train, y_test), axis=0)
-
-input_len = 784 # 784 pixels for each image
-
-# Set random seed for better reproducibility
-seed = 11
-random.seed(seed)
-np.random.seed(seed)
-
-
-# return part of the data that matches the given label
-def partition(x_data, y_data, label):
-    return [(np.array(x).ravel(), y) for (x, y) in zip(x_data, y_data) if y == label]
-
-
-def thresholdData(data, threshold=127):
-    return [
-        (np.array([[1 if pixel <= threshold else -1 for pixel in pixels]]),
-        label) for pixels, label in data
-        ]
-
-
-# get the thresholded data for 1 and 5
-ones = thresholdData(partition(x_data, y_data, 1))
-fives = thresholdData(partition(x_data, y_data, 5))
-
-
-def pick_random_data(data, num_data):
-    return list(np.array(data)[sample(list(range(len(data))), num_data)])
-
-
-def getRandomOnesAndFives(num_data=10):
-    # pick random data from both 1's and 5's with equal amount to make
-    # sure that the network will be able to learn both digits
-    picked_ones = pick_random_data(ones, num_data)
-    picked_fives = pick_random_data(fives, num_data)
-    onesAndFives = picked_ones + picked_fives
-    shuffle(onesAndFives)
-    return onesAndFives
-
-
-def getRepresentativeOnesAndFives(num_data=10, num_centers=2):
-    allData = ones + fives
-    shuffle(allData)
-    # Prevent slow k_means by limiting number of samples
-    k_means_samples = min(len(allData), 1000)
-    smallData = allData[:k_means_samples]
-
-    smallDataImages = [data[0].flatten() for data in smallData]
-
-    print("Running k-means")
-    # Initializing centers randomly within the range of each dimension
-    # gives very poor results; instead sampling random training points
-    centers, _ = k_means(smallDataImages, num_centers,
-                            max_epochs=100, sample_centers=True, seed=seed)
-
-    representatives = []
-    # Find num_data closest points to each centers from smallData
-    for center in centers:
-        representatives += sorted(allData,
-           key=lambda point: np.linalg.norm(point[0].flatten() - center))[:num_data]
-    shuffle(representatives)
-    return representatives
+from q1_helpers import *
 
 
 # calculate the weight based on the given input vectors using Hebbian's rule or
@@ -151,22 +77,11 @@ def classify(vector, data):
     return closestLabel
 
 
-def printVector(vector):
-    grid = list(np.array(vector).reshape(28, 28))
-    for row in grid:
-        row_str = ''
-        for char in row:
-            if char == 1:
-                row_str += ' '
-            else:
-                row_str += '#'
-        print(row_str)
-    print('-' * 28)
-
-
-def test_network(num_training_data=5, num_testing_data=10, use_storkey_rule=False, reprs=False):
-    if reprs:
+def test_network(num_training_data=5, num_testing_data=10, use_storkey_rule=False, reprs='random'):
+    if reprs == 'all_centers':
         # pick representative training data (closest to kmeans centers)
+        trainingData = getCenterOnesAndFives(num_training_data)
+    elif reprs == 'most_similar':
         trainingData = getRepresentativeOnesAndFives(num_training_data)
     else:
         trainingData = getRandomOnesAndFives(num_training_data)
@@ -190,16 +105,61 @@ def test_network(num_training_data=5, num_testing_data=10, use_storkey_rule=Fals
 # It seems like feeding the network with 5 of each digit will cause the network
 # to forget everything, even if the original training data is tested. If I gave
 # only 1 image of each digit, the network will do a relatively good job.
-storkey = True
-representative = False
-numTest = 20
-for i in range(1, 6):
-    accuracy = test_network(i, numTest, use_storkey_rule=storkey, reprs=representative)
-    print("number of training data for each digit:", i)
-    print("number of test data for each digit:", numTest)
-    print("Storkey:", storkey, "; Representative training data:", representative)
-    print("accuracy:", accuracy)
-    print("---")
+def multi_trial(maxTrain, numTest, numTrials, representative, storkey):
+    accuracies = {}
+
+    for _ in range(numTrials):
+        for numTrain in range(1, maxTrain + 1):
+            accuracy = test_network(numTrain, numTest, use_storkey_rule=storkey, reprs=representative)
+            print("number of training data for each digit:", numTrain)
+            print("number of test data for each digit:", numTest)
+            print("Storkey:", storkey, "; Representative training data:", representative)
+            print("accuracy:", accuracy)
+            if numTrain in accuracies:
+                accuracies[numTrain].append(accuracy)
+            else:
+                accuracies[numTrain] = [accuracy]
+            print("---")
+
+    # for numTrain in accuracies:
+    #     accuracies[numTrain] = np.average(accuracies[numTrain])
+
+    print(accuracies)
+    return accuracies
+
+
+maxTrain = 5
+numTest = 50
+numTrials = 5
+
+
+
+f = open('q1_results.txt', 'w')
+f.write(f'maxTrain: {maxTrain}, numTest: {numTest}, numTrials: {numTrials}\n')
+f.write('Random selection of training data, without Storkey:')
+results = multi_trial(maxTrain, numTest, numTrials, 'random', False)
+f.write(f'{results}\n')
+f.write('K-means centers as training data, without Storkey:')
+results = multi_trial(maxTrain, numTest, numTrials, 'all_centers', False)
+f.write(f'{results}\n')
+f.write('Most similar as training data, without Storkey:')
+results = multi_trial(maxTrain, numTest, numTrials, 'most_similar', False)
+f.write(f'{results}\n')
+f.write('Random selection of training data, with Storkey:')
+results = multi_trial(maxTrain, numTest, numTrials, 'random', True)
+f.write(f'{results}\n')
+f.write('K-means centers as training data, with Storkey:')
+results = multi_trial(maxTrain, numTest, numTrials, 'all_centers', True)
+f.write(f'{results}\n')
+f.write('Most similar as training data, with Storkey:')
+results = multi_trial(maxTrain, numTest, numTrials, 'most_similar', True)
+f.write(f'{results}\n')
+f.close()
+
+# plt.ylim(0.4, 1)
+# plt.xticks(range(maxTrain + 1))
+# plt.plot(*zip(*sorted(results.items())))
+# plt.show()
 
 
 # ----------------------------------------------------------------

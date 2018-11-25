@@ -1,7 +1,7 @@
 # COMP 4107
 # Fall 2018
 # Assignment 3
-# Jules Kuehn
+# Jules Kuehn, student number 100661464
 
 # k-fold code based on https://machinelearningmastery.com/evaluate-performance-deep-learning-models-keras/
 

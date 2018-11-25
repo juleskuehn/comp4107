@@ -22,48 +22,28 @@ Student Name: Jules Kuehn\\
 \begin{enumerate}
 
 \item
-a) See q1.py for code.\newline
+a) See q1.py for code. To see a comparison of input and output to the network, uncomment printVector() statements.\newline
 \newline
-As shown in the diagram and table below, the fewer training images were used, the better the Hopfield network performed in general. This suggests that a Hopfield network is a very poor choice for classifying even two classes.\newline
-A major factor in the accuracy was the selection of training images. Since fewer training images performs better, with a random selection the performance of the network is basically a matter of chance. To address this, we selected the training images with k-means, taking the images closest to the cluster centers, and as many cluster centers as training images. This would (in general) make for training images that are more different from each other, which would limit the degeneration.
-\begin{figure}[h!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{q1a-2} % first figure itself
-        \caption{Function Contours}
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{q1a-2-costs} % second figure itself
-        \caption{Cost (MSE) at epoch}
-    \end{minipage}
-\end{figure}\newline
-Using 8 neurons for the hidden layer is appropriate for this function. The MSE for the test data with 8 neurons is better that is required, and the training converges after fewer epochs than the network using 50 neurons for the hidden layer.\newline
-The table below corresponds to the experiment shown in the graph above.\newline
-\lstinputlisting{python_output/q1a-results.txt}
+In general, the fewer training images were used, the better the Hopfield network performed. These results suggests that a Hopfield network is a very poor choice for classification.\newline
+A major factor in the accuracy was the selection of training images. Since fewer training images performed better, a random selection of a representative 1 or 5 leaves much to chance. To address this, we selected the training images with k-means, taking the images closest to the 2 cluster centers. This results in a selection of training images in which all 1's are very close to the center 1, and all 5's are very close to the center 5. This worked better than random selection, and didn't show the same sharp decline in classification accuracy as more training images were added.\newline
+Alternately, we tried taking as many cluster centers as training images, finding the closest image for each cluster center. This should result in selecting training images that maximally differ from each other. This worked quite poorly as the quite different images caused further degeneration.\newline
+The graphs below compare classification accuracy against the number of images used to train the network (between 1 and 5 of each digit). Each graph shows the average classification accuracy over 5 trials, with 50 test images.
+% \begin{figure}[h!]
+%     \centering
+%      \includegraphics[width=0.5\textwidth]{q2-a-1}
+%         \caption{Classification accuracy vs. number of training images}
+% \end{figure}
+% \lstinputlisting{python_output/q1a-results.txt}
 
-
-b) By setting "storkey = True" in q1.py, you can inspect our results for the bonus.\newline
+b) The code to implement the Storkey improvements are also included in our q1.py code.\newline
 \newline
-As shown in the table below, the Storkey algorithm does not substantially improve the results for the classification.
-
-\begin{figure}[h!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{q1b-2b} % first figure itself
-        \caption{Convergence vs optimizer}
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{q1b-3_cpu-time} % second figure itself
-        \caption{CPU time vs optimizer}
-    \end{minipage}
-\end{figure}
-
-The reduced number of required training epochs for RMSPropOptimizer (seen in the table below) more than compensates for the increased CPU time for each epoch, seen in Figure 4.\newline
-\lstinputlisting{python_output/q1b-results.txt}
+As shown below, the Storkey algorithm does not substantially improve the results for the classification, even for the best case shown above (where)
+% \begin{figure}[h!]
+%     \centering
+%      \includegraphics[width=0.5\textwidth]{q2-a-1}
+%         \caption{With and without Storkey's rule}
+% \end{figure}
+% \lstinputlisting{python_output/q1b-results.txt}
 
 
 c) We can further show that 8 neurons is a good choice by noting that early stopping has no effect. Our experiments have not been able to demonstrate an overtraining phenomenon with even 50 hidden neurons, but a premature early stop can be seen in Figure 6, and the table below.\newline

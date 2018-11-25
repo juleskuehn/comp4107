@@ -1,0 +1,2 @@
+maxTrain: 5, numTest: 50, numTrials: 5
+Random selection of training data, without Storkey:

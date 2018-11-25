@@ -1,10 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1543169818 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/A3/document/comp4107_a3.tex" "comp4107_a3.pdf" "comp4107_a3" 1543169818
+["pdflatex"] 1543187198 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/A3/document/comp4107_a3.tex" "comp4107_a3.pdf" "comp4107_a3" 1543187198
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt" 1538948432 4162302 bd49085d9b071120ec5a29c15b93e08e ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233951848 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmex10.tfm" 1136765053 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
-  "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmmi10.tfm" 1136765053 1528 abec98dbc43e172678c11b3b9031252a ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmmi12.tfm" 1136765053 1524 4414a8315f39513458b80dfc63bff03a ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmmi6.tfm" 1136765053 1512 f21f83efb36853c0b70002322c1ab3ad ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmmi8.tfm" 1136765053 1520 eccf95517727cb11801f4f1aee3a21b4 ""
@@ -155,13 +154,11 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/ucs/utf8x.def" 1369145385 8240 21f7ac37aafb6cfeddbb196b8bfd6280 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/xcolor/xcolor.sty" 1463131981 57049 34128738f682d033422ca125f82e5d62 ""
-  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/A3/document/comp4107_a3.tex" 1543169813 7878 8668dcd465d7064b45f3cf6063ee0b3f ""
-  "comp4107_a3.aux" 1543169818 9 a94a2480d3289e625eea47cd1b285758 ""
-  "comp4107_a3.tex" 1543169813 7878 8668dcd465d7064b45f3cf6063ee0b3f ""
-  "q1a-2" 0 -1 0 ""
-  "q1a-2-costs" 0 -1 0 ""
+  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/A3/document/comp4107_a3.tex" 1543187193 7504 3640f297b6fae52472a9642bfc053f57 ""
+  "comp4107_a3.aux" 1543187198 9 a94a2480d3289e625eea47cd1b285758 ""
+  "comp4107_a3.tex" 1543187193 7504 3640f297b6fae52472a9642bfc053f57 ""
   (generated)
-  "comp4107_a3.aux"
   "comp4107_a3.pdf"
-  "comp4107_a3.out"
   "comp4107_a3.log"
+  "comp4107_a3.out"
+  "comp4107_a3.aux"
