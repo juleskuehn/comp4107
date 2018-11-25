@@ -9,13 +9,11 @@ import numpy as np
 import tensorflow as tf
 import random
 import math
-from q2_kmeans import k_means
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Dropout
 from sklearn.model_selection import StratifiedKFold
-from q2_rbflayer import RBFLayer, InitCentersRandom
-
+from q2_kmeans import k_means
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -162,3 +160,5 @@ def test_dropout():
         0.8: 85.61887915837953
     }
     """
+
+test_hidden_layer_size()
