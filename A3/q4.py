@@ -86,16 +86,17 @@ def cross_validation(X_train, y_train, X_test, y_test, train_op, predict_op, X, 
         acc = np.mean(np.argmax(y_test, axis=1) == sess.run(predict_op, feed_dict={X: X_test}))
     return acc
 
-def experiment(h1_size=200, h2_size=200, learning_rate=0.05):
+def experiment(pca=False, h1_size=200, h2_size=200, learning_rate=0.05):
     x_train, x_test, y_train, y_test, pca_x_train, pca_x_test, input_size, output_size = load_data()
 
     X, Y, _, _, train_op, predict_op = create_feed_forward_NN(h1_size, h2_size, output_size=output_size,
                                 input_size=input_size, learning_rate=learning_rate)
 
-    accuracies = cross_validation(x_train, y_train, x_test, y_test, train_op, predict_op, X, Y)
-    pca_accuracies = cross_validation(pca_x_train, y_train, pca_x_test, y_test, train_op, predict_op, X, Y)
+    if not pca:
+        accuracies = cross_validation(x_train, y_train, x_test, y_test, train_op, predict_op, X, Y)
+    else:
+        accuracies = cross_validation(pca_x_train, y_train, pca_x_test, y_test, train_op, predict_op, X, Y)
 
-    print("Without PCA: ", accuracies)
-    print("With PCA: ", pca_accuracies)
+    return accuracies
 
-experiment()
+experiment(h1_size=200, h2_size=50)
