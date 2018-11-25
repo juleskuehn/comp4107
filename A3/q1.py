@@ -1,5 +1,5 @@
 # COMP4107 Assignment 3
-# quesion 1 implementation by Yunkai Wang, student number 100968473
+# Question 1 implementation by Yunkai Wang, student number 100968473
 # Using the scikit-learn utilities to load the MNIST data, implement a Hopfield network that can classify the image data for a subset of the handwritten digits. Subsample the data to only include images of '1' and '5'. Here, correct classification means that if we present an image of a '1' an image of a '1' will be recovered; however, it may not be the original image owing to the degenerate property of this type of network. You are expected to document classification accuracy as a function of the number of images used to train the network. Remember, a Hopfield network can only store approximately 0.15N patterns with the "one shot" learning described in the lecture (slides 58-74).
 
 import tensorflow as tf
@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from math import ceil, sqrt
 from random import shuffle, sample
+import random
+
+from q2_kmeans import k_means
 
 mnist = tf.keras.datasets.mnist
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -17,14 +20,15 @@ y_data = np.concatenate((y_train, y_test), axis=0)
 
 input_len = 784 # 784 pixels for each image
 
+# Set random seed for better reproducibility
+seed = 11
+random.seed(seed)
+np.random.seed(seed)
+
 
 # return part of the data that matches the given label
 def partition(x_data, y_data, label):
     return [(np.array(x).ravel(), y) for (x, y) in zip(x_data, y_data) if y == label]
-
-
-def pick_random_data(data, num_data):
-    return list(np.array(data)[sample(list(range(len(data))), num_data)])
 
 
 def thresholdData(data, threshold=127):
@@ -34,20 +38,47 @@ def thresholdData(data, threshold=127):
         ]
 
 
-def getOnesAndFives(num_data=10, threshold=127):
-    # get the datas for 1 and 5
-    ones = partition(x_data, y_data, 1)
-    fives = partition(x_data, y_data, 5)
+# get the thresholded data for 1 and 5
+ones = thresholdData(partition(x_data, y_data, 1))
+fives = thresholdData(partition(x_data, y_data, 5))
 
+
+def pick_random_data(data, num_data):
+    return list(np.array(data)[sample(list(range(len(data))), num_data)])
+
+
+def getRandomOnesAndFives(num_data=10):
     # pick random data from both 1's and 5's with equal amount to make
     # sure that the network will be able to learn both digits
     picked_ones = pick_random_data(ones, num_data)
     picked_fives = pick_random_data(fives, num_data)
-
     onesAndFives = picked_ones + picked_fives
     shuffle(onesAndFives)
+    return onesAndFives
 
-    return thresholdData(onesAndFives, threshold)
+
+def getRepresentativeOnesAndFives(num_data=10, num_centers=2):
+    allData = ones + fives
+    shuffle(allData)
+    # Prevent slow k_means by limiting number of samples
+    k_means_samples = min(len(allData), 1000)
+    smallData = allData[:k_means_samples]
+
+    smallDataImages = [data[0].flatten() for data in smallData]
+
+    print("Running k-means")
+    # Initializing centers randomly within the range of each dimension
+    # gives very poor results; instead sampling random training points
+    centers, _ = k_means(smallDataImages, num_centers,
+                            max_epochs=100, sample_centers=True, seed=seed)
+
+    representatives = []
+    # Find num_data closest points to each centers from smallData
+    for center in centers:
+        representatives += sorted(allData,
+           key=lambda point: np.linalg.norm(point[0].flatten() - center))[:num_data]
+    shuffle(representatives)
+    return representatives
 
 
 # calculate the weight based on the given input vectors using Hebbian's rule or
@@ -104,8 +135,6 @@ def compute_sum(weight, vector, node_index):
 
 # Among the training data, find the data that's closest to the stable state and
 # pick the label that corresponds to that data as the label for the state
-# PROBLEM: seems like it always classifies all the digits as the same digit no
-# matter what
 def classify(vector, data):
     closestDis = float('inf')
     closestLabel = None
@@ -116,8 +145,8 @@ def classify(vector, data):
             closestDis = dis
             closestLabel = label
 
-    print("Output vector, classified as", str(closestLabel))
-    printVector(vector)
+    # print("Output vector, classified as", str(closestLabel))
+    # printVector(vector)
 
     return closestLabel
 
@@ -135,16 +164,19 @@ def printVector(vector):
     print('-' * 28)
 
 
-def test_network(num_training_data=5, num_testing_data=10, threshold=127, use_storkey_rule=False):
-    # pick random number of vectors as input to the network
-    trainingData = getOnesAndFives(num_training_data)
-    W = cal_weight(trainingData)
-    testData = getOnesAndFives(num_testing_data)
+def test_network(num_training_data=5, num_testing_data=10, use_storkey_rule=False, reprs=False):
+    if reprs:
+        # pick representative training data (closest to kmeans centers)
+        trainingData = getRepresentativeOnesAndFives(num_training_data)
+    else:
+        trainingData = getRandomOnesAndFives(num_training_data)
+    W = cal_weight(trainingData, use_storkey_rule)
+    testData = getRandomOnesAndFives(num_testing_data)
     correct = 0 # number of correct identified image
 
     for pixels, actual_label in testData:
-        print("Input digit, with actual label", str(actual_label))
-        printVector(pixels)
+        # print("Input digit, with actual label", str(actual_label))
+        # printVector(pixels)
 
         vector = test(W, pixels)
         label = classify(vector, trainingData)
@@ -159,9 +191,15 @@ def test_network(num_training_data=5, num_testing_data=10, threshold=127, use_st
 # to forget everything, even if the original training data is tested. If I gave
 # only 1 image of each digit, the network will do a relatively good job.
 storkey = True
-for i in range(1, 4):
-    accuracy = test_network(i, 1, 127, use_storkey_rule=storkey)
-    print("number of training data for each digit: ", i, " accuracy is ", accuracy, f'with{"out" if storkey else ""} Storky rule')
+representative = False
+numTest = 20
+for i in range(1, 6):
+    accuracy = test_network(i, numTest, use_storkey_rule=storkey, reprs=representative)
+    print("number of training data for each digit:", i)
+    print("number of test data for each digit:", numTest)
+    print("Storkey:", storkey, "; Representative training data:", representative)
+    print("accuracy:", accuracy)
+    print("---")
 
 
 # ----------------------------------------------------------------
