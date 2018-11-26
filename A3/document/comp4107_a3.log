@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.7)  25 NOV 2018 19:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.7)  25 NOV 2018 21:24
 entering extended mode
 **"c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/A3/document/comp4107_a3.tex"
 ("c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/A3/document/comp4107_a3.tex"
@@ -857,6 +857,137 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 20.
 LaTeX Info: Redefining \pageref on input line 20.
 LaTeX Info: Redefining \nameref on input line 20.
+ (comp4107_a3.out) (comp4107_a3.out)
 \@outlinefile=\write5
 \openout5 = `comp4107_a3.out'.
+
+\c@lstlisting=\count339
+<q1_noStorkey.png, id=6, 462.528pt x 346.896pt>
+File: q1_noStorkey.png Graphic file (type png)
+<use q1_noStorkey.png>
+Package pdftex.def Info: q1_noStorkey.png  used on input line 36.
+(pdftex.def)             Requested size: 234.8775pt x 176.15768pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--39
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--39
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--39
+
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<q1_withStorkey.png, id=8, 462.528pt x 346.896pt>
+File: q1_withStorkey.png Graphic file (type png)
+<use q1_withStorkey.png>
+Package pdftex.def Info: q1_withStorkey.png  used on input line 44.
+(pdftex.def)             Requested size: 234.8775pt x 176.15768pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[1
+
+{C:/Users/Jules/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 51--54
+
+ []
+
+[2 <./q1_noStorkey.png> <./q1_withStorkey.png>]
+<q2_centers.png, id=29, 462.528pt x 346.896pt>
+File: q2_centers.png Graphic file (type png)
+<use q2_centers.png>
+Package pdftex.def Info: q2_centers.png  used on input line 61.
+(pdftex.def)             Requested size: 234.8775pt x 176.15768pt.
+<q2_dropout1.png, id=30, 462.528pt x 346.896pt>
+File: q2_dropout1.png Graphic file (type png)
+<use q2_dropout1.png>
+Package pdftex.def Info: q2_dropout1.png  used on input line 71.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<q2_dropout2.png, id=31, 462.528pt x 346.896pt>
+File: q2_dropout2.png Graphic file (type png)
+<use q2_dropout2.png>
+Package pdftex.def Info: q2_dropout2.png  used on input line 76.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+ [3 <./q2_centers.png> <./q2_dropout1.png> <./q2_dropout2.png>]
+<Before_training.png, id=44, 462.528pt x 346.896pt>
+File: Before_training.png Graphic file (type png)
+<use Before_training.png>
+Package pdftex.def Info: Before_training.png  used on input line 93.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<After_training_for_250_epochs.png, id=45, 462.528pt x 346.896pt>
+File: After_training_for_250_epochs.png Graphic file (type png)
+<use After_training_for_250_epochs.png>
+Package pdftex.def Info: After_training_for_250_epochs.png  used on input line 97.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<After_training_for_500_epochs.png, id=46, 462.528pt x 346.896pt>
+File: After_training_for_500_epochs.png Graphic file (type png)
+<use After_training_for_500_epochs.png>
+Package pdftex.def Info: After_training_for_500_epochs.png  used on input line 101.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<Without_kmeans.png, id=47, 462.528pt x 346.896pt>
+File: Without_kmeans.png Graphic file (type png)
+<use Without_kmeans.png>
+Package pdftex.def Info: Without_kmeans.png  used on input line 111.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<With_2_clusters.png, id=48, 462.528pt x 346.896pt>
+File: With_2_clusters.png Graphic file (type png)
+<use With_2_clusters.png>
+Package pdftex.def Info: With_2_clusters.png  used on input line 115.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<With_3_clusters.png, id=49, 462.528pt x 346.896pt>
+File: With_3_clusters.png Graphic file (type png)
+<use With_3_clusters.png>
+Package pdftex.def Info: With_3_clusters.png  used on input line 119.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<With_4_clusters.png, id=50, 462.528pt x 346.896pt>
+File: With_4_clusters.png Graphic file (type png)
+<use With_4_clusters.png>
+Package pdftex.def Info: With_4_clusters.png  used on input line 123.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+<With_5_clusters.png, id=51, 462.528pt x 346.896pt>
+File: With_5_clusters.png Graphic file (type png)
+<use With_5_clusters.png>
+Package pdftex.def Info: With_5_clusters.png  used on input line 127.
+(pdftex.def)             Requested size: 190.24818pt x 142.68878pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4 <./Before_training.png> <./After_training_for_250_epochs.png> <./After_training_for_500_epochs.png>]
+<q4.png, id=64, 567.11874pt x 85.31876pt>
+File: q4.png Graphic file (type png)
+<use q4.png>
+Package pdftex.def Info: q4.png  used on input line 139.
+(pdftex.def)             Requested size: 422.77664pt x 63.60614pt.
+ [5 <./Without_kmeans.png> <./With_2_clusters.png> <./With_3_clusters.png> <./With_4_clusters.png> <./With_5_clusters.png> <./q4.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 146.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 146.
+ (comp4107_a3.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 146.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 146.
+Package rerunfilecheck Info: File `comp4107_a3.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+ ) 
+Here is how much of TeX's memory you used:
+ 37680 strings out of 492970
+ 818070 string characters out of 3126594
+ 897423 words of memory out of 3000000
+ 41121 multiletter control sequences out of 15000+200000
+ 537187 words of font info for 41 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 61i,9n,69p,1686b,482s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on comp4107_a3.pdf (5 pages, 420215 bytes).
+PDF statistics:
+ 99 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
 

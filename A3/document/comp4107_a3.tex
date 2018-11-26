@@ -22,43 +22,48 @@ Student Name: Jules Kuehn\\
 \begin{enumerate}
 
 \item Question 1
-a) See q1.py for code. To see a comparison of input and output to the network, uncomment printVector() statements.\newline
+\begin{enumerate}
+\item
+See q1.py for code. To see a comparison of input and output to the network, uncomment printVector() statements.\newline
 \newline
 In general, the fewer training images were used, the better the Hopfield network performed. These results suggests that a Hopfield network is a very poor choice for classification.\newline
-A major factor in the accuracy was the selection of training images. Since fewer training images performed better, a random selection of a representative 1 or 5 leaves much to chance. To address this, we selected the training images with k-means, taking the images closest to the 2 cluster centers. This results in a selection of training images in which all 1's are very close to the center 1, and all 5's are very close to the center 5. This worked better than random selection, and didn't show the same sharp decline in classification accuracy as more training images were added.\newline
-Alternately, we tried taking as many cluster centers as training images, finding the closest image for each cluster center. This should result in selecting training images that maximally differ from each other. This worked quite poorly as the quite different images caused further degeneration.\newline
-The graphs below compare classification accuracy against the number of images used to train the network (between 1 and 5 of each digit). Each graph shows the average classification accuracy over 5 trials, with 50 test images.
-% \begin{figure}[h!]
-%     \centering
-%      \includegraphics[width=0.5\textwidth]{q2-a-1}
-%         \caption{Classification accuracy vs. number of training images}
-% \end{figure}
-% \lstinputlisting{python_output/q1a-results.txt}
-
-b) The code to implement the Storkey improvements are also included in our q1.py code.\newline
 \newline
-As shown below, the Storkey algorithm does not substantially improve the results for the classification, even for the best case shown above (where)
-% \begin{figure}[h!]
-%     \centering
-%      \includegraphics[width=0.5\textwidth]{q2-a-1}
-%         \caption{With and without Storkey's rule}
-% \end{figure}
-% \lstinputlisting{python_output/q1b-results.txt}
+A major factor in the accuracy was the selection of training images. Since fewer training images performed better, a random selection of a representative 1 or 5 leaves much to chance. To address this, we selected the training images with k-means, taking the images closest to the 2 cluster centers. This results in a selection of training images in which all 1's are very close to the center 1, and all 5's are very close to the center 5. Alternately, we tried taking as many cluster centers as training images, finding the closest image for each cluster center. This should result in selecting training images that maximally differ from each other.\newline
+\newline
+The graphs below compare classification accuracy against the number of images used to train the network, per digit. Each graph shows the average classification accuracy over 5 trials, with 50 test images.
+\begin{figure}[h!]
+    \centering
+     \includegraphics[width=0.5\textwidth]{q1_noStorkey}
+        \caption{Hopfield classification of MNIST digits 1 and 5}
+\end{figure}
 
-\item Question 2
+\item
+The code to implement the Storkey improvements are also included in our q1.py code. The Storkey algorithm slightly improves classification accuracy, but it is still unusable.
+\begin{figure}[h!]
+    \centering
+     \includegraphics[width=0.5\textwidth]{q1_withStorkey}
+        \caption{Hopfield classification with Storkey's rule}
+\end{figure}
+\end{enumerate}
+
+\pagebreak
+
+\item Question 2\newline
+\newline
 Our own implementation of K-means was used to generate centers and beta values for a Radial Basis Function neural network (implemented in q2.py). Training on a large proportion of the samples (63000 / 70000) yielded reasonable results (around 95\% classification accuracy) but was very slow. It was not practical use such a large training set for all the comparitive tests below, so the accuracy suffers.
 
-How it works: First, the centers are initialized to a random training point. (Although the code allows for the initialization method suggested in class - creating a random point within the min/max of each dimension - this method wasn't as effective.) After running K-means, the centers and betas are used to compute RBF activations for the training and test data. This reduces the dimensionality of the input to the number of centers chosen. The RBF activations were then fed into a feed-forward neural net with no hidden layer, which was trained with the Adam optimizer. 3-fold cross-validation was used to produce the results below.
-    
-a) Investigating a number of different sizes of hidden layer showed that the best value was around 160 centers. The graph below represents training for 100 epochs with no dropout, at a learning rate of 0.05, and with a sample size of 1000.
+First, the centers are initialized to a random training point. (Although the code allows for the initialization method suggested in class - creating a random point within the min/max of each dimension - this method wasn't as effective.) After running K-means, the centers and betas are used to compute RBF activations for the training and test data. This reduces the dimensionality of the input to the number of centers chosen. The RBF activations were then fed into a feed-forward neural net with no hidden layer, which was trained with the Adam optimizer. 3-fold cross-validation was used to produce the results below.
+\begin{enumerate}
+\item
+Investigating a number of different sizes of hidden layer showed that the best value was around 160 centers. The graph below represents training for 100 epochs with no dropout, at a learning rate of 0.05, and with a sample size of 1000.
 \begin{figure}[h!]
     \centering
      \includegraphics[width=0.5\textwidth]{q2_centers}
         \caption{Classification accuracy vs. hidden layer size}
 \end{figure}
-\lstinputlisting{python_output/q2_results1.txt}
 
-b) Applying dropout before the output layer did not increase performance. We tested with the best case seen above (160 centers, 1000 samples, 100 epochs, lr=0.05) and also an "expanded" case (320 centers, 5000 samples, 500 epochs, lr=0.01). In both cases increasing the dropout level decreased the accuracy.
+\item
+Applying dropout before the output layer did not increase performance. We tested with the best case seen above (160 centers, 1000 samples, 100 epochs, lr=0.05) and also an "expanded" case (320 centers, 5000 samples, 500 epochs, lr=0.01). In both cases increasing the dropout level decreased the accuracy.
 \begin{figure}[h!]
     \centering
     \begin{minipage}{0.45\textwidth}
@@ -72,8 +77,10 @@ b) Applying dropout before the output layer did not increase performance. We tes
          \caption{Dropout with 320 centers}
     \end{minipage}\hfill
 \end{figure}
-\lstinputlisting{python_output/q2_results2.txt}
 
+\end{enumerate}
+
+\pagebreak
 
 \item Question 3
 
