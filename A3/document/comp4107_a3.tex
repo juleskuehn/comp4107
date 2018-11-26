@@ -21,7 +21,7 @@ Student Name: Jules Kuehn\\
 \maketitle
 \begin{enumerate}
 
-\item
+\item Question 1
 a) See q1.py for code. To see a comparison of input and output to the network, uncomment printVector() statements.\newline
 \newline
 In general, the fewer training images were used, the better the Hopfield network performed. These results suggests that a Hopfield network is a very poor choice for classification.\newline
@@ -45,89 +45,36 @@ As shown below, the Storkey algorithm does not substantially improve the results
 % \end{figure}
 % \lstinputlisting{python_output/q1b-results.txt}
 
+\item Question 2
+Our own implementation of K-means was used to generate centers and beta values for a Radial Basis Function neural network (implemented in q2.py). Training on a large proportion of the samples (63000 / 70000) yielded reasonable results (around 95\% classification accuracy) but was very slow. It was not practical use such a large training set for all the comparitive tests below, so the accuracy suffers.
 
-c) We can further show that 8 neurons is a good choice by noting that early stopping has no effect. Our experiments have not been able to demonstrate an overtraining phenomenon with even 50 hidden neurons, but a premature early stop can be seen in Figure 6, and the table below.\newline
-%\lstinputlisting{python_output/q1c-results.txt}
-
+How it works: First, the centers are initialized to a random training point. (Although the code allows for the initialization method suggested in class - creating a random point within the min/max of each dimension - this method wasn't as effective.) After running K-means, the centers and betas are used to compute RBF activations for the training and test data. This reduces the dimensionality of the input to the number of centers chosen. The RBF activations were then fed into a feed-forward neural net with no hidden layer, which was trained with the Adam optimizer. 3-fold cross-validation was used to produce the results below.
+    
+a) Investigating a number of different sizes of hidden layer showed that the best value was around 160 centers. The graph below represents training for 100 epochs with no dropout, at a learning rate of 0.05, and with a sample size of 1000.
 \begin{figure}[h!]
     \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        %\includegraphics[width=0.9\textwidth]{q1c-1-50_neurons_slow_convergence2} % first figure itself
-        \caption{Slow convergence}
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        %\includegraphics[width=0.9\textwidth]{q1c-2-earlyStopping} % second figure itself
-        \caption{Premature early stop}
-    \end{minipage}
+     \includegraphics[width=0.5\textwidth]{q2_centers}
+        \caption{Classification accuracy vs. hidden layer size}
 \end{figure}
+\lstinputlisting{python_output/q2_results1.txt}
 
-The network with 50 hidden neurons also is very slow to converge to the target MSE - even using the RMSPropOptimizer - compared to when using 8 hidden neurons (Figure 5).\newline
-
-\begin{figure}[h!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        %\includegraphics[width=0.9\textwidth]{q1c-3} % first figure itself
-        \caption{Reaching training goal}
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        %\includegraphics[width=0.9\textwidth]{q1c-32} % second figure itself
-        \caption{Early stopping not triggered}
-    \end{minipage}
-\end{figure}
-
-Figure 7 shows the MSE at each epoch near where the training goal is reached. This captures the expected trend - that the training error will decrease consistently, while the test error (9x9 grid) has more variation. The validation data is most different from the training data (as it is randomly sampled from the function), so it is expected that its error would also have the highest variance.\newline
-\newline
-Figure 8 shows that having an early stopping mechanism for this function makes no difference, as the early stopping mechanism is never triggered (8 hidden neurons, 4000 epochs, 0.02 LR). Thus, the two contours are virtually identical, differing only by the stochastic elements of the experiments (initial weights, order of training data). 
-
-\pagebreak
-\item Instructions on how to run q2.py:\newline
-\newline
-Running q2.py without changing anything will run all three parts. This may take a while as it runs 10 experiments for each number of hidden neurons, and after one is finished, a new neural net is created to run the second one, etc. Therefore, it will take about 1 min for it to finish and plot the graphs. To run a single part only, comment out the other lines in the experiment() function.\\
-We started by using the default learning rate for AdamOptimizer (0.001). This took 400-700 epochs to converge to the result. However, if we use 0.01 as the learning rate, it converges faster -- within 100 epochs every time. Therefore, we chose 0.01 as the learning rate for this question.\\
-
-% \lstinputlisting{python_output/q2.out}
-% \includegraphics[width=0.7\columnwidth]{q7_result3}
-\begin{enumerate}
-\item We took the averages of 10 experiments for each of 5, 10, 15, 20, and 25 hidden neurons. The results are shown below.\newline
-
-\begin{figure}[h!]
-    \centering
-     %\includegraphics[width=0.5\textwidth]{q2-a-1}
-        \caption{Percentage of Recognition Errors}
-\end{figure}
-
-The table below corresponds to the experiment shown in the graph above.\newline
-%\lstinputlisting{python_output/q2a-results.txt}
-
-\item 15 is chosen as the number of hidden neurons, since 15 is more accurate than 10, but using more than 15 neurons is not much better (if at all). When we used 15 neurons in the hidden layer, the number of epochs to reach zero errors is much less than is shown in the assignment question, which we think is fine. Perhaps this is due to a different learning rate.\\
+b) Applying dropout before the output layer did not increase performance. We tested with the best case seen above (160 centers, 1000 samples, 100 epochs, lr=0.05) and also an "expanded" case (320 centers, 5000 samples, 500 epochs, lr=0.01). In both cases increasing the dropout level decreased the accuracy.
 \begin{figure}[h!]
     \centering
     \begin{minipage}{0.45\textwidth}
     	\centering
-        %\includegraphics[width=0.9\textwidth]{q2-b-1} % first figure itself
-        \caption{Training on perfect data}
+        \includegraphics[width=0.9\textwidth]{q2_dropout1}
+        \caption{Dropout with 160 centers}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
     	\centering
-         %\includegraphics[width=0.9\textwidth]{q2-b-2} % first figure itself
-         \caption{Re-training after noisy data}
+         \includegraphics[width=0.9\textwidth]{q2_dropout2}
+         \caption{Dropout with 320 centers}
     \end{minipage}\hfill
 \end{figure}
+\lstinputlisting{python_output/q2_results2.txt}
 
-\item The network trained with both perfect and noisy data performed just as well on perfect data, and better on noisy data. The chart below is for the network with 15 neurons.\\
-\begin{figure}[h!]
-    \centering
-     %\includegraphics[width=0.5\textwidth]{q2-c}
-        \caption{Percentage of Recognition Errors}
-\end{figure}
 
-\end{enumerate}
-
-\pagebreak
 \item Question 3
 
 \begin{enumerate}
@@ -137,17 +84,14 @@ The table below corresponds to the experiment shown in the graph above.\newline
     \begin{minipage}{0.45\textwidth}
     	\centering
         \includegraphics[width=0.9\textwidth]{Before_training}
-        \caption{Training on perfect data}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
     	\centering
          \includegraphics[width=0.9\textwidth]{After_training_for_250_epochs}
-         \caption{Re-training after noisy data}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
     	\centering
          \includegraphics[width=0.9\textwidth]{After_training_for_500_epochs}
-         \caption{Re-training after noisy data}
     \end{minipage}\hfill
 \end{figure}
 It's clear that as time proceed, the SOM starts to group all the 1's together, and all the 5's together, where initially the SOM was initialized randomly.
@@ -158,27 +102,22 @@ It's clear that as time proceed, the SOM starts to group all the 1's together, a
     \begin{minipage}{0.45\textwidth}
     	\centering
         \includegraphics[width=0.9\textwidth]{Without_kmeans}
-        \caption{Training on perfect data}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
     	\centering
          \includegraphics[width=0.9\textwidth]{With_2_clusters}
-         \caption{Re-training after noisy data}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
     	\centering
          \includegraphics[width=0.9\textwidth]{With_3_clusters}
-         \caption{Re-training after noisy data}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
     	\centering
          \includegraphics[width=0.9\textwidth]{With_4_clusters}
-         \caption{Re-training after noisy data}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
     	\centering
-         \includegraphics[width=0.9\textwidth]{With_4_clusters}
-         \caption{Re-training after noisy data}
+         \includegraphics[width=0.9\textwidth]{With_5_clusters}
     \end{minipage}\hfill
 \end{figure}
 
@@ -191,7 +130,6 @@ It's clear that as time proceed, the SOM starts to group all the 1's together, a
 \begin{figure}[h!]
     	\centering
         \includegraphics[width=0.9\textwidth]{q4}
-        \caption{Training on perfect data}
 \end{figure}
 
 
