@@ -15,7 +15,7 @@
 
 import tensorflow as tf
 import numpy as np
-from tensorflow.examples.tutorials.mnist import input_data
+# from tensorflow.examples.tutorials.mnist import input_data
 from tensorflow import keras
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -36,20 +36,20 @@ def model(X, w, w_fc, w_o, p_keep_conv, p_keep_hidden):
     # Like in lecture slides, there is a "depth" to the number of hidden layers
     # A feature map is one of the "layers" in this tensor. Here there are 32.
     # Padding is to make it match with the window sizes
-    l1a = tf.nn.relu(tf.nn.conv2d(X, w,                       # l1a shape=(?, 28, 28, 32)
+    l1a = tf.nn.relu(tf.nn.conv2d(X, w,                       # l1a shape=(?, 32, 32, 32)
                         strides=[1, 1, 1, 1], padding='SAME'))
                         # What's with the 4 numbers? Don't worry about outside 1's
                         # The inner two digits are the ones that matter (how far you move)
                         # Just leave outer digits as ones.
                         # Kernel size below is 2 x 2 (as shown in slides)
                         # [_, x, y, _]
-    l1 = tf.nn.max_pool(l1a, ksize=[1, 2, 2, 1],              # l1 shape=(?, 14, 14, 32)
+    l1 = tf.nn.max_pool(l1a, ksize=[1, 2, 2, 1],              # l1 shape=(?, 16, 16, 32)
                         strides=[1, 2, 2, 1], padding='SAME')
                         # End of functional convolutional unit (Functional layer + max pool)
     l1 = tf.nn.dropout(l1, p_keep_conv)
 
     # Transform from CNN to feed forward style
-    l3 = tf.reshape(l1, [-1, w_fc.get_shape().as_list()[0]])    # reshape to (?, 14x14x32)
+    l3 = tf.reshape(l1, [-1, w_fc.get_shape().as_list()[0]])    # reshape to (?, 16x16x32)
     # Now we have a nice "line" of neurons
     l3 = tf.nn.dropout(l3, p_keep_conv)
     # "Sigmoid" layer (here relu)
@@ -62,6 +62,9 @@ def model(X, w, w_fc, w_o, p_keep_conv, p_keep_hidden):
 
 # mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 # trX, trY, teX, teY = mnist.train.images, mnist.train.labels, mnist.test.images, mnist.test.labels
+# trX = trX.reshape(-1, 28, 28, 1)  # 28x28x1 input img
+# teX = teX.reshape(-1, 28, 28, 1)  # 28x28x1 input img
+# print(trX.shape)
 
 """
 Part 1: Load CIFAR-10
@@ -72,12 +75,22 @@ from keras.datasets import cifar10
 trX = trX.reshape(-1, 32, 32, 3)  # 32x32x3 input img
 teX = teX.reshape(-1, 32, 32, 3)  # 32x32x3 input img
 
-X = tf.placeholder("float", [None, 28, 28, 1])
+# Transform labels to one bit hot
+one_bit_labels = []
+for label in trY:
+    one_bit_labels.append([1 if j == (label[0] - 1) else 0 for j in range(10)])
+trY = np.array(one_bit_labels[:])
+one_bit_labels = []
+for label in teY:
+    one_bit_labels.append([1 if j == (label[0] - 1) else 0 for j in range(10)])
+teY = np.array(one_bit_labels)
+
+X = tf.placeholder("float", [None, 32, 32, 3])
 Y = tf.placeholder("float", [None, 10])
 
 # This should change to 3x3x3 (last 3 is for RGB input) ???
-w = init_weights([3, 3, 1, 32])       # 3x3x1 conv, 32 outputs
-w_fc = init_weights([32 * 14 * 14, 625]) # FC 32 * 14 * 14 inputs, 625 outputs
+w = init_weights([3, 3, 3, 32])       # 3x3x3 conv, 32 outputs
+w_fc = init_weights([32 * 16 * 16, 625]) # FC 32 * 16 * 16 inputs, 625 outputs
 w_o = init_weights([625, 10])         # FC 625 inputs, 10 outputs (labels)
 
 p_keep_conv = tf.placeholder("float")
