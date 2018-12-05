@@ -137,9 +137,9 @@ with tf.Session() as sess:
         counter = 0
         for start, end in training_batch:
             counter += 1
-            # if counter % 5 == 0:
-            #     s = sess.run(merged_summary, feed_dict={X: trX[start:end], Y: trY[start:end], p_keep_conv: 0.8, p_keep_hidden: 0.5})
-            #     writer.add_summary(s, i)
+            if counter % 5 == 0:
+                s = sess.run(merged_summary, feed_dict={X: trX[start:end], Y: trY[start:end], p_keep_conv: 0.8, p_keep_hidden: 0.5})
+                writer.add_summary(s, i)
             sess.run(train_op, feed_dict={X: trX[start:end], Y: trY[start:end],
                                           p_keep_conv: 0.8, p_keep_hidden: 0.5})
         
