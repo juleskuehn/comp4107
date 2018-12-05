@@ -1,0 +1,9 @@
+Show performance (time taken), accuracy, amount of human input
+
+k-means. label centers.
+- how many centers
+- label not just centers?
+
+annoy (ANN)
+- do our own implementation?
+- label 
