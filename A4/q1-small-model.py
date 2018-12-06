@@ -23,8 +23,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 batch_size = 128
 test_size = 256
 
-def init_weights(shape):
-    return tf.Variable(tf.random_normal(shape, stddev=0.01))
+def init_weights(shape, name="W"):
+    return tf.Variable(tf.random_normal(shape, stddev=0.01), name=name)
 
 
 """
@@ -46,54 +46,40 @@ for label in teY:
     one_bit_labels.append([1 if j == label[0] else 0 for j in range(10)])
 teY = np.array(one_bit_labels)
 
-from tensorboard.plugins.beholder import Beholder
-beholder = Beholder("/tmp/tensorflow_logs")
-
-def model(X, w, w_fc, w_o, p_keep_conv, p_keep_hidden):
-    with tf.name_scope("Conv2D_3x3"):
-        print(X.shape)
-        l1a = tf.nn.relu(tf.nn.conv2d(X, w, strides=[1, 1, 1, 1], padding='SAME'))
-        print(l1a.shape)
-        # l2a = tf.nn.relu(tf.nn.conv2d(l1a, w_2, strides=[1, 1, 1, 1], padding='SAME'))
-        # print(l2a.shape)
-    with tf.name_scope("MaxPool_2x2"):
-        l2 = tf.nn.max_pool(l1a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-        print(l2.shape)
-    with tf.name_scope("Dropout_Conv"):
-        l2 = tf.nn.dropout(l2, p_keep_conv)
-    
-    # l3a = tf.nn.relu(tf.nn.conv2d(l2, w_3, strides=[1, 1, 1, 1], padding='SAME'))
-    # print(l3a.shape)
-    # l3 = tf.nn.max_pool(l3a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-    # print(l3.shape)
-    # l4a = tf.nn.relu(tf.nn.conv2d(l3, w_4, strides=[1, 1, 1, 1], padding='SAME'))
-    # print(l4a.shape)
-    # l4 = tf.nn.max_pool(l4a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-    # print(l4.shape)
+# def model(X, w, w_fc, w_o, p_keep_conv, p_keep_hidden):
+def model():
+    with tf.name_scope("convolutional_layer"):
+        with tf.name_scope("Conv2D_3x3"):
+            w = init_weights([3, 3, 3, 8])
+            tf.summary.histogram("w", w)
+            l1a = tf.nn.relu(tf.nn.conv2d(X, w, strides=[1, 1, 1, 1], padding='SAME'))
+        with tf.name_scope("MaxPool_2x2"):
+            l2 = tf.nn.max_pool(l1a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        with tf.name_scope("Dropout_Conv"):
+            l2 = tf.nn.dropout(l2, p_keep_conv)
     
     # l4 = tf.nn.dropout(l4, p_keep_conv)
-    with tf.name_scope("FC"):
-        # Transform from CNN to feed forward style
-        l5 = tf.reshape(l2, [-1, w_fc.get_shape().as_list()[0]])    # reshape to (?, 16x16x32)
-        l6 = tf.nn.relu(tf.matmul(l5, w_fc))
-    with tf.name_scope("Dropout_FC"):
-        l6 = tf.nn.dropout(l6, p_keep_hidden)
+    with tf.name_scope("fully_connected_layer"):
+        with tf.name_scope("FC"):
+            w_fc = init_weights([8 * 16 * 16, 256])
+            tf.summary.histogram("w_fc", w_fc)
+            # Transform from CNN to feed forward style
+            l5 = tf.reshape(l2, [-1, w_fc.get_shape().as_list()[0]])    # reshape to (?, 16x16x32)
+            l6 = tf.nn.relu(tf.matmul(l5, w_fc))
+        with tf.name_scope("Dropout_FC"):
+            l6 = tf.nn.dropout(l6, p_keep_hidden)
     with tf.name_scope("Output"):
+        w_o = init_weights([256, 10])
+        tf.summary.histogram("w_o", w_o)
         pyx = tf.matmul(l6, w_o)
     return pyx
 
-X = tf.placeholder("float", [None, 32, 32, 3])
-Y = tf.placeholder("float", [None, 10])
+X = tf.placeholder("float", [None, 32, 32, 3], name="x")
+Y = tf.placeholder("float", [None, 10], name="labels")
 
-# [filter_height, filter_width, in_channels, out_channels]
-w = init_weights([3, 3, 3, 8])
-
-w_fc = init_weights([8 * 16 * 16, 256])
-w_o = init_weights([256, 10])         # 10 outputs (labels)
-
-p_keep_conv = tf.placeholder("float")
-p_keep_hidden = tf.placeholder("float")
-py_x = model(X, w, w_fc, w_o, p_keep_conv, p_keep_hidden)
+p_keep_conv = tf.placeholder("float", name="p_keep_conv")
+p_keep_hidden = tf.placeholder("float", name="p_keep_hidden")
+py_x = model()
 
 with tf.name_scope("cost"):
     # Note, this is the same as original MLP.
@@ -107,18 +93,20 @@ accuracies = []
 
 merged_summary = tf.summary.merge_all()
 
-from tensorboard.plugins.beholder import Beholder
-beholder = Beholder("/tmp/tensorflow_logs")
+# from tensorboard.plugins.beholder import Beholder
+# beholder = Beholder("/tmp/tensorflow_logs")
+
+saver = tf.train.Saver()
 
 # Launch the graph in a session
 with tf.Session() as sess:
     # Python class that writes data for TensorBoard
-    writer = tf.summary.FileWriter("./tensorboard/2", sess.graph)
+    writer = tf.summary.FileWriter("./tensorboard/small_model/", sess.graph)
 
     # you need to initialize all variables
     tf.global_variables_initializer().run()
 
-    for i in range(5):
+    for i in range(50):
         # randomize order of training data
         training_batch = zip(range(0, len(trX), batch_size),
                              range(batch_size, len(trX)+1, batch_size))
@@ -126,7 +114,7 @@ with tf.Session() as sess:
             sess.run(train_op, feed_dict={X: trX[start:end], Y: trY[start:end],
                                           p_keep_conv: 0.8, p_keep_hidden: 0.5})
             if j % 10 == 0:
-                beholder.update(session=sess)
+                # beholder.update(session=sess)
                 s = sess.run(merged_summary, feed_dict={X: trX[start:end], Y: trY[start:end], p_keep_conv: 0.8, p_keep_hidden: 0.5})
                 writer.add_summary(s, i)
 
@@ -140,3 +128,6 @@ with tf.Session() as sess:
                                                          p_keep_hidden: 1.0}))
         print('epoch', i+1, 'accuracy', accuracy)
         accuracies.append(accuracy)
+
+        # save the model and data
+        saver.save(sess, "session_data/small_model_session.ckpt")
