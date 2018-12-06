@@ -106,3 +106,4 @@ venv.bak/
 *.tgz
 *.DS_Store
 MNIST_data/
+.vscode
