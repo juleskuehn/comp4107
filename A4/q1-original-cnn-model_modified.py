@@ -46,62 +46,43 @@ for label in teY:
     one_bit_labels.append([1 if j == label[0] else 0 for j in range(10)])
 teY = np.array(one_bit_labels)
 
-
-# def model(X, w, w_2, w_3, w_4, w_fc, w_o, p_keep_conv, p_keep_hidden):
 def model():
-    with tf.name_scope("layer1"):
-        w = init_weights([3, 3, 3, 32])
-        tf.summary.histogram("w", w)
-
-        l1a = tf.nn.relu(tf.nn.conv2d(X, w, strides=[1, 1, 1, 1], padding='SAME'))
-        
-        # l2a = tf.nn.relu(tf.nn.conv2d(l1a, w_2, strides=[1, 1, 1, 1], padding='SAME'))
-        l2 = tf.nn.max_pool(l1a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-        l2 = tf.nn.dropout(l2, p_keep_conv)
-        tf.summary.histogram("l1a", l1a)
+    with tf.name_scope("convolutional_layer"):
+        with tf.name_scope("Conv2D_3x3"):
+            w = init_weights([3, 3, 3, 32])
+            tf.summary.histogram("w", w)
+            l1a = tf.nn.relu(tf.nn.conv2d(X, w, strides=[1, 1, 1, 1], padding='SAME'))
+        with tf.name_scope("MaxPool_2x2"):
+            l2 = tf.nn.max_pool(l1a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        with tf.name_scope("Dropout_Conv"):
+            l2 = tf.nn.dropout(l2, p_keep_conv)
     
-    with tf.name_scope("layer2"):
-        w_fc = init_weights([32 * 16 * 16, 625])
-        tf.summary.histogram("w_fc", w_fc)
+    with tf.name_scope("fully_connected_layer"):
+        with tf.name_scope("FC"):
+            w_fc = init_weights([32 * 16 * 16, 625])
+            tf.summary.histogram("w_fc", w_fc)
 
-        # l3a = tf.nn.relu(tf.nn.conv2d(l2, w_3, strid
-        # es=[1, 1, 1, 1], padding='SAME'))
-        # l3 = tf.nn.max_pool(l3a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-        # l4a = tf.nn.relu(tf.nn.conv2d(l3, w_4, strides=[1, 1, 1, 1], padding='SAME'))
-        # l4 = tf.nn.max_pool(l4a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+            # Transform from CNN to feed forward style
+            l5 = tf.reshape(l2, [-1, w_fc.get_shape().as_list()[0]])    # reshape to (?, 16x16x32)
+            l6 = tf.nn.relu(tf.matmul(l5, w_fc))
         
-        # l4 = tf.nn.dropout(l4, p_keep_conv)
-
-        # Transform from CNN to feed forward style
-        l5 = tf.reshape(l2, [-1, w_fc.get_shape().as_list()[0]])    # reshape to (?, 16x16x32)
-        l6 = tf.nn.relu(tf.matmul(l5, w_fc))
-        
-        l6 = tf.nn.dropout(l6, p_keep_hidden)
-        tf.summary.histogram("l6", l6)
+        with tf.name_scope("Dropout_FC"):
+            l6 = tf.nn.dropout(l6, p_keep_hidden)
 
     
-    with tf.name_scope("layer3"):
+    with tf.name_scope("Output"):
         w_o = init_weights([625, 10])
-        pyx = tf.matmul(l6, w_o)
         tf.summary.histogram("w_o", w_o)
-        return pyx
+        pyx = tf.matmul(l6, w_o)
+    return pyx
 
 X = tf.placeholder("float", [None, 32, 32, 3], name="x")
 Y = tf.placeholder("float", [None, 10], name="image_labels")
 
-# [filter_height, filter_width, in_channels, out_channels]
-# w = init_weights([3, 3, 3, 32])   
-# w_2 = init_weights([3, 3, 32, 64])
-# w_3 = init_weights([3, 3, 64, 128])  
-# w_4 = init_weights([3, 3, 128, 128])   
-
-# w_fc = init_weights([32 * 16 * 16, 625])
-# w_o = init_weights([625, 10])         # 10 outputs (labels)
-
 with tf.name_scope('dropout'):
-    p_keep_conv = tf.placeholder("float")
-    p_keep_hidden = tf.placeholder("float")
-# py_x = model(X, w, w_2, w_3, w_4, w_fc, w_o, p_keep_conv, p_keep_hidden)
+    p_keep_conv = tf.placeholder("float", name="p_keep_conv")
+    p_keep_hidden = tf.placeholder("float", name="p_keep_hidden")
+
 py_x = model()
 
 # Note, this is the same as original MLP.
@@ -112,36 +93,33 @@ with tf.name_scope("cost"):
     cost_sum = tf.summary.scalar('cost', cross_entropy)
 
 predict_op = tf.argmax(py_x, 1)
-# with tf.name_scope("accuracy"):
-# tf.summary.scalar('accuracy', cost)
 
 merged_summary = tf.summary.merge_all()
 
 # Store accuracies per epoch for graphing
 accuracies = []
-
+saver = tf.train.Saver()
 # Launch the graph in a session
 with tf.Session() as sess:
 
     # Python class that writes data for TensorBoard
-    writer = tf.summary.FileWriter("./tensorboard/2", sess.graph)
+    writer = tf.summary.FileWriter("./tensorboard/original_cnn/", sess.graph)
 
     # you need to initialize all variables
     tf.global_variables_initializer().run()
 
-    for i in range(5):
+    for i in range(50):
         # randomize order of training data
         training_batch = zip(range(0, len(trX), batch_size),
                              range(batch_size, len(trX)+1, batch_size))
 
-        counter = 0
-        for start, end in training_batch:
-            counter += 1
-            if counter % 5 == 0:
-                s = sess.run(merged_summary, feed_dict={X: trX[start:end], Y: trY[start:end], p_keep_conv: 0.8, p_keep_hidden: 0.5})
-                writer.add_summary(s, i)
+        for j, (start, end) in enumerate(training_batch):
             sess.run(train_op, feed_dict={X: trX[start:end], Y: trY[start:end],
                                           p_keep_conv: 0.8, p_keep_hidden: 0.5})
+            if j % 10 == 0:
+                # beholder.update(session=sess)
+                s = sess.run(merged_summary, feed_dict={X: trX[start:end], Y: trY[start:end], p_keep_conv: 0.8, p_keep_hidden: 0.5})
+                writer.add_summary(s, i)
         
         test_indices = np.arange(len(teX)) # Get A Test Batch
         np.random.shuffle(test_indices)
@@ -155,3 +133,6 @@ with tf.Session() as sess:
             
         print('epoch', i+1, 'accuracy', accuracy)
         accuracies.append(accuracy)
+
+        # save the model and data
+        saver.save(sess, "session_data/small_model_session.ckpt")
