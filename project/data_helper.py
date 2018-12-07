@@ -95,5 +95,3 @@ def generate_vectorized_data():
         for row in vectorized_data:
             f.write("%s %s\n" % (" ".join(str(x) for x in row[0]), row[1][:-1]))
 
-
-print(load_vectorized_data()[0])
