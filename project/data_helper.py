@@ -18,6 +18,22 @@ def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv", vector_
 
     return data
 
+def vectorize_vector(vector):
+    """
+    Vectorized given vector, for instance, the given input vector is ["a", "b", "a"], then this function will
+    convert it into [[1, 0], [0, 1], [0, 1]], the purpose of this function is that if we keep the category as string, it's to feed to the neural network.
+    """
+    vector_set = list(set(vector))
+    vectorized_array = []
+    num_categories = len(vector_set)
+
+    print(vector_set)
+    for item in vector:
+        i = vector_set.index(item)
+        vectorized_array.append([1 if j==i else 0 for j in range(num_categories)])
+
+    return vectorized_array
+
 def clean_str(string):
     """
     Tokenization/string cleaning for all datasets except for SST.
