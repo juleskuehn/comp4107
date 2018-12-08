@@ -3,7 +3,7 @@ import re
 import random
 import numpy as np
 
-def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv"):
+def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv", vector_length=96):
     """
     Read the vectorized data instead of the orignal book dataset
 
@@ -13,10 +13,26 @@ def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv"):
     
     data = []
     for row in raw_data:
-        book_info = row.split(" ")
-        data.append([book_info[:-1], book_info[-1]])
+        book_info = row[:-1].split(" ") # remove the last newline character
+        data.append([[int(index) for index in book_info[:vector_length]], " ".join(book_info[vector_length:])])
 
     return data
+
+def vectorize_vector(vector):
+    """
+    Vectorized given vector, for instance, the given input vector is ["a", "b", "a"], then this function will
+    convert it into [[1, 0], [0, 1], [0, 1]], the purpose of this function is that if we keep the category as string, it's to feed to the neural network.
+    """
+    vector_set = list(set(vector))
+    vectorized_array = []
+    num_categories = len(vector_set)
+
+    print(vector_set)
+    for item in vector:
+        i = vector_set.index(item)
+        vectorized_array.append([1 if j==i else 0 for j in range(num_categories)])
+
+    return vectorized_array
 
 def clean_str(string):
     """
