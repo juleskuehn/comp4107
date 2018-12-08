@@ -3,7 +3,7 @@ import re
 import random
 import numpy as np
 
-def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv"):
+def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv", vector_length=96):
     """
     Read the vectorized data instead of the orignal book dataset
 
@@ -13,8 +13,8 @@ def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv"):
     
     data = []
     for row in raw_data:
-        book_info = row.split(" ")
-        data.append([book_info[:-1], book_info[-1]])
+        book_info = row[:-1].split(" ") # remove the last newline character
+        data.append([[int(index) for index in book_info[:vector_length]], " ".join(book_info[vector_length:])])
 
     return data
 
