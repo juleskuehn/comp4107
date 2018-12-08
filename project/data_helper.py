@@ -95,3 +95,25 @@ def generate_vectorized_data():
         for row in vectorized_data:
             f.write("%s %s\n" % (" ".join(str(x) for x in row[0]), row[1][:-1]))
 
+def vectorized_data_to_tsv(thin=1):
+    """
+    Transform to format expected by TensorFlow embedding projector
+    """
+    inFile = open('./book-dataset/vectorized_data.csv', 'r')
+    outVectorFile = open('./book-dataset/title_vectors.tsv', 'w')
+    outLabelFile = open('./book-dataset/labels.tsv', 'w')
+
+    counter = 0
+    for line in inFile:
+        if counter % thin == 0:
+            lineData = line.split()
+            vector = '\t'.join(lineData[:-1]) + '\n'
+            label = lineData[-1] + '\n'
+            outVectorFile.write(vector)
+            outLabelFile.write(label)
+        counter += 1
+
+    inFile.close()
+    outVectorFile.close()
+    outLabelFile.close()
+
