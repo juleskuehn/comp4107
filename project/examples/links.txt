@@ -3,3 +3,11 @@ https://textminingonline.com/getting-started-with-word2vec-and-glove-in-python
 http://www.wildml.com/2015/11/understanding-convolutional-neural-networks-for-nlp/
 http://www.wildml.com/2015/12/implementing-a-cnn-for-text-classification-in-tensorflow/
 https://github.com/uchidalab/book-dataset/tree/master/Task2
+
+https://www.tensorflow.org/tutorials/representation/word2vec
+https://www.tensorflow.org/guide/embedding
+
+http://mccormickml.com/2016/04/12/googles-pretrained-word2vec-model-in-python/
+- pretrained word vector dataset
+https://code.google.com/archive/p/word2vec/
+

@@ -38,3 +38,9 @@ loss = tf.reduce_mean(
                  num_sampled=num_sampled,
                  num_classes=vocabulary_size))
 
+# We use the SGD optimizer.
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=1.0).minimize(loss)
+
+for inputs, labels in generate_batch(...):
+  feed_dict = {train_inputs: inputs, train_labels: labels}
+  _, cur_loss = session.run([optimizer, loss], feed_dict=feed_dict)
