@@ -30,3 +30,29 @@ Using the Glove pretrained model (6B.100d):
  - With no hidden layer:
   - Converges to ~0.5 validation accuracy after 1 epoch and stays there
   - Dropout makes no difference
+
+
+Links to Keras models on Google Colab:
+Trained on titles:
+https://colab.research.google.com/drive/1Bub4HiIGa3cznUkXUxZPjNC9dyjv1ex6 
+
+Pre-trained (glove):
+https://colab.research.google.com/drive/1Ad8YNMmPOboweX2sQaZDz3zw-cr26PuH
+
+
+-------------------------------
+2018-12-10
+Avenues for further improvement
+-------------------------------
+
+- Padding on convolution layers
+- Center padding on titles
+- Include author names - etc? (as 2nd layer in convolution, ie. RGB)
+- Combine / compare results of image processing ("Judging a book by its cover")
+- Compare the version where punctuation included vs. w/ Keras pre-processing
+ - for when we train it ourselves
+ - will have to dig through the versions (it was embedding_1_books)
+- Try a different word dataset
+ - Find how many words are missing from the titles in the glove.6B dataset
+ - If there are a lot of words missing, that would explain bad performance
+- Get better results using existing word vectors
