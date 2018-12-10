@@ -1,0 +1,32 @@
+CNN (Bonaccorso with max pool over 24) works better than the simple MLP on the plain integers.
+ - ~12% for CNN vs ~9% for MLP
+
+Keras Embedding layer makes all the difference
+ - it trains as the rest of the model trains, on the same titles
+  - pre-trained models can also be loaded, for example Glove 100-dimensional, which is a dataset of 400,000 unique words, trained on 6 billion token dataset from Wikipedia: https://nlp.stanford.edu/projects/glove/
+ - creates a meaningful vector to use in place of the word integer
+
+Results with embedding layer are relatively good, even with 2-hidden-layer MLP
+ - Same configuration as mlp.py: 625 FC (relu), 300 FC (relu), 32 out (softmax)
+  - but with a much larget, more meaningful input (32 times bigger, if 32 is the size of the embedding)
+ - easy to reach 90% training accuracy, 60% validation with 32 Embedding
+ - same validation with 16 embedding. 8 slightly worse
+ - _single_ hidden layer in MLP is better for validation (less overfitting)
+ - size of hidden layer not too important (150 vs 300 vs 1024)
+  - 300 is suitable. 
+ - reaches best validation performance very early (2 epochs)
+
+Hyperparameters:
+ - Very few titles are > 26 words long. Truncate to this length
+ - embedding length of 32 seems better than 16, 64.
+  - rule of thumb is to use the 4th root of (vocabulary length), which is 16
+  - 16 is just as good for validation error - use 16.
+ - adam optimizer outperforms rmsprop
+  - moderate learning rate works fine (0.001)
+
+More comments in results\keras_embedding_plus_single_FC_16embedding_withValidation.txt
+
+Using the Glove pretrained model (6B.100d):
+ - With no hidden layer:
+  - Converges to ~0.5 validation accuracy after 1 epoch and stays there
+  - Dropout makes no difference

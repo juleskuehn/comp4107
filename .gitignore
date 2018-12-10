@@ -107,3 +107,6 @@ venv.bak/
 *.DS_Store
 MNIST_data/
 .vscode
+
+# Big dataset
+*/glove*.txt
