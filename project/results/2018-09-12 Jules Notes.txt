@@ -56,3 +56,10 @@ Avenues for further improvement
  - Find how many words are missing from the titles in the glove.6B dataset
  - If there are a lot of words missing, that would explain bad performance
 - Get better results using existing word vectors
+
+- Examine output:
+ - what categories are having best results?  Worst?
+ - What about top 3 / top 5 error?
+ - Show a test set title, and its category probabilities after softmax (but before argmax)
+ - Relationship between title length and accuracy?
+
