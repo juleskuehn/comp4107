@@ -355,3 +355,5 @@ Epoch 15/15
 186814/186814 [==============================] - 50s 266us/step - loss: 0.7720 - acc: 0.7779 - val_loss: 1.4533 - val_acc: 0.6425
 20758/20758 [==============================] - 1s 71us/step
 Accuracy: 64.245110
+
+# Best overall performance is seen above (64%)
