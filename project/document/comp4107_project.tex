@@ -36,7 +36,61 @@ Here are the list of things we did to load the dataset:
 \rule{0pt}{4ex}  4. We convert the titles into vector of integers, where each integer encodes to a word. We made use of the Keras' \textit{one\_hot} function to do the task. This vectorization process takes $\approx$ 2 hrs to run, therefore, we decide to store the vectorized data into a new .csv file, which we can use to train our data directly.
 
 \section{\rom{3}. Model}
-q
+We began with 2 naive implementations, in which each "word vector" was an arbitrary unique integer. Each title is then a vector of these integers (one for each word), zero padded to the length of the longest title (96 words). This representation of the titles has little semantic value as the integers representing the words are arbitrary.\\
+% Insert diagram of naive model
+The first model (NaiveMLP) was a fully connected MLP with the following configuration. Output size of each layer is indicated in parentheses.\\
+\begin{itemize}
+    \item Input (96)
+    \item FC Sigmoid (625)
+    \item FC Sigmoid (300)
+    \item FC Softmax (32)
+\end{itemize}
+The second model (NaiveCNN) was based on a good model for the CIFAR-10 classification.\\
+\begin{itemize}
+    \item Input (96,1)
+    \item Conv ReLU: 3 kernel, 1 stride (96,32)
+    \item Conv ReLU: 3 kernel, 1 stride (96,32)
+    \item Max pool: 2 kernel, 2 stride (48,32)
+    \item Dropout: pKeep 0.8 (48,32)
+    \item Conv ReLU: 3 kernel, 1 stride (48,64)
+    \item Max pool: 2 kernel, 2 stride (24,64)
+    \item Conv ReLU: 3 kernel, 1 stride (24,64)
+    \item Max pool: 24 kernel, 24 stride (1,64)
+    \item Dropout: pKeep 0.8 (1,64)
+    \item Output Softmax (32)
+\end{itemize}
+A better word representation is to embed each word in a n-dimensional space, where the position of each word reflects its meaning in relation to the other words. Each word is then represented by a dense vector of length n, with similar words having similar vectors. Similarity between words is inferred from context. Many pre-trained embeddings are available, trained through Word2Vec or GloVe on datasets pulled from Wikipedia, Twitter, or other sources. An embedding can also be trained from scratch, or initialized to a pre-trained dataset then trained further. We compare these three approaches.\\
+The first embedding model (EmbedTrain) trained the embeddings from scratch, using only the book titles from the training set. Note that we truncated the titles from a maximum of 96 words to 26 words. We chose 32 for the embedding dimension, based on the rule of the thumb that the embedding should be the fourth root of the vocabulary size. There were roughly 70,000 words in the training dataset, which suggest that the embedding dimension should be 16, but we found that 32 offered a slight improvement in practice.\\
+\begin{itemize}
+    \item Input (26, 1)
+    \item Embedding (26, 32)
+    \item Flatten (832)
+    \item Dropout: pKeep 0.5 (832)
+    \item Output Softmax (32)
+\end{itemize}
+The second embedding model (EmbedGloveFixed) loaded 400,000 pre-trained 100-dimensional word-vectors from the GloVe.6B dataset. These word vectors were trained on Wikipedia and Gigaword, a newswire dataset. The model is identical to EmbedTrain except that the embeddings are pre-trained and fixed, with the embedding dimension increased to 100.\\
+The third embedding model (EmbedGloveTrain) is identical to EmbedTrain except that the embeddings are initialized to the GloVe dataset as seen in EmbedGloveFixed. Embeddings are then retrained on the book titles.\\
+For each of the three embedding models, we also tested 2 variations to compare the performance of MLP vs CNN on the title embeddings. The first variation (Embed<Model>\_FC) adds a single fully connected (FC) layer:\\
+\begin{itemize}
+    \item Input (26, 1)
+    \item Embedding (26, 32)
+    \item Flatten (832)
+    \item Dropout: pKeep 0.5 (832)
+    \item FC ReLU (512)
+    \item Dropout: pKeep 0.5 (832)
+    \item Output Softmax (32)
+\end{itemize}
+The second variation (Embed<Model>\_CNN) adds a single convolutional layer, followed by maxpool over the entire length:\\
+\begin{itemize}
+    \item Input (26, 1)
+    \item Embedding (26, 32)
+    \item Dropout: pKeep 0.5 (26, 32)
+    \item Conv ReLU: 3 kernel, 1 stride (26, 512)
+    \item Max pool: 24 kernel, 24 stride ()
+    \item Flatten (832)
+    \item Dropout: pKeep 0.75 (832)
+    \item Output Softmax (32)
+\end{itemize}
 \section{\rom{4}. Implementation}
 a
 \section{\rom{5}. Experiment}
