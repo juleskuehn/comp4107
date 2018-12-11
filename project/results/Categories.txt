@@ -1,0 +1,34 @@
+Category                                     Top 1     Top 5
+------------------------------------------------------------
+Calendars                                   0.9304    0.9707
+Travel                                      0.8494    0.9494
+Cookbooks, Food & Wine                      0.8292    0.9434
+Test Preparation                            0.7700    0.8990
+Computers & Technology                      0.7685    0.9272
+Medical Books                               0.7544    0.9126
+Law                                         0.7452    0.9086
+Children's Books                            0.7357    0.9515
+Business & Money                            0.7273    0.9344
+Health, Fitness & Dieting                   0.7190    0.9095
+Christian Books & Bibles                    0.7115    0.8988
+Crafts, Hobbies & Home                      0.7100    0.8902
+Science & Math                              0.6231    0.8824
+History                                     0.5792    0.8622
+Religion & Spirituality                     0.5652    0.8641
+Sports & Outdoors                           0.5471    0.8331
+Literature & Fiction                        0.5061    0.8907
+Comics & Graphic Novels                     0.4655    0.6690
+Arts & Photography                          0.4453    0.8018
+Science Fiction & Fantasy                   0.3914    0.7096
+Romance                                     0.3795    0.7667
+Reference                                   0.3564    0.6519
+Humor & Entertainment                       0.3550    0.7475
+Engineering & Transportation                0.2748    0.6489
+Teen & Young Adult                          0.2521    0.8466
+Mystery, Thriller & Suspense                0.2315    0.5320
+Education & Teaching                        0.2128    0.5851
+Parenting & Relationships                   0.2047    0.6457
+Biographies & Memoirs                       0.1667    0.7161
+Gay & Lesbian                               0.1533    0.3650
+Politics & Social Sciences                  0.1273    0.6313
+Self-Help                                   0.0836    0.5818

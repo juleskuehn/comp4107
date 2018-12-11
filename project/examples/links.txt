@@ -12,3 +12,5 @@ http://mccormickml.com/2016/04/12/googles-pretrained-word2vec-model-in-python/
 https://code.google.com/archive/p/word2vec/
 
 https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html
+
+https://github.com/keras-team/keras/issues/3110
