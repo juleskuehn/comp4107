@@ -109,4 +109,4 @@ MNIST_data/
 .vscode
 
 # Big dataset
-*/glove*.txt
+glove*.txt

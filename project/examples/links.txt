@@ -14,3 +14,6 @@ https://code.google.com/archive/p/word2vec/
 https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html
 
 https://github.com/keras-team/keras/issues/3110
+https://catalog.ldc.upenn.edu/LDC2011T07
+
+https://github.com/uchidalab/book-dataset
