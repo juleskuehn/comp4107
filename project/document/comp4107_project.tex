@@ -17,24 +17,36 @@
 \maketitle    
                         
 \section{\rom{1}. Introduction}
-Book titles will given the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers from buying and reading the book. But what does the book title really tells you? 
+Book titles will given the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers from buying and reading the book. But what does the book title really tells you? What can you tell by simply looking at the book title? If a title contains the word 'calendar', then most likely people will all agree that it's a calendar, but what if the book title doesn't contain a specific word that reveals its category, like if you are given the book title 'The Three-Body Problem' with knowing this book before, how will you categorize the book? Will the book title be sufficient for a CNN that has been pre-trained with titles and categories be able to detect that as a science friction? This is a very interesting question to ask, and that's why we conduct this experiment, to see if the computers are able to learn the potential relationship between a book's title and its category using CNN.
 
 \section{\rom{2}. The Dataset}
-The \textit{Data Mining} is a dataset which can be found on \textit{Github.com}. The set consists of detailed information of $207572$  books from 32 categories, to help determining the potential relationship between different information related to a book, like the relationship between a book's cover image and its category. All books in the dataset have informations like the image url of the cover image of the book, the book's author, and the book's category (Brian et al.). The dataset doesn't have the training dataset and testing set splitted by default, so we just use make a use of the \textit{sklearn} library, which provides a nice \textit{train\_test\_split} function to create the training set and test set.
+The \textit{Data Mining} is a dataset which can be found on \textit{Github.com}. The set consists of detailed information of $207572$  books from $32$ categories, to help determining the potential relationship between different information related to a book, like the relationship between a book's cover image and its category (Iwana et al.). Most of the categories are not similar to other categories, like 'calendar' and 'law', but some of the categories are pairwise similar, like 'Christian Books and Bibles' and 'Religion and Spirituality'. All books in the dataset have informations like the image url of the cover image of the book, the book's author, and the book's category. The dataset doesn't have the training dataset and testing set splitted by default, so we just use make a use of the \textit{sklearn} library, which provides a nice \textit{train\_test\_split} function to create the training set and test set.
 
-\subsection{Transforming the data}
-All the titles are made up with words, which is hard to be feed to the neural network as input, to fix this problem, we make the following transformations to the titles:\\
-1. Create a vocabulary set containing all possible words that have appeared in one of title. The titles in the dataset used a total of $71056$ words.\\
-2. We extend the titles so that all titles all have the same length. The longest title in the dataset has $96$ words, but most of the titles are short (~5-10 words). Figure $1$ is a graph showing the distribution of title length among the entire dataset.\\
-3. We convert the titles into array of integers, where each integer corresponds to the index of the word in the vocabulary list that we created, the index is between $1$ and $71057$, and we map all the special character that we added in step $2$ to $0$.\\
-This vectorization process takes $\approx$ 2 hrs to run, therefore, we decide to store the vectorized data into a new .csv file, which we can use to train our data directly.
+\subsection{Loading and transforming the data}
+Here are the list of things we did to load the dataset:
+
+\rule{0pt}{4ex}  1. First we load all the original data line by line, and for each line, we extract the book title and its category, as those are the only things that we are feeding to our neural network.
+
+\rule{0pt}{4ex}  2. Second, it's obvious that titles all have different lengths, and the maximum title length is $96$. However, as Figure $1$ shows, most of titles have length less than $26$, only several titles have length $>26$. Therefore, we choose the maximum length to be $26$ instead of $96$. We used \textit{pad\_sequence} function from keras library to accomplish the task, which simply appends $0$ to the end of the titles that are shorter than the given length, and cut-off those long titles after $26$ words.
+
+\rule{0pt}{4ex}  3. With the help of \textit{train\_test\_split} function, we split the training data and testing data by having a testing data of size $10\%$ of the original dataset.
+
+\rule{0pt}{4ex}  4. We convert the titles into vector of integers, where each integer encodes to a word. We made use of the Keras' \textit{one\_hot} function to do the task. This vectorization process takes $\approx$ 2 hrs to run, therefore, we decide to store the vectorized data into a new .csv file, which we can use to train our data directly.
 
 \section{\rom{3}. Model}
 q
 \section{\rom{4}. Implementation}
 a
 \section{\rom{5}. Experiment}
-a
+We did a couple of experiments using different models and configurations. Here is a detailed list and explanation of these experiments.
+
+\subsection{Multiple layer perceptron(MLP)}
+One of the experiments we did was to see if MLP can handle the task. We simply used the original 'mlp.py' file, changed the size of input layer and output layer to match what we needed, and loaded the data that had pre-processed, but the accuracy was only $\approx 9\%$. This simply concludes that MLP will not be able to handle this classification task, since this data set is not like MNIST, two book titles from the same category may be very different, and classifying such dataset is not something MLP is good at.
+
+\subsection {Convolutional neural network(CNN)}
+We also tried to use the original 'CNN.py' with changed input size and output size, and it turned out that the accuracy wasn't that high as well. The accuracy was slightly higher than the accuracy using the MLP($\approx 12\%$), but they were still really bad at this task.
+
+
 \section{\rom{6}. Conclusion}
 a
 \section{References}
