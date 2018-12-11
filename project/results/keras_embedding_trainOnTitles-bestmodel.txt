@@ -1,0 +1,168 @@
+vocab size 75094
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_42 (Embedding)     (None, 26, 32)            2403008   
+_________________________________________________________________
+flatten_42 (Flatten)         (None, 832)               0         
+_________________________________________________________________
+dropout_38 (Dropout)         (None, 832)               0         
+_________________________________________________________________
+dense_43 (Dense)             (None, 32)                26656     
+=================================================================
+Total params: 2,429,664
+Trainable params: 2,429,664
+Non-trainable params: 0
+_________________________________________________________________
+None
+Train on 186814 samples, validate on 20758 samples
+Epoch 1/5
+186814/186814 [==============================] - 55s 295us/step - loss: 2.2721 - acc: 0.3907 - top_k_categorical_accuracy: 0.6715 - val_loss: 1.6446 - val_acc: 0.5638 - val_top_k_categorical_accuracy: 0.8315
+Epoch 2/5
+186814/186814 [==============================] - 53s 285us/step - loss: 1.5386 - acc: 0.5831 - top_k_categorical_accuracy: 0.8444 - val_loss: 1.4277 - val_acc: 0.6135 - val_top_k_categorical_accuracy: 0.8655
+Epoch 3/5
+186814/186814 [==============================] - 53s 282us/step - loss: 1.3438 - acc: 0.6323 - top_k_categorical_accuracy: 0.8783 - val_loss: 1.3715 - val_acc: 0.6270 - val_top_k_categorical_accuracy: 0.8716
+Epoch 4/5
+186814/186814 [==============================] - 53s 282us/step - loss: 1.2360 - acc: 0.6594 - top_k_categorical_accuracy: 0.8956 - val_loss: 1.3565 - val_acc: 0.6320 - val_top_k_categorical_accuracy: 0.8753
+Epoch 5/5
+186814/186814 [==============================] - 53s 283us/step - loss: 1.1609 - acc: 0.6780 - top_k_categorical_accuracy: 0.9080 - val_loss: 1.3525 - val_acc: 0.6367 - val_top_k_categorical_accuracy: 0.8757
+
+
+Campbell's 3 Books in 1: 4 Ingredients or Less Cookbook, Casseroles and One-Dish Meals Cookbook, Slow Cooker Recipes Cookbook
+Cookbooks, Food & Wine
+-------------------------------------
+Cookbooks, Food & Wine         0.9995
+Health, Fitness & Dieting      0.0005
+Humor & Entertainment          0.0000
+Romance                        0.0000
+Comics & Graphic Novels        0.0000
+
+
+Rand McNally Street Guide: Salt Lake City (Rand McNally Salt Lake City Street Guide)
+Travel
+-------------------------------------
+Travel                         0.9951
+Reference                      0.0025
+History                        0.0014
+Literature & Fiction           0.0007
+Biographies & Memoirs          0.0001
+
+
+Fix Your Feet- Using the Pilates Method
+Health, Fitness & Dieting
+-------------------------------------
+Health, Fitness & Dieting      0.9782
+Medical Books                  0.0086
+Self-Help                      0.0039
+Parenting & Relationships      0.0020
+Politics & Social Sciences     0.0010
+
+
+Banana Cultures: Agriculture, Consumption, and Environmental Change in Honduras and the United States
+History
+-------------------------------------
+Science & Math                 0.8727
+Medical Books                  0.0199
+Business & Money               0.0190
+History                        0.0184
+Engineering & Transportation   0.0104
+
+
+Spoils of Truce: Corruption and State-Building in Postwar Lebanon
+History
+-------------------------------------
+History                        0.8375
+Travel                         0.0532
+Law                            0.0386
+Biographies & Memoirs          0.0360
+Science & Math                 0.0119
+
+
+In My Father's House: The Years Before ""The Hiding Place"" (Corrie Ten Boom Library)
+Biographies & Memoirs
+-------------------------------------
+Biographies & Memoirs          0.4111
+Parenting & Relationships      0.0815
+Gay & Lesbian                  0.0718
+Politics & Social Sciences     0.0574
+Business & Money               0.0402
+
+
+Foot and Ankle Radiology
+Medical Books
+-------------------------------------
+Medical Books                  0.9992
+Health, Fitness & Dieting      0.0003
+Science & Math                 0.0003
+Politics & Social Sciences     0.0000
+Business & Money               0.0000
+
+
+Million Dollar Referrals: The Secrets to Building a Perpetual Client List to Generate a Seven-Figure Income
+Business & Money
+-------------------------------------
+Business & Money               0.9388
+Law                            0.0264
+Computers & Technology         0.0116
+Engineering & Transportation   0.0068
+Medical Books                  0.0050
+
+
+The Stranger Within Me
+Health, Fitness & Dieting
+-------------------------------------
+Teen & Young Adult             0.1878
+Romance                        0.1469
+Literature & Fiction           0.0905
+Mystery, Thriller & Suspense   0.0719
+Biographies & Memoirs          0.0718
+
+
+Costa Rica Chica Cookbook: Stirring Up My Favorite North American Recipes In Costa Rica
+Cookbooks, Food & Wine
+-------------------------------------
+Travel                         0.8838
+Cookbooks, Food & Wine         0.1074
+Sports & Outdoors              0.0048
+History                        0.0014
+Health, Fitness & Dieting      0.0006
+
+
+
+(942, 26)
+Category                                     Top 1     Top 5
+------------------------------------------------------------
+Calendars                                   0.9155    0.9613
+Travel                                      0.8432    0.9539
+Cookbooks, Food & Wine                      0.8254    0.9499
+Computers & Technology                      0.7744    0.9333
+Test Preparation                            0.7731    0.8923
+Medical Books                               0.7488    0.9386
+Law                                         0.7428    0.9199
+Crafts, Hobbies & Home                      0.7106    0.8930
+Business & Money                            0.7060    0.9140
+Christian Books & Bibles                    0.7008    0.9140
+Children's Books                            0.6850    0.9348
+Health, Fitness & Dieting                   0.6824    0.9208
+Science & Math                              0.6688    0.9023
+Religion & Spirituality                     0.6339    0.8924
+History                                     0.5845    0.8806
+Sports & Outdoors                           0.5702    0.8294
+Literature & Fiction                        0.5602    0.8984
+Comics & Graphic Novels                     0.5552    0.7045
+Humor & Entertainment                       0.5070    0.7865
+Science Fiction & Fantasy                   0.5054    0.7745
+Arts & Photography                          0.4910    0.8093
+Romance                                     0.4852    0.8087
+Education & Teaching                        0.4706    0.7529
+Reference                                   0.4531    0.6937
+Engineering & Transportation                0.4291    0.7612
+Teen & Young Adult                          0.3835    0.8375
+Parenting & Relationships                   0.3375    0.7208
+Biographies & Memoirs                       0.3220    0.7482
+Self-Help                                   0.3165    0.7770
+Gay & Lesbian                               0.3150    0.5591
+Mystery, Thriller & Suspense                0.3000    0.6579
+Politics & Social Sciences                  0.2308    0.6410
+
+

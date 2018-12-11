@@ -46,20 +46,33 @@ Avenues for further improvement
 -------------------------------
 
 - Padding on convolution layers
+ - A: Makes very little difference
 - Center padding on titles
+ - A: See above
 - Include author names - etc? (as 2nd layer in convolution, ie. RGB)
 - Combine / compare results of image processing ("Judging a book by its cover")
 - Compare the version where punctuation included vs. w/ Keras pre-processing
  - for when we train it ourselves
  - will have to dig through the versions (it was embedding_1_books)
+ - A: Makes very little difference
 - Try a different word dataset
  - Find how many words are missing from the titles in the glove.6B dataset
+  - A: 20429 words not found out of 75094 words: 0.272
  - If there are a lot of words missing, that would explain bad performance
+  - A: Making model trainable, but initialized with Glove for the 3/4 it finds
+   - This improves performance only to same level as untrained model! (64%)
 - Get better results using existing word vectors
+ - A: See above
 
 - Examine output:
  - what categories are having best results?  Worst?
+  - A: See results
  - What about top 3 / top 5 error?
+  - A: See results
  - Show a test set title, and its category probabilities after softmax (but before argmax)
+  - A: See results
  - Relationship between title length and accuracy?
+  - A: not much improvement after length 4
+ - Common category errors?
+  - A: done
 
