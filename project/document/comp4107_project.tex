@@ -2,7 +2,7 @@
 \makeatletter
 \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
-\title{Classification of book category using book titles}
+\title{Classify a book's category based on its title}
 \shorttitle{APA style}
 
 \twoauthors{Yunkai Wang}{Jules Kuehn}
@@ -25,15 +25,18 @@ The \textit{Data Mining} is a dataset which can be found on \textit{Github.com}.
 \subsection{Transforming the data}
 All the titles are made up with words, which is hard to be feed to the neural network as input, to fix this problem, we make the following transformations to the titles:\\
 1. Create a vocabulary set containing all possible words that have appeared in one of title. The titles in the dataset used a total of $71056$ words.\\
-2. We extend the titles so that all titles all have the same length. The longest title in the dataset has $96$ words, but most of the titles are short (~5-10 words). Figure $1$ is a graph showing the distribution of title length among the entire dataset.
-\begin{figure}[h!]
-    \centering
-     \includegraphics[width=0.5\textwidth]{images/title_lengths}
-      \caption{Distribution of different title lengths}
-\end{figure}\\
+2. We extend the titles so that all titles all have the same length. The longest title in the dataset has $96$ words, but most of the titles are short (~5-10 words). Figure $1$ is a graph showing the distribution of title length among the entire dataset.\\
 3. We convert the titles into array of integers, where each integer corresponds to the index of the word in the vocabulary list that we created, the index is between $1$ and $71057$, and we map all the special character that we added in step $2$ to $0$.\\
 This vectorization process takes $\approx$ 2 hrs to run, therefore, we decide to store the vectorized data into a new .csv file, which we can use to train our data directly.
 
+\section{\rom{3}. Model}
+q
+\section{\rom{4}. Implementation}
+a
+\section{\rom{5}. Experiment}
+a
+\section{\rom{6}. Conclusion}
+a
 \section{References}
 \noindent Convolutional Neural Networks for Sentence Classification By Yoon Kim\\
 Judging a Book by its Cover By Brian et al.
