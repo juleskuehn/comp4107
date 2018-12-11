@@ -19,7 +19,9 @@
 \section{\rom{1}. Introduction}
 Book titles will given the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers from buying and reading the book. But what does the book title really tells you? What can you tell by simply looking at the book title? If a title contains the word 'calendar', then most likely people will all agree that it's a calendar, but what if the book title doesn't contain a specific word that reveals its category, like if you are given the book title 'The Three-Body Problem' with knowing this book before, how will you categorize the book? Will the book title be sufficient for a CNN that has been pre-trained with titles and categories be able to detect that as a science friction? This is a very interesting question to ask, and that's why we conduct this experiment, to see if the computers are able to learn the potential relationship between a book's title and its category using CNN.
 
-\section{\rom{2}. The Dataset}
+\section{\rom{2}. Background/Related work}
+
+\subsection{Dateset}
 The \textit{Data Mining} is a dataset which can be found on \textit{Github.com}. The set consists of detailed information of $207572$  books from $32$ categories, to help determining the potential relationship between different information related to a book, like the relationship between a book's cover image and its category (Iwana et al.). Most of the categories are not similar to other categories, like 'calendar' and 'law', but some of the categories are pairwise similar, like 'Christian Books and Bibles' and 'Religion and Spirituality'. All books in the dataset have informations like the image url of the cover image of the book, the book's author, and the book's category. The dataset doesn't have the training dataset and testing set splitted by default, so we just use make a use of the \textit{sklearn} library, which provides a nice \textit{train\_test\_split} function to create the training set and test set.
 
 \subsection{Loading and transforming the data}
@@ -41,10 +43,10 @@ a
 We did a couple of experiments using different models and configurations. Here is a detailed list and explanation of these experiments.
 
 \subsection{Multiple layer perceptron(MLP)}
-One of the experiments we did was to see if MLP can handle the task. We simply used the original 'mlp.py' file, changed the size of input layer and output layer to match what we needed, and loaded the data that had pre-processed, but the accuracy was only $\approx 9\%$. This simply concludes that MLP will not be able to handle this classification task, since this data set is not like MNIST, two book titles from the same category may be very different, and classifying such dataset is not something MLP is good at.
+With the original 'mlp.py' file, and the size of input layer and output layer  changed to match what we needed, he accuracy was only $\approx$9\%. This simply concludes that MLP will not be able to handle this classification task, since this data set is not like MNIST, two book titles from the same category may be very different, and classifying such dataset is not something MLP is good at.
 
 \subsection {Convolutional neural network(CNN)}
-We also tried to use the original 'CNN.py' with changed input size and output size, and it turned out that the accuracy wasn't that high as well. The accuracy was slightly higher than the accuracy using the MLP($\approx 12\%$), but they were still really bad at this task.
+Using the original 'CNN.py' with changed input size and output size, and it turned out that the accuracy was slightly higher than the accuracy using the MLP($\approx$12\%), but it was still really bad at this task.
 
 
 \section{\rom{6}. Conclusion}
