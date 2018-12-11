@@ -1,4 +1,8 @@
 \documentclass[jou,apacite, 10px]{apa6}
+\usepackage{listings}
+\usepackage{courier}
+\lstset{basicstyle=\small\ttfamily,breaklines=true}
+\lstset{frame=single}
 \makeatletter
 \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
@@ -71,20 +75,14 @@ The first embedding model (EmbedTrain) trained the embeddings from scratch, usin
     \item Input (26, 1)
     \item Embedding (26, 32)
     \item Flatten (832)
-    \item Dropout: pKeep 0.5 (832)
     \item Output Softmax (32)
-\end{itemize}\rule{0pt}{4ex}
-The second embedding model (EmbedGloveFixed) loaded 400,000 pre-trained 100-dimensional word-vectors from the GloVe.6B dataset. These word vectors were trained on Wikipedia and Gigaword, a newswire dataset. The model is identical to EmbedTrain except that the embeddings are pre-trained and fixed, with the embedding dimension increased to 100.\\
-The third embedding model (EmbedGloveTrain) is identical to EmbedTrain except that the embeddings are initialized to the GloVe dataset as seen in EmbedGloveFixed. Embeddings are then retrained on the book titles.\\
-For each of the three embedding models, we also tested 2 variations to compare the performance of MLP vs CNN on the title embeddings. The first variation (Embed<Model>\_FC) adds a single fully connected (FC) layer:
-
+\end{itemize}
+For each of the three embedding models, we also tested 2 variations to compare the performance of MLP vs CNN on the title embeddings. The first variation (Embed<Model>\_FC) adds a single fully connected (FC) layer:\\
 \begin{itemize}
     \item Input (26, 1)
     \item Embedding (26, 32)
     \item Flatten (832)
-    \item Dropout: pKeep 0.5 (832)
     \item FC ReLU (512)
-    \item Dropout: pKeep 0.5 (832)
     \item Output Softmax (32)
 \end{itemize}\rule{0pt}{4ex}
 The second variation (Embed<Model>\_CNN) adds a single convolutional layer, followed by maxpool over the entire length:
@@ -92,14 +90,19 @@ The second variation (Embed<Model>\_CNN) adds a single convolutional layer, foll
 \begin{itemize}
     \item Input (26, 1)
     \item Embedding (26, 32)
-    \item Dropout: pKeep 0.5 (26, 32)
-    \item Conv ReLU: 3 kernel, 1 stride (26, 512)
-    \item Max pool: 24 kernel, 24 stride ()
-    \item Flatten (832)
-    \item Dropout: pKeep 0.75 (832)
-    \item Output Softmax (32)\\
+    \item Conv ReLU: 3 kernel, 1 stride (24, 512)
+    \item Max pool: 24 kernel, 24 stride (1, 512)
+    \item Flatten (512)
+    \item Output Softmax (32)
 \end{itemize}
-\section{\rom{5}. Experiment}
+The second embedding model (EmbedGloveFixed) loaded 400,000 pre-trained 100-dimensional word-vectors from the GloVe.6B dataset. These word vectors were trained on Wikipedia and Gigaword, a newswire dataset. The model is identical to EmbedTrain except that the embeddings are pre-trained and fixed, with the embedding dimension increased to 100.\\
+The third embedding model (EmbedGloveTrain) is identical to EmbedTrain except that the embeddings are initialized to the GloVe dataset as seen in EmbedGloveFixed. Embeddings are then retrained on the book titles.\\
+
+\section{\rom{5}. Implementation}
+The naive models were implemented using the course-provided cnn.py and mlp.py code. All other models were implemented in Keras, in which the code for the model is extremely concise:\\
+\lstinputlisting{code/kerasModel.py}
+
+\section{\rom{6}. Experiment}
 We did a couple of experiments using different models that we described in the model section. Here are the results of running these experiments.
 
 \subsection{Multiple layer perceptron(mlp.py)}
@@ -109,7 +112,7 @@ With the original mlp.py file, and the size of input layer and output layer  cha
 Using the original cnn.py with changed input size and output size, and it turned out that the accuracy was slightly higher than the accuracy using the MLP($\approx$12\%), but it was still really bad at this task.
 
 
-\section{\rom{6}. Conclusion}
+\section{\rom{7}. Conclusion}
 a
 \section{References}
 \noindent Convolutional Neural Networks for Sentence Classification By Yoon Kim\\
