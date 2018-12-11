@@ -100,13 +100,13 @@ The second variation (Embed<Model>\_CNN) adds a single convolutional layer, foll
     \item Output Softmax (32)\\
 \end{itemize}
 \section{\rom{5}. Experiment}
-We did a couple of experiments using different models and configurations. Here is a detailed list and explanation of these experiments.
+We did a couple of experiments using different models that we described in the model section. Here are the results of running these experiments.
 
-\subsection{Multiple layer perceptron(MLP)}
-With the original 'mlp.py' file, and the size of input layer and output layer  changed to match what we needed, he accuracy was only $\approx$9\%. This simply concludes that MLP will not be able to handle this classification task, since this data set is not like MNIST, two book titles from the same category may be very different, and classifying such dataset is not something MLP is good at.
+\subsection{Multiple layer perceptron(mlp.py)}
+With the original mlp.py file, and the size of input layer and output layer  changed to match what we needed, the accuracy was only $\approx$9\%. This simply concludes that MLP will not be able to handle this classification task, since this data set is not like MNIST, two book titles from the same category may be very different, and classifying such dataset is not something MLP is good at.
 
-\subsection {Convolutional neural network(CNN)}
-Using the original 'CNN.py' with changed input size and output size, and it turned out that the accuracy was slightly higher than the accuracy using the MLP($\approx$12\%), but it was still really bad at this task.
+\subsection {Convolutional neural network(cnn.py)}
+Using the original cnn.py with changed input size and output size, and it turned out that the accuracy was slightly higher than the accuracy using the MLP($\approx$12\%), but it was still really bad at this task.
 
 
 \section{\rom{6}. Conclusion}
