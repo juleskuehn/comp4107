@@ -16,7 +16,7 @@
 \maketitle    
                         
 \section{\rom{1}. Introduction}
-Book titles will given the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers from buying and reading the book. But what does the book title really tells you? What can you tell by simply looking at the book title? If a title contains the word 'calendar', then most likely people will all agree that it's a calendar, but what if the book title doesn't contain a specific word that reveals its category, like if you are given the book title 'The Three-Body Problem' with knowing this book before, how will you categorize the book? Will the book title be sufficient for a CNN that has been pre-trained with titles and categories be able to detect that as a science friction? This is a very interesting question to ask, and that's why we conduct this experiment, to see if the computers are able to learn the potential relationship between a book's title and its category using CNN.
+Book titles will given the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers from buying and reading the book. But what does the book title really tells you? What can you tell by simply looking at the book title? If a title contains the word 'calendar', then most likely people will all agree that it's a calendar, but what if the book title doesn't contain a specific word that reveals its category, like if you are given the book title 'The Three-Body Problem' with knowing this book before, how will you categorize the book? Will the book title be sufficient for a CNN that has been pre-trained with titles and categories be able to detect that as a science friction? This is a very interesting question to ask, and that's why we conduct this experiment, to see if the computers are able to learn the potential relationship between a book's title and its category using CNN.\\
 
 \section{\rom{2}. Background/Related work}
 
@@ -28,27 +28,29 @@ Here are the list of things we did to load the dataset:
 
 \rule{0pt}{4ex}  1. First we load all the original data line by line, and for each line, we extract the book title and its category, as those are the only things that we are feeding to our neural network.
 
-\rule{0pt}{4ex}  2. Second, it's obvious that titles all have different lengths, and the maximum title length is $96$. However, as Figure $1$ shows, most of titles have length less than $26$, only several titles have length $>26$. Therefore, we choose the maximum length to be $26$ instead of $96$. We used \textit{pad\_sequence} function from keras library to accomplish the task, which simply appends $0$ to the end of the titles that are shorter than the given length, and cut-off those long titles after $26$ words.
+\rule{0pt}{4ex}  2. It's obvious that titles all have different lengths, and the maximum title length is $96$. However, as Figure $1$ shows, most of titles have length less than $26$, only several titles have length $>26$. Therefore, we choose the maximum length to be $26$ instead of $96$. We used \textit{pad\_sequence} function from keras library to accomplish the task, which simply appends $0$ to the end of the titles that are shorter than the given length, and cut-off those long titles after $26$ words.
 
 \rule{0pt}{4ex}  3. With the help of \textit{train\_test\_split} function, we split the training data and testing data by having a testing data of size $10\%$ of the original dataset.
 
-\rule{0pt}{4ex}  4. We convert the titles into vector of integers, where each integer encodes to a word. We made use of the Keras' \textit{one\_hot} function to do the task. This vectorization process takes $\approx$ 2 hrs to run, therefore, we decide to store the vectorized data into a new .csv file, which we can use to train our data directly.
+\rule{0pt}{4ex}  4. We convert the titles into vector of integers, where each integer encodes to a word. We made use of the Keras' \textit{one\_hot} function to do the task. This vectorization process takes $\approx$ 2 hrs to run, therefore, we decide to store the vectorized data into a new .csv file, which we can use to train our data directly.\\
 
 \section{\rom{3}. Problem Statement}
 
-We want computers to be able to handle the categorization tasks for books based on book titles, such that in the future, the computer will be able to auto-categorize a new book given only its title. It's almost impossible to manually design a rule-based program, that will handle the categorization problem nicely and accurately. The titles and the categories don't have an obvious relationship which we can use to linearly separate the titles into categories. However, we can use CNN to learn the underlying relationship between the titles and the categories, that will achieve a high accuracy in the categorization task.
+We want computers to be able to handle the categorization tasks for books based on book titles, such that in the future, the computer will be able to auto-categorize a new book given only its title. It's almost impossible to manually design a rule-based program, that will handle the categorization problem nicely and accurately. The titles and the categories don't have an obvious relationship which we can use to linearly separate the titles into categories. However, we can use CNN to learn the underlying relationship between the titles and the categories, that will achieve a high accuracy in the categorization task.\\
 
 \section{\rom{4}. Model}
 We began with 2 naive implementations, in which each "word vector" was an arbitrary unique integer. Each title is then a vector of these integers (one for each word), zero padded to the length of the longest title (96 words). This representation of the titles has little semantic value as the integers representing the words are arbitrary.\\
 % Insert diagram of naive model
-The first model (NaiveMLP) was a fully connected MLP with the following configuration. Output size of each layer is indicated in parentheses.\\
+The first model (NaiveMLP) was a fully connected MLP with the following configuration. Output size of each layer is indicated in parentheses.
+
 \begin{itemize}
     \item Input (96)
     \item FC Sigmoid (625)
     \item FC Sigmoid (300)
     \item FC Softmax (32)
-\end{itemize}
-The second model (NaiveCNN) was based on a good model for the CIFAR-10 classification.\\
+\end{itemize}\rule{0pt}{4ex}
+The second model (NaiveCNN) was based on a good model for the CIFAR-10 classification.
+
 \begin{itemize}
     \item Input (96,1)
     \item Conv ReLU: 3 kernel, 1 stride (96,32)
@@ -61,19 +63,21 @@ The second model (NaiveCNN) was based on a good model for the CIFAR-10 classific
     \item Max pool: 24 kernel, 24 stride (1,64)
     \item Dropout: pKeep 0.8 (1,64)
     \item Output Softmax (32)
-\end{itemize}
+\end{itemize}\rule{0pt}{4ex}
 A better word representation is to embed each word in a n-dimensional space, where the position of each word reflects its meaning in relation to the other words. Each word is then represented by a dense vector of length n, with similar words having similar vectors. Similarity between words is inferred from context. Many pre-trained embeddings are available, trained through Word2Vec or GloVe on datasets pulled from Wikipedia, Twitter, or other sources. An embedding can also be trained from scratch, or initialized to a pre-trained dataset then trained further. We compare these three approaches.\\
-The first embedding model (EmbedTrain) trained the embeddings from scratch, using only the book titles from the training set. Note that we truncated the titles from a maximum of 96 words to 26 words. We chose 32 for the embedding dimension, based on the rule of the thumb that the embedding should be the fourth root of the vocabulary size. There were roughly 70,000 words in the training dataset, which suggest that the embedding dimension should be 16, but we found that 32 offered a slight improvement in practice.\\
+The first embedding model (EmbedTrain) trained the embeddings from scratch, using only the book titles from the training set. Note that we truncated the titles from a maximum of 96 words to 26 words. We chose 32 for the embedding dimension, based on the rule of the thumb that the embedding should be the fourth root of the vocabulary size. There were roughly 70,000 words in the training dataset, which suggest that the embedding dimension should be 16, but we found that 32 offered a slight improvement in practice.
+
 \begin{itemize}
     \item Input (26, 1)
     \item Embedding (26, 32)
     \item Flatten (832)
     \item Dropout: pKeep 0.5 (832)
     \item Output Softmax (32)
-\end{itemize}
+\end{itemize}\rule{0pt}{4ex}
 The second embedding model (EmbedGloveFixed) loaded 400,000 pre-trained 100-dimensional word-vectors from the GloVe.6B dataset. These word vectors were trained on Wikipedia and Gigaword, a newswire dataset. The model is identical to EmbedTrain except that the embeddings are pre-trained and fixed, with the embedding dimension increased to 100.\\
 The third embedding model (EmbedGloveTrain) is identical to EmbedTrain except that the embeddings are initialized to the GloVe dataset as seen in EmbedGloveFixed. Embeddings are then retrained on the book titles.\\
-For each of the three embedding models, we also tested 2 variations to compare the performance of MLP vs CNN on the title embeddings. The first variation (Embed<Model>\_FC) adds a single fully connected (FC) layer:\\
+For each of the three embedding models, we also tested 2 variations to compare the performance of MLP vs CNN on the title embeddings. The first variation (Embed<Model>\_FC) adds a single fully connected (FC) layer:
+
 \begin{itemize}
     \item Input (26, 1)
     \item Embedding (26, 32)
@@ -82,8 +86,9 @@ For each of the three embedding models, we also tested 2 variations to compare t
     \item FC ReLU (512)
     \item Dropout: pKeep 0.5 (832)
     \item Output Softmax (32)
-\end{itemize}
-The second variation (Embed<Model>\_CNN) adds a single convolutional layer, followed by maxpool over the entire length:\\
+\end{itemize}\rule{0pt}{4ex}
+The second variation (Embed<Model>\_CNN) adds a single convolutional layer, followed by maxpool over the entire length:
+
 \begin{itemize}
     \item Input (26, 1)
     \item Embedding (26, 32)
@@ -92,7 +97,7 @@ The second variation (Embed<Model>\_CNN) adds a single convolutional layer, foll
     \item Max pool: 24 kernel, 24 stride ()
     \item Flatten (832)
     \item Dropout: pKeep 0.75 (832)
-    \item Output Softmax (32)
+    \item Output Softmax (32)\\
 \end{itemize}
 \section{\rom{5}. Experiment}
 We did a couple of experiments using different models and configurations. Here is a detailed list and explanation of these experiments.
