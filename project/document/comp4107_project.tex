@@ -3,15 +3,14 @@
 \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
 \title{Classify a book's category based on its title}
-\shorttitle{APA style}
+\shorttitle{Book classification using book titles}
 
 \twoauthors{Yunkai Wang}{Jules Kuehn}
 \twoaffiliations{Carleton University, School of Computer Science}{Carleton University, School of Computer Science}
 
 \abstract{Recently Convolutional neural networks(CNN) have been well-studied and be shown that they can archive incredible results on tasks like sentence classification (Kim, 2014). Another interesting topic that has been studied is if we can categorize a book based on its cover picture (Iwana et al.). However, as shown in the paper, they showed that they were able to draw a relationship between a book cover image, and its category, but the accuracy was less than $50\%$. Thus, we conduct this experiment to see if we can use CNN to learn the potential relationship between a book's title and its categories. For this project, we experiment the task with different model setups and layers using word embedding, and compare their accuracies.}
 
-\rightheader{APA style}
-\leftheader{Author One}
+\leftheader{Jules, Yunkai}
 
 \begin{document}
 \maketitle    
@@ -35,7 +34,11 @@ Here are the list of things we did to load the dataset:
 
 \rule{0pt}{4ex}  4. We convert the titles into vector of integers, where each integer encodes to a word. We made use of the Keras' \textit{one\_hot} function to do the task. This vectorization process takes $\approx$ 2 hrs to run, therefore, we decide to store the vectorized data into a new .csv file, which we can use to train our data directly.
 
-\section{\rom{3}. Model}
+\section{\rom{3}. Problem Statement}
+
+We want computers to be able to handle the categorization tasks for books based on book titles, such that in the future, the computer will be able to auto-categorize a new book given only its title. It's almost impossible to manually design a rule-based program, that will handle the categorization problem nicely and accurately. The titles and the categories don't have an obvious relationship which we can use to linearly separate the titles into categories. However, we can use CNN to learn the underlying relationship between the titles and the categories, that will achieve a high accuracy in the categorization task.
+
+\section{\rom{4}. Model}
 We began with 2 naive implementations, in which each "word vector" was an arbitrary unique integer. Each title is then a vector of these integers (one for each word), zero padded to the length of the longest title (96 words). This representation of the titles has little semantic value as the integers representing the words are arbitrary.\\
 % Insert diagram of naive model
 The first model (NaiveMLP) was a fully connected MLP with the following configuration. Output size of each layer is indicated in parentheses.\\
@@ -91,8 +94,6 @@ The second variation (Embed<Model>\_CNN) adds a single convolutional layer, foll
     \item Dropout: pKeep 0.75 (832)
     \item Output Softmax (32)
 \end{itemize}
-\section{\rom{4}. Implementation}
-a
 \section{\rom{5}. Experiment}
 We did a couple of experiments using different models and configurations. Here is a detailed list and explanation of these experiments.
 
