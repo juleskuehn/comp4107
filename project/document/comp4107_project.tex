@@ -8,7 +8,7 @@
 \twoauthors{Yunkai Wang}{Jules Kuehn}
 \twoaffiliations{Carleton University, School of Computer Science}{Carleton University, School of Computer Science}
 
-\abstract{Recently Convolutional neural networks(CNN) have been well-studies and be shown that they can archive incredible results on tasks like sentence classification (Kim, 2014). Another interesting topic that has been studied is if we can categorize a book based on its cover picture (Brian et al.). However, as shown in the paper, they showed that they were able to draw a relationship between a book cover image, and its category, but the accuracy was less than $50\%$. Thus, we conduct this experiment to see if we can use CNN to categorize a book based on its title. We focus on adding a word-embedding layer to our original one-layered CNN model to perform the classification task.}
+\abstract{Recently Convolutional neural networks(CNN) have been well-studied and be shown that they can archive incredible results on tasks like sentence classification (Kim, 2014). Another interesting topic that has been studied is if we can categorize a book based on its cover picture (Iwana et al.). However, as shown in the paper, they showed that they were able to draw a relationship between a book cover image, and its category, but the accuracy was less than $50\%$. Thus, we conduct this experiment to see if we can use CNN to learn the potential relationship between a book's title and its categories. For this project, we experiment the task with different model setups and layers using word embedding, and compare their accuracies.}
 
 \rightheader{APA style}
 \leftheader{Author One}
@@ -17,7 +17,7 @@
 \maketitle    
                         
 \section{\rom{1}. Introduction}
-
+Book titles will given the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers from buying and reading the book. But what does the book title really tells you? 
 
 \section{\rom{2}. The Dataset}
 The \textit{Data Mining} is a dataset which can be found on \textit{Github.com}. The set consists of detailed information of $207572$  books from 32 categories, to help determining the potential relationship between different information related to a book, like the relationship between a book's cover image and its category. All books in the dataset have informations like the image url of the cover image of the book, the book's author, and the book's category (Brian et al.). The dataset doesn't have the training dataset and testing set splitted by default, so we just use make a use of the \textit{sklearn} library, which provides a nice \textit{train\_test\_split} function to create the training set and test set.
