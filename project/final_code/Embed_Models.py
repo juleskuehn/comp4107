@@ -49,7 +49,7 @@ teX = pad_sequences(teX, maxlen=max_title_length,
                     padding='post', truncating='post')
 
 model = Sequential()
-model.add(Embedding(vocab_size, 16, input_length=max_title_length))
+model.add(Embedding(vocab_size, 32, input_length=max_title_length))
 model.add(Flatten())
 model.add(Dropout(0.5))
 model.add(Dense(32, activation='softmax'))
@@ -60,7 +60,7 @@ model.compile(loss='categorical_crossentropy',
 
 print(model.summary())
 
-history = model.fit(trX, to_categorical(trY), epochs=1, verbose=1, batch_size=256,
+history = model.fit(trX, to_categorical(trY), epochs=5, verbose=1, batch_size=32,
                     validation_data=(teX, to_categorical(teY)))
 
 """
@@ -195,9 +195,15 @@ def plot_title_lengths():
     numBooksPerLength = [len(c) for c in correctByLength]
     correctByLength = [np.average(c) for c in correctByLength]
 
+    plt.title('Distribution of title lengths')
+    plt.ylabel('Number of books')
+    plt.xlabel('Title length (words)')
     plt.plot(numBooksPerLength)
     plt.show()
     
+    plt.title('Classification accuracy vs title length')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Title length (words)')
     plt.plot(correctByLength)
     plt.show()
 
