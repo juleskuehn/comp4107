@@ -194,8 +194,6 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbex.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xb.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
 OUTPUT comp4107_project.pdf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
@@ -218,20 +216,28 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmri.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxi.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txr.vf
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txmi.vf
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxmi.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xr.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxr.tfm
 INPUT code/kerasModel.py
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/t1pcr.fd
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/t1pcr.fd
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8t.tfm
 INPUT code/kerasModel.py
 INPUT code/kerasModel.py
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xr.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxr.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT comp4107_project.aux
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxb.pfb
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxb.pfb
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxr.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxr.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/txsy.pfb
