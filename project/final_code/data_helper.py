@@ -8,17 +8,23 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import stats
+import urllib
 
 sns.set(color_codes=True)
 
 
-def load_vectorized_data(file_path="./book-dataset/vectorized_data.csv", vector_length=96):
+def load_vectorized_data(file_path="./vectorized_data.csv", vector_length=96):
     """
     Read the vectorized data instead of the orignal book dataset
 
     Return split titles and categories
     """
-    raw_data = list(open(file_path, "r").readlines())
+    try:
+        raw_data = list(open(file_path, "r").readlines())
+    except:
+        print("File not found locally, downloading...")
+        urllib.request.urlretrieve("https://www.dropbox.com/s/ymcgfgo1vtpibxk/vectorized_data.csv?dl=1", "vectorized_data.csv")
+        raw_data = list(open(file_path, "r").readlines())
 
     data = []
     for row in raw_data:
@@ -80,7 +86,7 @@ def clean_str(string):
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
 
-def load_data(file_path="./book-dataset/book32-listing.csv"):
+def load_data(file_path="./book32-listing.csv"):
     """
     Load the book titles and the corresponding category of those books, split the book title into word vectors
     Each row in the orignal csv file looks like
@@ -92,7 +98,12 @@ def load_data(file_path="./book-dataset/book32-listing.csv"):
 
     # some special character cannot be recognized correctly, so adding the error=ignore to ignore those errors
     # raw data containinng all information
-    raw_data = list(open(file_path, "r", errors="ignore").readlines())
+    try:
+        raw_data = list(open(file_path, "r", errors="ignore").readlines())
+    except:
+        print("File not found locally, downloading...")
+        urllib.request.urlretrieve("https://www.dropbox.com/s/di7e6om125k3gvv/book32-listing.csv?dl=1", "book32-listing.csv")
+        raw_data = list(open(file_path, "r", errors="ignore").readlines())
 
     data = []
 
@@ -104,7 +115,7 @@ def load_data(file_path="./book-dataset/book32-listing.csv"):
     return data
 
 
-def separate_titles_labels(file_path="./book-dataset/book32-listing.csv"):
+def separate_titles_labels(file_path="./book32-listing.csv"):
     """
     Load the book titles and the corresponding category of those books, split the book title into word vectors
     Each row in the orignal csv file looks like
@@ -116,10 +127,15 @@ def separate_titles_labels(file_path="./book-dataset/book32-listing.csv"):
 
     # some special character cannot be recognized correctly, so adding the error=ignore to ignore those errors
     # raw data containinng all information
-    raw_data = open(file_path, "r", errors="ignore")
+    try:
+        raw_data = open(file_path, "r", errors="ignore")
+    except:
+        print("File not found locally, downloading...")
+        urllib.request.urlretrieve("https://www.dropbox.com/s/di7e6om125k3gvv/book32-listing.csv?dl=1", "book32-listing.csv")
+        raw_data = open(file_path, "r", errors="ignore")
 
-    labels = open('./book-dataset/labels.txt', 'w')
-    titles = open('./book-dataset/titles.txt', 'w')
+    labels = open('./labels.txt', 'w', encoding="utf-8")
+    titles = open('./titles.txt', 'w', encoding="utf-8")
 
     for line in raw_data:
         book_info = line.split('","')  # split the data
@@ -135,8 +151,6 @@ def separate_titles_labels(file_path="./book-dataset/book32-listing.csv"):
 
 # Build a vocabulary index and map each word to an integer between 0 and 71056 (the vocabulary size).
 # Each title becomes a vector of integers of the longest title dimension.
-
-
 def vectorize_data(data):
     max_length = 0  # find the title with the largest length
     vocabulary_list = []
@@ -168,35 +182,13 @@ def generate_vectorized_data():
     so we choose to run this code once and remember the results that have been genereted
     into a new csv file and start from there
     """
-    data = load_data("./book-dataset/book32-listing.csv")
+    data = load_data()
     vectorized_data = vectorize_data(data)
-    with open('./book-dataset/vectorized_data.csv', 'w') as f:
+    with open('./vectorized_data.csv', 'w') as f:
         for row in vectorized_data:
             f.write("%s %s\n" % (" ".join(str(x)
                                           for x in row[0]), row[1][:-1]))
 
-
-def vectorized_data_to_tsv(thin=1):
-    """
-    Transform to format expected by TensorFlow embedding projector
-    """
-    inFile = open('./book-dataset/vectorized_data.csv', 'r')
-    outVectorFile = open('./book-dataset/title_vectors.tsv', 'w')
-    outLabelFile = open('./book-dataset/labels.tsv', 'w')
-
-    counter = 0
-    for line in inFile:
-        if counter % thin == 0:
-            lineData = line.split()
-            vector = ' '.join(lineData[:-1]) + '\n'
-            label = lineData[-1] + '\n'
-            outVectorFile.write(vector)
-            outLabelFile.write(label)
-        counter += 1
-
-    inFile.close()
-    outVectorFile.close()
-    outLabelFile.close()
 
 labelsDict = {
     'Science & Math': 0,

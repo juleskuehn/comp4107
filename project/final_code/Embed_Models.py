@@ -21,15 +21,36 @@ from matplotlib.ticker import MaxNLocator
 from collections import namedtuple
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
+import urllib
 
 """
-Create and fit the model
+Load the data
+"""
+
+try:
+    labelsFile = open('labels.txt')
+except:
+    print("File not found locally, downloading...")
+    urllib.request.urlretrieve("https://www.dropbox.com/s/mjk1mum1ycj1rwe/labels.txt?dl=1", "labels.txt")
+    labelsFile = open('labels.txt')
+
+try:
+    titlesFile = open('titles.txt')
+except:
+    print("File not found locally, downloading...")
+    urllib.request.urlretrieve("https://www.dropbox.com/s/cd3lpllzzo935an/titles.txt?dl=1", "titles.txt")
+    titlesFile = open('titles.txt')
+
+labels = [labelsDict[line.rstrip()] for line in labelsFile]
+titles = [line.rstrip() for line in titlesFile]
+labelsFile.close()
+titlesFile.close()
+
+"""
+Generate and train the model
 """
 
 max_title_length = 26  # See plot of title lengths. Only tiny % above 26 words
-
-labels = [labelsDict[line.rstrip()] for line in open('labels.txt')]
-titles = [line.rstrip() for line in open('titles.txt')]
 
 # Do train-test split before encoding, so that we can get title strings later
 trsX, tesX, trY, teY = train_test_split(

@@ -1,0 +1,28 @@
+Carrying off the Cherokee: History of Buffington's Company Georgia Mounted Militia
+Crafts, Hobbies & Home
+-------------------------------------
+History                        0.2663
+Travel                         0.1446
+Teen & Young Adult             0.1411
+Children's Books               0.1084
+Biographies & Memoirs          0.0401
+
+
+Indonesia (Country Explorers)
+Children's Books
+-------------------------------------
+Travel                         0.6162
+Children's Books               0.2357
+Sports & Outdoors              0.0526
+History                        0.0225
+Teen & Young Adult             0.0165
+
+
+S-Corporation: Small Business Start-Up Kit
+Law
+-------------------------------------
+Business & Money               0.7807
+Law                            0.1740
+Medical Books                  0.0040
+Engineering & Transportation   0.0037
+Test Preparation               0.0036

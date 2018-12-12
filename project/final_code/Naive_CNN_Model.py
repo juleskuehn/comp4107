@@ -1,3 +1,9 @@
+import tensorflow as tf
+import numpy as np
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from data_helper import load_vectorized_data, vectorize_vector
+
 batch_size = 128
 test_size = 256
 
@@ -109,3 +115,20 @@ with tf.Session() as sess:
                                                          p_keep_hidden: 1.0}))
         print('epoch', i+1, 'accuracy', accuracy)
         accuracies.append(accuracy)
+
+# Create line graph of accuracy over epochs
+
+plt.ylim(0, 1)
+plt.ylabel('Classification accuracy')
+plt.xticks([epoch for epoch in range(0, len(accuracies)) if epoch % 10 == 0])
+plt.xlabel('Number of epochs')
+plt.plot(accuracies)
+plt.show()
+# from google.colab import files
+# title = "Naive_CNN_Model_1"
+# plt.savefig(title + ".png")
+# f = open(title + '.txt', 'w')
+# f.write(str(accuracies))
+# f.close()
+# files.download(title + ".png")
+# files.download(title + ".txt")
