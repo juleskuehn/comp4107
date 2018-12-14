@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1544563531 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1544563533
+["pdflatex"] 1544711613 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1544711614
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt" 1538948432 4162302 bd49085d9b071120ec5a29c15b93e08e ""
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map" 1544557227 82074 6a1df9e5cde162f85fa9aea76d51d7a6 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc" 1458470287 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -100,11 +100,11 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsya.fd" 977313960 310 cee07e4964749ccbc77d84fc49726a79 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyb.fd" 977313960 310 8c5467c8932c259af51b0f116c9734bd ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyc.fd" 977313960 310 4b5d6fe830337242ef847b3bff48ba21 ""
-  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1544563517 10640 eb759538a32821ad91f213c3c3a6d814 ""
+  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1544711609 10740 d1397a86b64063148ee2264515e7e292 ""
   "code/kerasModel.py" 1544563322 312 20121df4c9b62d44be9151b202634402 ""
-  "comp4107_project.aux" 1544563532 917 8c11c31f97154e114a5f005b6b908e81 ""
-  "comp4107_project.tex" 1544563517 10640 eb759538a32821ad91f213c3c3a6d814 ""
+  "comp4107_project.aux" 1544711614 917 8c11c31f97154e114a5f005b6b908e81 ""
+  "comp4107_project.tex" 1544711609 10740 d1397a86b64063148ee2264515e7e292 ""
   (generated)
   "comp4107_project.log"
-  "comp4107_project.aux"
   "comp4107_project.pdf"
+  "comp4107_project.aux"

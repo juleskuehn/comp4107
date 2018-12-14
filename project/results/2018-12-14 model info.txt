@@ -1,0 +1,83 @@
+  """
+  Models used in 2018-12-14 results CSV: Embed_Model
+  """
+  model = Sequential()
+
+  # Embedding layer
+  model.add(Embedding(vocab_size, embed_size, input_length=max_title_length))
+
+  # Three variations: through CNN, through MLP, or direct to softmax
+  if cnn:
+    model.add(Dropout(0.5))
+    model.add(Conv1D(512, 3, activation='relu'))
+    model.add(MaxPooling1D(24))
+    model.add(Dropout(0.25))
+    model.add(Dense(512, activation='relu'))
+
+  model.add(Flatten())
+
+  if mlp:
+      model.add(Dropout(0.5))
+      model.add(Dense(1024, activation='relu'))
+      model.add(Dropout(0.5))
+      model.add(Dense(512, activation='relu'))
+
+  model.add(Dropout(0.5))
+  model.add(Dense(32, activation='softmax'))
+  print(model.summary())
+  
+  model.compile(loss='categorical_crossentropy',
+              optimizer=Adam(lr=lr),
+              metrics=['accuracy', metrics.top_k_categorical_accuracy])
+
+  history = model.fit(trX, to_categorical(trY), epochs=epochs, verbose=1, batch_size=batch_size, validation_data=(teX, to_categorical(teY)))
+  
+  return history
+
+
+  """
+  def saveResults(epochs=25, lr=0.001, embed_size=32, batch_size=128):
+  
+  """
+
+
+
+  """
+  For GloVE model:
+  """
+
+  model = Sequential()
+  model.add(Embedding(vocab_size, 100, weights=[embedding_matrix],
+                  input_length=max_title_length, trainable=trainable))
+
+  # Three variations: through CNN, through MLP, or direct to softmax
+  if cnn:
+      if trainable:
+        model.add(Dropout(0.5))
+      model.add(Conv1D(512, 3, activation='relu'))
+      model.add(MaxPooling1D(24))
+      model.add(Dropout(0.25))
+      model.add(Dense(512, activation='relu'))
+
+  model.add(Flatten())
+
+  if mlp:
+      if trainable:
+        model.add(Dropout(0.5))
+      model.add(Dense(1024, activation='relu'))
+      model.add(Dropout(0.5))
+      model.add(Dense(512, activation='relu'))
+
+  if trainable or mlp or cnn:
+    model.add(Dropout(0.5))
+  model.add(Dense(32, activation='softmax'))
+
+  model.compile(loss='categorical_crossentropy',
+                optimizer=Adam(lr=lr),
+                metrics=['accuracy', metrics.top_k_categorical_accuracy])
+
+  print(model.summary())
+
+  history = model.fit(trX, to_categorical(trY), epochs=epochs, verbose=1, batch_size=batch_size, validation_data=(teX, to_categorical(teY)))
+
+

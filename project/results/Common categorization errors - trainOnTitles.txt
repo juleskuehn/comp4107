@@ -1,0 +1,290 @@
+
+Science & Math
+-------------------------------------
+Science & Math                 0.5566
+Medical Books                  0.0481
+Children's Books               0.0311
+Travel                         0.0272
+Business & Money               0.0268
+
+
+Engineering & Transportation
+-------------------------------------
+Engineering & Transportation   0.3116
+Science & Math                 0.1271
+Business & Money               0.0794
+Computers & Technology         0.0632
+Crafts, Hobbies & Home         0.0550
+
+
+Christian Books & Bibles
+-------------------------------------
+Christian Books & Bibles       0.5487
+Religion & Spirituality        0.0976
+Literature & Fiction           0.0287
+Children's Books               0.0219
+Romance                        0.0215
+
+
+Travel
+-------------------------------------
+Travel                         0.7565
+History                        0.0353
+Sports & Outdoors              0.0226
+Children's Books               0.0170
+Literature & Fiction           0.0133
+
+
+Literature & Fiction
+-------------------------------------
+Literature & Fiction           0.3369
+Children's Books               0.0603
+Romance                        0.0583
+Teen & Young Adult             0.0511
+Science Fiction & Fantasy      0.0484
+
+
+Sports & Outdoors
+-------------------------------------
+Sports & Outdoors              0.4798
+Travel                         0.0864
+Children's Books               0.0579
+Biographies & Memoirs          0.0359
+Health, Fitness & Dieting      0.0332
+
+
+Computers & Technology
+-------------------------------------
+Computers & Technology         0.7190
+Business & Money               0.0545
+Science & Math                 0.0297
+Medical Books                  0.0178
+Engineering & Transportation   0.0169
+
+
+Parenting & Relationships
+-------------------------------------
+Parenting & Relationships      0.2721
+Health, Fitness & Dieting      0.1171
+Self-Help                      0.0714
+Christian Books & Bibles       0.0669
+Medical Books                  0.0623
+
+
+Religion & Spirituality
+-------------------------------------
+Religion & Spirituality        0.4682
+Christian Books & Bibles       0.1161
+History                        0.0347
+Literature & Fiction           0.0333
+Politics & Social Sciences     0.0301
+
+
+Self-Help
+-------------------------------------
+Self-Help                      0.2236
+Health, Fitness & Dieting      0.1350
+Religion & Spirituality        0.0714
+Medical Books                  0.0630
+Parenting & Relationships      0.0598
+
+
+Children's Books
+-------------------------------------
+Children's Books               0.5142
+Teen & Young Adult             0.0566
+Literature & Fiction           0.0376
+Humor & Entertainment          0.0329
+Sports & Outdoors              0.0291
+
+
+Biographies & Memoirs
+-------------------------------------
+Biographies & Memoirs          0.1805
+History                        0.0981
+Children's Books               0.0739
+Teen & Young Adult             0.0650
+Literature & Fiction           0.0596
+
+
+Reference
+-------------------------------------
+Reference                      0.3131
+Travel                         0.0726
+Children's Books               0.0620
+Humor & Entertainment          0.0516
+Teen & Young Adult             0.0347
+
+
+Cookbooks, Food & Wine
+-------------------------------------
+Cookbooks, Food & Wine         0.7309
+Health, Fitness & Dieting      0.0694
+Travel                         0.0237
+Crafts, Hobbies & Home         0.0217
+Children's Books               0.0190
+
+
+Arts & Photography
+-------------------------------------
+Arts & Photography             0.3769
+Crafts, Hobbies & Home         0.0852
+Humor & Entertainment          0.0536
+Travel                         0.0372
+Children's Books               0.0357
+
+
+Education & Teaching
+-------------------------------------
+Education & Teaching           0.3207
+Business & Money               0.1194
+Test Preparation               0.0719
+Law                            0.0718
+Medical Books                  0.0532
+
+
+Law
+-------------------------------------
+Law                            0.6486
+Business & Money               0.0818
+Medical Books                  0.0346
+Politics & Social Sciences     0.0240
+History                        0.0166
+
+
+Comics & Graphic Novels
+-------------------------------------
+Comics & Graphic Novels        0.4597
+Children's Books               0.0852
+Literature & Fiction           0.0475
+Teen & Young Adult             0.0468
+Science Fiction & Fantasy      0.0444
+
+
+Science Fiction & Fantasy
+-------------------------------------
+Science Fiction & Fantasy      0.4511
+Literature & Fiction           0.0844
+Romance                        0.0596
+Children's Books               0.0575
+Teen & Young Adult             0.0523
+
+
+Medical Books
+-------------------------------------
+Medical Books                  0.6854
+Health, Fitness & Dieting      0.0731
+Business & Money               0.0321
+Science & Math                 0.0316
+Politics & Social Sciences     0.0182
+
+
+Health, Fitness & Dieting
+-------------------------------------
+Health, Fitness & Dieting      0.6021
+Medical Books                  0.0766
+Cookbooks, Food & Wine         0.0447
+Self-Help                      0.0289
+Teen & Young Adult             0.0240
+
+
+Gay & Lesbian
+-------------------------------------
+Gay & Lesbian                  0.2466
+Literature & Fiction           0.0958
+Biographies & Memoirs          0.0655
+Politics & Social Sciences     0.0578
+Teen & Young Adult             0.0487
+
+
+History
+-------------------------------------
+History                        0.4471
+Travel                         0.0944
+Biographies & Memoirs          0.0469
+Religion & Spirituality        0.0396
+Literature & Fiction           0.0345
+
+
+Calendars
+-------------------------------------
+Calendars                      0.8915
+Crafts, Hobbies & Home         0.0217
+Travel                         0.0127
+Humor & Entertainment          0.0089
+Arts & Photography             0.0083
+
+
+Mystery, Thriller & Suspense
+-------------------------------------
+Mystery, Thriller & Suspense   0.2656
+Literature & Fiction           0.1817
+Romance                        0.0870
+Science Fiction & Fantasy      0.0643
+Children's Books               0.0568
+
+
+Politics & Social Sciences
+-------------------------------------
+Politics & Social Sciences     0.1601
+Medical Books                  0.0706
+Religion & Spirituality        0.0619
+Science & Math                 0.0616
+Business & Money               0.0596
+
+
+Business & Money
+-------------------------------------
+Business & Money               0.5704
+Law                            0.0487
+Computers & Technology         0.0428
+Medical Books                  0.0354
+Science & Math                 0.0259
+
+
+Test Preparation
+-------------------------------------
+Test Preparation               0.6950
+Medical Books                  0.0547
+Education & Teaching           0.0478
+Business & Money               0.0398
+Law                            0.0336
+
+
+Humor & Entertainment
+-------------------------------------
+Humor & Entertainment          0.3760
+Children's Books               0.0617
+Literature & Fiction           0.0428
+Arts & Photography             0.0419
+Crafts, Hobbies & Home         0.0339
+
+
+Teen & Young Adult
+-------------------------------------
+Teen & Young Adult             0.2998
+Children's Books               0.1086
+Literature & Fiction           0.0640
+Health, Fitness & Dieting      0.0451
+Biographies & Memoirs          0.0307
+
+
+Crafts, Hobbies & Home
+-------------------------------------
+Crafts, Hobbies & Home         0.6123
+Arts & Photography             0.0592
+Science & Math                 0.0308
+Humor & Entertainment          0.0294
+Children's Books               0.0290
+
+
+Romance
+-------------------------------------
+Romance                        0.3775
+Literature & Fiction           0.1140
+Science Fiction & Fantasy      0.0624
+Teen & Young Adult             0.0504
+Children's Books               0.0451
+
+
+

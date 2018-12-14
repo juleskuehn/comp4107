@@ -1,0 +1,36 @@
+GloveTrainable:
+Category                                     Top 1     Top 5
+------------------------------------------------------------
+Calendars                                   0.9065    0.9756
+Cookbooks, Food & Wine                      0.8576    0.9670
+Travel                                      0.8537    0.9587
+Computers & Technology                      0.8120    0.9440
+Medical Books                               0.7725    0.9505
+Test Preparation                            0.7368    0.9228
+Christian Books & Bibles                    0.7181    0.9295
+Law                                         0.7169    0.9107
+Crafts, Hobbies & Home                      0.7108    0.9147
+Health, Fitness & Dieting                   0.7070    0.9483
+Business & Money                            0.6888    0.9295
+Children's Books                            0.6694    0.9406
+Sports & Outdoors                           0.6413    0.8900
+Science & Math                              0.6319    0.8958
+Comics & Graphic Novels                     0.6286    0.7964
+Religion & Spirituality                     0.5877    0.8665
+Romance                                     0.5632    0.8351
+Science Fiction & Fantasy                   0.5606    0.8028
+Humor & Entertainment                       0.5577    0.8314
+History                                     0.5517    0.8779
+Literature & Fiction                        0.5235    0.8631
+Arts & Photography                          0.5217    0.8359
+Reference                                   0.4750    0.7625
+Education & Teaching                        0.4551    0.8539
+Parenting & Relationships                   0.4486    0.8148
+Gay & Lesbian                               0.4385    0.6308
+Teen & Young Adult                          0.4304    0.7945
+Engineering & Transportation                0.4184    0.7801
+Mystery, Thriller & Suspense                0.3781    0.6766
+Self-Help                                   0.3727    0.8118
+Politics & Social Sciences                  0.3116    0.7025
+Biographies & Memoirs                       0.3037    0.7237
+
