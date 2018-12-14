@@ -63,7 +63,7 @@ def plot_good_models_training():
     plt.xlabel('Epoch')
     plt.gca().set_prop_cycle(None)
     custom_lines = [Line2D([0], [0], color=next(ax._get_lines.prop_cycler)['color'], lw=2) for _ in range(25)]
-    plt.legend(custom_lines, ['Simple', 'MLP', 'CNN', 'GloVe CNN', 'GloVe Train Simple', 'GloVe Train MLP', 'GloVe Train CNN'], loc='upper left')
+    plt.legend(custom_lines, ['Simple', 'MLP', 'CNN', 'GloVe CNN', 'GloVe Train Simple', 'GloVe Train MLP', 'GloVe Train CNN'], loc='bottom right')
     plt.show()
 
 
