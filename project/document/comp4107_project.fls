@@ -69,6 +69,19 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/listin
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/listings.cfg
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/courier.sty
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/courier.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/CJKutf8.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/CJKutf8.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/inputenc.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/inputenc.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/CJK.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/CJK.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/mule/MULEenc.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/mule/MULEenc.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/CJK.enc
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fontenc.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fontenc.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/enumitem/enumitem.sty
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/enumitem/enumitem.sty
 INPUT comp4107_project.aux
 INPUT comp4107_project.aux
 OUTPUT comp4107_project.aux
@@ -164,37 +177,16 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbex.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xr.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xr.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txr.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txr.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txmi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txmi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsy.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsy.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txex.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txex.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txmia.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txmia.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsya.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsya.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsyb.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsyb.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsyc.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txsyc.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txexa.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txexa.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txb.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txb.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbmi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbmi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbsy.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbsy.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbex.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/txbex.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xb.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xi.tfm
+INPUT images/title_lengths.png
+INPUT ./images/title_lengths.png
 OUTPUT comp4107_project.pdf
+INPUT ./images/title_lengths.png
+INPUT ./images/title_lengths.png
+INPUT ./images/title_lengths.png
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxr.tfm
@@ -208,7 +200,6 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxr.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xb.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmb.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxb.tfm
@@ -218,8 +209,6 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txmi.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxmi.tfm
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xr.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
@@ -237,7 +226,33 @@ INPUT ./images/good_models_comparison_small.png
 INPUT ./images/good_models_comparison_small.png
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8r.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/UTF8.bdg
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/UTF8.enc
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/UTF8.chr
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/c70song.fd
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/c70song.fd
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb4e.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb5d.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb59.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb5b.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb30.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb78.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb7a.tfm
 INPUT comp4107_project.aux
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb7a.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb7a.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb78.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb78.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb30.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb30.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb5b.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb5b.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb59.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb59.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb5d.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb5d.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb4e.pk
+INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb4e.pk
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxb.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxb.pfb
