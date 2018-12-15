@@ -230,6 +230,11 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/t1pcr.fd
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8t.tfm
 INPUT code/kerasModel.py
 INPUT code/kerasModel.py
+INPUT images/good_models_comparison_small.png
+INPUT ./images/good_models_comparison_small.png
+INPUT ./images/good_models_comparison_small.png
+INPUT ./images/good_models_comparison_small.png
+INPUT ./images/good_models_comparison_small.png
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT comp4107_project.aux

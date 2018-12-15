@@ -359,4 +359,4 @@ def main(epochs=10, lr=0.001, batch_size=512, embed_size=32, mlp=False, cnn=Fals
   return history
 
 
-results = main(epochs=25, lr=0.001, embed_size=32, batch_size=128, mlp=False, cnn=False, trainable=False)
+results = main(epochs=25, lr=0.001, embed_size=32, batch_size=128, mlp=False, cnn=False, trainable=True)

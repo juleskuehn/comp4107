@@ -1,3 +1,0 @@
-Best accuracy after X epochs:
-
-Naive MLP: 0.093 after 1 epoch

@@ -1,0 +1,499 @@
+Using GloVe embeddings
+MLP: False
+CNN: False
+Trainable: False
+File not found locally, downloading...
+Loaded 400000 word vectors.
+20429 words not found in GloVe dataset out of 75094 training words: 27.204570271925853 %
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_1 (Embedding)      (None, 26, 100)           7509400   
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 2600)              0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 32)                83232     
+=================================================================
+Total params: 7,592,632
+Trainable params: 83,232
+Non-trainable params: 7,509,400
+_________________________________________________________________
+None
+Train on 186814 samples, validate on 20758 samples
+Epoch 1/25
+186814/186814 [==============================] - 8s 41us/step - loss: 2.0091 - acc: 0.4536 - top_k_categorical_accuracy: 0.7698 - val_loss: 1.8258 - val_acc: 0.4985 - val_top_k_categorical_accuracy: 0.8049
+Epoch 2/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.7472 - acc: 0.5130 - top_k_categorical_accuracy: 0.8215 - val_loss: 1.8082 - val_acc: 0.4995 - val_top_k_categorical_accuracy: 0.8096
+Epoch 3/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6940 - acc: 0.5262 - top_k_categorical_accuracy: 0.8304 - val_loss: 1.8106 - val_acc: 0.5017 - val_top_k_categorical_accuracy: 0.8080
+Epoch 4/25
+186814/186814 [==============================] - 7s 40us/step - loss: 1.6655 - acc: 0.5331 - top_k_categorical_accuracy: 0.8353 - val_loss: 1.8173 - val_acc: 0.5013 - val_top_k_categorical_accuracy: 0.8100
+Epoch 5/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6470 - acc: 0.5373 - top_k_categorical_accuracy: 0.8378 - val_loss: 1.8301 - val_acc: 0.4997 - val_top_k_categorical_accuracy: 0.8093
+Epoch 6/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6344 - acc: 0.5411 - top_k_categorical_accuracy: 0.8395 - val_loss: 1.8403 - val_acc: 0.5003 - val_top_k_categorical_accuracy: 0.8070
+Epoch 7/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6247 - acc: 0.5428 - top_k_categorical_accuracy: 0.8405 - val_loss: 1.8478 - val_acc: 0.4971 - val_top_k_categorical_accuracy: 0.8066
+Epoch 8/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6167 - acc: 0.5447 - top_k_categorical_accuracy: 0.8418 - val_loss: 1.8551 - val_acc: 0.4974 - val_top_k_categorical_accuracy: 0.8043
+Epoch 9/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6109 - acc: 0.5461 - top_k_categorical_accuracy: 0.8421 - val_loss: 1.8695 - val_acc: 0.4967 - val_top_k_categorical_accuracy: 0.8047
+Epoch 10/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6049 - acc: 0.5478 - top_k_categorical_accuracy: 0.8435 - val_loss: 1.8750 - val_acc: 0.4956 - val_top_k_categorical_accuracy: 0.8046
+Epoch 11/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.6008 - acc: 0.5487 - top_k_categorical_accuracy: 0.8439 - val_loss: 1.8808 - val_acc: 0.4953 - val_top_k_categorical_accuracy: 0.8038
+Epoch 12/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5969 - acc: 0.5504 - top_k_categorical_accuracy: 0.8447 - val_loss: 1.8951 - val_acc: 0.4954 - val_top_k_categorical_accuracy: 0.8028
+Epoch 13/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5935 - acc: 0.5513 - top_k_categorical_accuracy: 0.8449 - val_loss: 1.8989 - val_acc: 0.4939 - val_top_k_categorical_accuracy: 0.8037
+Epoch 14/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5904 - acc: 0.5514 - top_k_categorical_accuracy: 0.8456 - val_loss: 1.9032 - val_acc: 0.4944 - val_top_k_categorical_accuracy: 0.8014
+Epoch 15/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5883 - acc: 0.5513 - top_k_categorical_accuracy: 0.8456 - val_loss: 1.9129 - val_acc: 0.4955 - val_top_k_categorical_accuracy: 0.8008
+Epoch 16/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5863 - acc: 0.5530 - top_k_categorical_accuracy: 0.8449 - val_loss: 1.9181 - val_acc: 0.4903 - val_top_k_categorical_accuracy: 0.8017
+Epoch 17/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5844 - acc: 0.5539 - top_k_categorical_accuracy: 0.8459 - val_loss: 1.9204 - val_acc: 0.4927 - val_top_k_categorical_accuracy: 0.8008
+Epoch 18/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5818 - acc: 0.5547 - top_k_categorical_accuracy: 0.8467 - val_loss: 1.9236 - val_acc: 0.4938 - val_top_k_categorical_accuracy: 0.8023
+Epoch 19/25
+186814/186814 [==============================] - 7s 40us/step - loss: 1.5807 - acc: 0.5545 - top_k_categorical_accuracy: 0.8468 - val_loss: 1.9319 - val_acc: 0.4929 - val_top_k_categorical_accuracy: 0.7983
+Epoch 20/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5786 - acc: 0.5547 - top_k_categorical_accuracy: 0.8467 - val_loss: 1.9397 - val_acc: 0.4926 - val_top_k_categorical_accuracy: 0.7993
+Epoch 21/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5777 - acc: 0.5549 - top_k_categorical_accuracy: 0.8469 - val_loss: 1.9468 - val_acc: 0.4891 - val_top_k_categorical_accuracy: 0.7984
+Epoch 22/25
+186814/186814 [==============================] - 7s 40us/step - loss: 1.5764 - acc: 0.5558 - top_k_categorical_accuracy: 0.8476 - val_loss: 1.9493 - val_acc: 0.4896 - val_top_k_categorical_accuracy: 0.7996
+Epoch 23/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5748 - acc: 0.5552 - top_k_categorical_accuracy: 0.8476 - val_loss: 1.9503 - val_acc: 0.4900 - val_top_k_categorical_accuracy: 0.8010
+Epoch 24/25
+186814/186814 [==============================] - 7s 39us/step - loss: 1.5733 - acc: 0.5568 - top_k_categorical_accuracy: 0.8473 - val_loss: 1.9638 - val_acc: 0.4918 - val_top_k_categorical_accuracy: 0.7982
+Epoch 25/25
+186814/186814 [==============================] - 7s 40us/step - loss: 1.5729 - acc: 0.5571 - top_k_categorical_accuracy: 0.8474 - val_loss: 1.9640 - val_acc: 0.4905 - val_top_k_categorical_accuracy: 0.7998
+Using GloVe embeddings
+MLP: False
+CNN: True
+Trainable: False
+Loaded 400000 word vectors.
+20429 words not found in GloVe dataset out of 75094 training words: 27.204570271925853 %
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_2 (Embedding)      (None, 26, 100)           7509400   
+_________________________________________________________________
+conv1d_1 (Conv1D)            (None, 24, 512)           154112    
+_________________________________________________________________
+max_pooling1d_1 (MaxPooling1 (None, 1, 512)            0         
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 1, 512)            0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 1, 512)            262656    
+_________________________________________________________________
+flatten_2 (Flatten)          (None, 512)               0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 512)               0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 32)                16416     
+=================================================================
+Total params: 7,942,584
+Trainable params: 433,184
+Non-trainable params: 7,509,400
+_________________________________________________________________
+None
+Train on 186814 samples, validate on 20758 samples
+Epoch 1/25
+186814/186814 [==============================] - 27s 142us/step - loss: 1.8518 - acc: 0.4872 - top_k_categorical_accuracy: 0.7881 - val_loss: 1.5111 - val_acc: 0.5704 - val_top_k_categorical_accuracy: 0.8575
+Epoch 2/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.5712 - acc: 0.5589 - top_k_categorical_accuracy: 0.8468 - val_loss: 1.4379 - val_acc: 0.5904 - val_top_k_categorical_accuracy: 0.8679
+Epoch 3/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.4879 - acc: 0.5792 - top_k_categorical_accuracy: 0.8598 - val_loss: 1.4093 - val_acc: 0.6010 - val_top_k_categorical_accuracy: 0.8760
+Epoch 4/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.4288 - acc: 0.5931 - top_k_categorical_accuracy: 0.8691 - val_loss: 1.3746 - val_acc: 0.6128 - val_top_k_categorical_accuracy: 0.8773
+Epoch 5/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.3871 - acc: 0.6035 - top_k_categorical_accuracy: 0.8768 - val_loss: 1.3647 - val_acc: 0.6139 - val_top_k_categorical_accuracy: 0.8799
+Epoch 6/25
+186814/186814 [==============================] - 26s 137us/step - loss: 1.3480 - acc: 0.6124 - top_k_categorical_accuracy: 0.8813 - val_loss: 1.3541 - val_acc: 0.6172 - val_top_k_categorical_accuracy: 0.8814
+Epoch 7/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.3226 - acc: 0.6174 - top_k_categorical_accuracy: 0.8865 - val_loss: 1.3455 - val_acc: 0.6205 - val_top_k_categorical_accuracy: 0.8818
+Epoch 8/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.2976 - acc: 0.6246 - top_k_categorical_accuracy: 0.8901 - val_loss: 1.3434 - val_acc: 0.6245 - val_top_k_categorical_accuracy: 0.8823
+Epoch 9/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.2761 - acc: 0.6285 - top_k_categorical_accuracy: 0.8937 - val_loss: 1.3291 - val_acc: 0.6270 - val_top_k_categorical_accuracy: 0.8837
+Epoch 10/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.2586 - acc: 0.6326 - top_k_categorical_accuracy: 0.8964 - val_loss: 1.3339 - val_acc: 0.6243 - val_top_k_categorical_accuracy: 0.8841
+Epoch 11/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.2402 - acc: 0.6373 - top_k_categorical_accuracy: 0.8993 - val_loss: 1.3276 - val_acc: 0.6241 - val_top_k_categorical_accuracy: 0.8840
+Epoch 12/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.2228 - acc: 0.6408 - top_k_categorical_accuracy: 0.9014 - val_loss: 1.3269 - val_acc: 0.6280 - val_top_k_categorical_accuracy: 0.8852
+Epoch 13/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.2067 - acc: 0.6453 - top_k_categorical_accuracy: 0.9042 - val_loss: 1.3415 - val_acc: 0.6261 - val_top_k_categorical_accuracy: 0.8841
+Epoch 14/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.1961 - acc: 0.6469 - top_k_categorical_accuracy: 0.9059 - val_loss: 1.3336 - val_acc: 0.6268 - val_top_k_categorical_accuracy: 0.8836
+Epoch 15/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.1841 - acc: 0.6490 - top_k_categorical_accuracy: 0.9076 - val_loss: 1.3394 - val_acc: 0.6280 - val_top_k_categorical_accuracy: 0.8831
+Epoch 16/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.1716 - acc: 0.6516 - top_k_categorical_accuracy: 0.9097 - val_loss: 1.3377 - val_acc: 0.6301 - val_top_k_categorical_accuracy: 0.8841
+Epoch 17/25
+186814/186814 [==============================] - 26s 137us/step - loss: 1.1619 - acc: 0.6544 - top_k_categorical_accuracy: 0.9109 - val_loss: 1.3384 - val_acc: 0.6294 - val_top_k_categorical_accuracy: 0.8839
+Epoch 18/25
+186814/186814 [==============================] - 26s 137us/step - loss: 1.1569 - acc: 0.6554 - top_k_categorical_accuracy: 0.9122 - val_loss: 1.3434 - val_acc: 0.6275 - val_top_k_categorical_accuracy: 0.8819
+Epoch 19/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.1437 - acc: 0.6576 - top_k_categorical_accuracy: 0.9138 - val_loss: 1.3418 - val_acc: 0.6274 - val_top_k_categorical_accuracy: 0.8835
+Epoch 20/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.1368 - acc: 0.6599 - top_k_categorical_accuracy: 0.9153 - val_loss: 1.3427 - val_acc: 0.6282 - val_top_k_categorical_accuracy: 0.8819
+Epoch 21/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.1278 - acc: 0.6614 - top_k_categorical_accuracy: 0.9166 - val_loss: 1.3461 - val_acc: 0.6273 - val_top_k_categorical_accuracy: 0.8832
+Epoch 22/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.1188 - acc: 0.6646 - top_k_categorical_accuracy: 0.9167 - val_loss: 1.3508 - val_acc: 0.6261 - val_top_k_categorical_accuracy: 0.8820
+Epoch 23/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.1163 - acc: 0.6643 - top_k_categorical_accuracy: 0.9172 - val_loss: 1.3445 - val_acc: 0.6296 - val_top_k_categorical_accuracy: 0.8838
+Epoch 24/25
+186814/186814 [==============================] - 25s 136us/step - loss: 1.1086 - acc: 0.6664 - top_k_categorical_accuracy: 0.9180 - val_loss: 1.3583 - val_acc: 0.6274 - val_top_k_categorical_accuracy: 0.8810
+Epoch 25/25
+186814/186814 [==============================] - 25s 135us/step - loss: 1.1007 - acc: 0.6678 - top_k_categorical_accuracy: 0.9196 - val_loss: 1.3541 - val_acc: 0.6292 - val_top_k_categorical_accuracy: 0.8799
+Using GloVe embeddings
+MLP: True
+CNN: False
+Trainable: False
+Loaded 400000 word vectors.
+20429 words not found in GloVe dataset out of 75094 training words: 27.204570271925853 %
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_3 (Embedding)      (None, 26, 100)           7509400   
+_________________________________________________________________
+flatten_3 (Flatten)          (None, 2600)              0         
+_________________________________________________________________
+dense_4 (Dense)              (None, 1024)              2663424   
+_________________________________________________________________
+dropout_3 (Dropout)          (None, 1024)              0         
+_________________________________________________________________
+dense_5 (Dense)              (None, 512)               524800    
+_________________________________________________________________
+dropout_4 (Dropout)          (None, 512)               0         
+_________________________________________________________________
+dense_6 (Dense)              (None, 32)                16416     
+=================================================================
+Total params: 10,714,040
+Trainable params: 3,204,640
+Non-trainable params: 7,509,400
+_________________________________________________________________
+None
+Train on 186814 samples, validate on 20758 samples
+Epoch 1/25
+186814/186814 [==============================] - 16s 85us/step - loss: 2.1389 - acc: 0.4031 - top_k_categorical_accuracy: 0.7264 - val_loss: 1.8151 - val_acc: 0.4938 - val_top_k_categorical_accuracy: 0.8120
+Epoch 2/25
+186814/186814 [==============================] - 15s 81us/step - loss: 1.8628 - acc: 0.4751 - top_k_categorical_accuracy: 0.7909 - val_loss: 1.7650 - val_acc: 0.5078 - val_top_k_categorical_accuracy: 0.8219
+Epoch 3/25
+186814/186814 [==============================] - 15s 81us/step - loss: 1.7644 - acc: 0.4996 - top_k_categorical_accuracy: 0.8109 - val_loss: 1.7353 - val_acc: 0.5195 - val_top_k_categorical_accuracy: 0.8245
+Epoch 4/25
+186814/186814 [==============================] - 15s 81us/step - loss: 1.6851 - acc: 0.5171 - top_k_categorical_accuracy: 0.8254 - val_loss: 1.7035 - val_acc: 0.5262 - val_top_k_categorical_accuracy: 0.8274
+Epoch 5/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.6224 - acc: 0.5321 - top_k_categorical_accuracy: 0.8359 - val_loss: 1.6922 - val_acc: 0.5270 - val_top_k_categorical_accuracy: 0.8311
+Epoch 6/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.5641 - acc: 0.5466 - top_k_categorical_accuracy: 0.8443 - val_loss: 1.6711 - val_acc: 0.5322 - val_top_k_categorical_accuracy: 0.8334
+Epoch 7/25
+186814/186814 [==============================] - 15s 81us/step - loss: 1.5134 - acc: 0.5601 - top_k_categorical_accuracy: 0.8536 - val_loss: 1.6634 - val_acc: 0.5337 - val_top_k_categorical_accuracy: 0.8330
+Epoch 8/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.4653 - acc: 0.5711 - top_k_categorical_accuracy: 0.8613 - val_loss: 1.6517 - val_acc: 0.5372 - val_top_k_categorical_accuracy: 0.8344
+Epoch 9/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.4237 - acc: 0.5825 - top_k_categorical_accuracy: 0.8675 - val_loss: 1.6552 - val_acc: 0.5370 - val_top_k_categorical_accuracy: 0.8347
+Epoch 10/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.3838 - acc: 0.5919 - top_k_categorical_accuracy: 0.8734 - val_loss: 1.6465 - val_acc: 0.5394 - val_top_k_categorical_accuracy: 0.8314
+Epoch 11/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.3479 - acc: 0.6014 - top_k_categorical_accuracy: 0.8800 - val_loss: 1.6562 - val_acc: 0.5372 - val_top_k_categorical_accuracy: 0.8315
+Epoch 12/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.3129 - acc: 0.6117 - top_k_categorical_accuracy: 0.8859 - val_loss: 1.6460 - val_acc: 0.5386 - val_top_k_categorical_accuracy: 0.8341
+Epoch 13/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.2891 - acc: 0.6174 - top_k_categorical_accuracy: 0.8882 - val_loss: 1.6512 - val_acc: 0.5439 - val_top_k_categorical_accuracy: 0.8331
+Epoch 14/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.2572 - acc: 0.6258 - top_k_categorical_accuracy: 0.8926 - val_loss: 1.6639 - val_acc: 0.5441 - val_top_k_categorical_accuracy: 0.8297
+Epoch 15/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.2332 - acc: 0.6309 - top_k_categorical_accuracy: 0.8966 - val_loss: 1.6745 - val_acc: 0.5421 - val_top_k_categorical_accuracy: 0.8279
+Epoch 16/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.2098 - acc: 0.6382 - top_k_categorical_accuracy: 0.9001 - val_loss: 1.6764 - val_acc: 0.5384 - val_top_k_categorical_accuracy: 0.8282
+Epoch 17/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.1856 - acc: 0.6441 - top_k_categorical_accuracy: 0.9047 - val_loss: 1.6877 - val_acc: 0.5393 - val_top_k_categorical_accuracy: 0.8274
+Epoch 18/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.1657 - acc: 0.6503 - top_k_categorical_accuracy: 0.9060 - val_loss: 1.6834 - val_acc: 0.5395 - val_top_k_categorical_accuracy: 0.8319
+Epoch 19/25
+186814/186814 [==============================] - 15s 79us/step - loss: 1.1455 - acc: 0.6552 - top_k_categorical_accuracy: 0.9089 - val_loss: 1.7016 - val_acc: 0.5374 - val_top_k_categorical_accuracy: 0.8261
+Epoch 20/25
+186814/186814 [==============================] - 15s 79us/step - loss: 1.1255 - acc: 0.6606 - top_k_categorical_accuracy: 0.9114 - val_loss: 1.6971 - val_acc: 0.5419 - val_top_k_categorical_accuracy: 0.8256
+Epoch 21/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.1103 - acc: 0.6659 - top_k_categorical_accuracy: 0.9132 - val_loss: 1.7081 - val_acc: 0.5384 - val_top_k_categorical_accuracy: 0.8256
+Epoch 22/25
+186814/186814 [==============================] - 15s 79us/step - loss: 1.0881 - acc: 0.6711 - top_k_categorical_accuracy: 0.9167 - val_loss: 1.7102 - val_acc: 0.5372 - val_top_k_categorical_accuracy: 0.8263
+Epoch 23/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.0757 - acc: 0.6748 - top_k_categorical_accuracy: 0.9180 - val_loss: 1.7249 - val_acc: 0.5386 - val_top_k_categorical_accuracy: 0.8235
+Epoch 24/25
+186814/186814 [==============================] - 15s 80us/step - loss: 1.0646 - acc: 0.6784 - top_k_categorical_accuracy: 0.9196 - val_loss: 1.7261 - val_acc: 0.5382 - val_top_k_categorical_accuracy: 0.8241
+Epoch 25/25
+186814/186814 [==============================] - 15s 79us/step - loss: 1.0476 - acc: 0.6840 - top_k_categorical_accuracy: 0.9217 - val_loss: 1.7362 - val_acc: 0.5369 - val_top_k_categorical_accuracy: 0.8233
+Using GloVe embeddings
+MLP: False
+CNN: False
+Trainable: True
+Loaded 400000 word vectors.
+20429 words not found in GloVe dataset out of 75094 training words: 27.204570271925853 %
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_4 (Embedding)      (None, 26, 100)           7509400   
+_________________________________________________________________
+flatten_4 (Flatten)          (None, 2600)              0         
+_________________________________________________________________
+dropout_5 (Dropout)          (None, 2600)              0         
+_________________________________________________________________
+dense_7 (Dense)              (None, 32)                83232     
+=================================================================
+Total params: 7,592,632
+Trainable params: 7,592,632
+Non-trainable params: 0
+_________________________________________________________________
+None
+Train on 186814 samples, validate on 20758 samples
+Epoch 1/25
+186814/186814 [==============================] - 21s 112us/step - loss: 2.1027 - acc: 0.4244 - top_k_categorical_accuracy: 0.7325 - val_loss: 1.6542 - val_acc: 0.5417 - val_top_k_categorical_accuracy: 0.8353
+Epoch 2/25
+186814/186814 [==============================] - 20s 107us/step - loss: 1.6582 - acc: 0.5402 - top_k_categorical_accuracy: 0.8305 - val_loss: 1.4982 - val_acc: 0.5879 - val_top_k_categorical_accuracy: 0.8628
+Epoch 3/25
+186814/186814 [==============================] - 20s 107us/step - loss: 1.4747 - acc: 0.5892 - top_k_categorical_accuracy: 0.8620 - val_loss: 1.4223 - val_acc: 0.6098 - val_top_k_categorical_accuracy: 0.8748
+Epoch 4/25
+186814/186814 [==============================] - 20s 108us/step - loss: 1.3398 - acc: 0.6251 - top_k_categorical_accuracy: 0.8835 - val_loss: 1.3750 - val_acc: 0.6253 - val_top_k_categorical_accuracy: 0.8806
+Epoch 5/25
+186814/186814 [==============================] - 20s 108us/step - loss: 1.2390 - acc: 0.6510 - top_k_categorical_accuracy: 0.8983 - val_loss: 1.3463 - val_acc: 0.6324 - val_top_k_categorical_accuracy: 0.8870
+Epoch 6/25
+186814/186814 [==============================] - 20s 107us/step - loss: 1.1477 - acc: 0.6750 - top_k_categorical_accuracy: 0.9104 - val_loss: 1.3336 - val_acc: 0.6383 - val_top_k_categorical_accuracy: 0.8883
+Epoch 7/25
+186814/186814 [==============================] - 20s 108us/step - loss: 1.0753 - acc: 0.6933 - top_k_categorical_accuracy: 0.9216 - val_loss: 1.3273 - val_acc: 0.6420 - val_top_k_categorical_accuracy: 0.8890
+Epoch 8/25
+186814/186814 [==============================] - 20s 107us/step - loss: 1.0086 - acc: 0.7109 - top_k_categorical_accuracy: 0.9300 - val_loss: 1.3307 - val_acc: 0.6414 - val_top_k_categorical_accuracy: 0.8897
+Epoch 9/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.9428 - acc: 0.7278 - top_k_categorical_accuracy: 0.9376 - val_loss: 1.3348 - val_acc: 0.6472 - val_top_k_categorical_accuracy: 0.8922
+Epoch 10/25
+186814/186814 [==============================] - 20s 108us/step - loss: 0.8878 - acc: 0.7426 - top_k_categorical_accuracy: 0.9443 - val_loss: 1.3455 - val_acc: 0.6462 - val_top_k_categorical_accuracy: 0.8906
+Epoch 11/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.8373 - acc: 0.7559 - top_k_categorical_accuracy: 0.9490 - val_loss: 1.3538 - val_acc: 0.6469 - val_top_k_categorical_accuracy: 0.8891
+Epoch 12/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.7931 - acc: 0.7677 - top_k_categorical_accuracy: 0.9540 - val_loss: 1.3758 - val_acc: 0.6456 - val_top_k_categorical_accuracy: 0.8896
+Epoch 13/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.7479 - acc: 0.7799 - top_k_categorical_accuracy: 0.9583 - val_loss: 1.3914 - val_acc: 0.6464 - val_top_k_categorical_accuracy: 0.8897
+Epoch 14/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.7109 - acc: 0.7897 - top_k_categorical_accuracy: 0.9616 - val_loss: 1.4066 - val_acc: 0.6464 - val_top_k_categorical_accuracy: 0.8888
+Epoch 15/25
+186814/186814 [==============================] - 20s 108us/step - loss: 0.6723 - acc: 0.8009 - top_k_categorical_accuracy: 0.9651 - val_loss: 1.4257 - val_acc: 0.6452 - val_top_k_categorical_accuracy: 0.8894
+Epoch 16/25
+186814/186814 [==============================] - 20s 108us/step - loss: 0.6416 - acc: 0.8085 - top_k_categorical_accuracy: 0.9678 - val_loss: 1.4477 - val_acc: 0.6446 - val_top_k_categorical_accuracy: 0.8887
+Epoch 17/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.6123 - acc: 0.8163 - top_k_categorical_accuracy: 0.9706 - val_loss: 1.4672 - val_acc: 0.6471 - val_top_k_categorical_accuracy: 0.8859
+Epoch 18/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.5827 - acc: 0.8247 - top_k_categorical_accuracy: 0.9726 - val_loss: 1.4907 - val_acc: 0.6470 - val_top_k_categorical_accuracy: 0.8871
+Epoch 19/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.5578 - acc: 0.8304 - top_k_categorical_accuracy: 0.9745 - val_loss: 1.5148 - val_acc: 0.6440 - val_top_k_categorical_accuracy: 0.8858
+Epoch 20/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.5351 - acc: 0.8377 - top_k_categorical_accuracy: 0.9765 - val_loss: 1.5307 - val_acc: 0.6440 - val_top_k_categorical_accuracy: 0.8854
+Epoch 21/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.5147 - acc: 0.8426 - top_k_categorical_accuracy: 0.9778 - val_loss: 1.5554 - val_acc: 0.6408 - val_top_k_categorical_accuracy: 0.8849
+Epoch 22/25
+186814/186814 [==============================] - 20s 108us/step - loss: 0.4931 - acc: 0.8493 - top_k_categorical_accuracy: 0.9794 - val_loss: 1.5797 - val_acc: 0.6406 - val_top_k_categorical_accuracy: 0.8844
+Epoch 23/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.4744 - acc: 0.8540 - top_k_categorical_accuracy: 0.9805 - val_loss: 1.6024 - val_acc: 0.6406 - val_top_k_categorical_accuracy: 0.8836
+Epoch 24/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.4621 - acc: 0.8576 - top_k_categorical_accuracy: 0.9814 - val_loss: 1.6169 - val_acc: 0.6412 - val_top_k_categorical_accuracy: 0.8830
+Epoch 25/25
+186814/186814 [==============================] - 20s 107us/step - loss: 0.4479 - acc: 0.8624 - top_k_categorical_accuracy: 0.9822 - val_loss: 1.6442 - val_acc: 0.6404 - val_top_k_categorical_accuracy: 0.8821
+Using GloVe embeddings
+MLP: False
+CNN: True
+Trainable: True
+Loaded 400000 word vectors.
+20429 words not found in GloVe dataset out of 75094 training words: 27.204570271925853 %
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_5 (Embedding)      (None, 26, 100)           7509400   
+_________________________________________________________________
+dropout_6 (Dropout)          (None, 26, 100)           0         
+_________________________________________________________________
+conv1d_2 (Conv1D)            (None, 24, 512)           154112    
+_________________________________________________________________
+max_pooling1d_2 (MaxPooling1 (None, 1, 512)            0         
+_________________________________________________________________
+dropout_7 (Dropout)          (None, 1, 512)            0         
+_________________________________________________________________
+dense_8 (Dense)              (None, 1, 512)            262656    
+_________________________________________________________________
+flatten_5 (Flatten)          (None, 512)               0         
+_________________________________________________________________
+dropout_8 (Dropout)          (None, 512)               0         
+_________________________________________________________________
+dense_9 (Dense)              (None, 32)                16416     
+=================================================================
+Total params: 7,942,584
+Trainable params: 7,942,584
+Non-trainable params: 0
+_________________________________________________________________
+None
+Train on 186814 samples, validate on 20758 samples
+Epoch 1/25
+186814/186814 [==============================] - 41s 217us/step - loss: 2.0992 - acc: 0.4212 - top_k_categorical_accuracy: 0.7291 - val_loss: 1.5853 - val_acc: 0.5699 - val_top_k_categorical_accuracy: 0.8488
+Epoch 2/25
+186814/186814 [==============================] - 39s 211us/step - loss: 1.7075 - acc: 0.5297 - top_k_categorical_accuracy: 0.8189 - val_loss: 1.4543 - val_acc: 0.6031 - val_top_k_categorical_accuracy: 0.8668
+Epoch 3/25
+186814/186814 [==============================] - 39s 211us/step - loss: 1.5767 - acc: 0.5641 - top_k_categorical_accuracy: 0.8430 - val_loss: 1.3848 - val_acc: 0.6205 - val_top_k_categorical_accuracy: 0.8728
+Epoch 4/25
+186814/186814 [==============================] - 39s 211us/step - loss: 1.4883 - acc: 0.5893 - top_k_categorical_accuracy: 0.8570 - val_loss: 1.3484 - val_acc: 0.6262 - val_top_k_categorical_accuracy: 0.8784
+Epoch 5/25
+186814/186814 [==============================] - 39s 211us/step - loss: 1.4234 - acc: 0.6046 - top_k_categorical_accuracy: 0.8682 - val_loss: 1.3275 - val_acc: 0.6318 - val_top_k_categorical_accuracy: 0.8811
+Epoch 6/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.3666 - acc: 0.6193 - top_k_categorical_accuracy: 0.8781 - val_loss: 1.3057 - val_acc: 0.6379 - val_top_k_categorical_accuracy: 0.8865
+Epoch 7/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.3221 - acc: 0.6309 - top_k_categorical_accuracy: 0.8844 - val_loss: 1.2964 - val_acc: 0.6425 - val_top_k_categorical_accuracy: 0.8872
+Epoch 8/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.2834 - acc: 0.6404 - top_k_categorical_accuracy: 0.8910 - val_loss: 1.2883 - val_acc: 0.6449 - val_top_k_categorical_accuracy: 0.8871
+Epoch 9/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.2502 - acc: 0.6489 - top_k_categorical_accuracy: 0.8954 - val_loss: 1.2871 - val_acc: 0.6478 - val_top_k_categorical_accuracy: 0.8880
+Epoch 10/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.2166 - acc: 0.6561 - top_k_categorical_accuracy: 0.9015 - val_loss: 1.2942 - val_acc: 0.6482 - val_top_k_categorical_accuracy: 0.8906
+Epoch 11/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.1871 - acc: 0.6648 - top_k_categorical_accuracy: 0.9051 - val_loss: 1.2932 - val_acc: 0.6513 - val_top_k_categorical_accuracy: 0.8914
+Epoch 12/25
+186814/186814 [==============================] - 40s 213us/step - loss: 1.1592 - acc: 0.6719 - top_k_categorical_accuracy: 0.9088 - val_loss: 1.3017 - val_acc: 0.6517 - val_top_k_categorical_accuracy: 0.8910
+Epoch 13/25
+186814/186814 [==============================] - 40s 213us/step - loss: 1.1360 - acc: 0.6779 - top_k_categorical_accuracy: 0.9127 - val_loss: 1.3013 - val_acc: 0.6535 - val_top_k_categorical_accuracy: 0.8924
+Epoch 14/25
+186814/186814 [==============================] - 39s 211us/step - loss: 1.1111 - acc: 0.6830 - top_k_categorical_accuracy: 0.9157 - val_loss: 1.3136 - val_acc: 0.6520 - val_top_k_categorical_accuracy: 0.8919
+Epoch 15/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.0888 - acc: 0.6897 - top_k_categorical_accuracy: 0.9192 - val_loss: 1.3196 - val_acc: 0.6541 - val_top_k_categorical_accuracy: 0.8926
+Epoch 16/25
+186814/186814 [==============================] - 40s 211us/step - loss: 1.0698 - acc: 0.6940 - top_k_categorical_accuracy: 0.9213 - val_loss: 1.3222 - val_acc: 0.6546 - val_top_k_categorical_accuracy: 0.8931
+Epoch 17/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.0502 - acc: 0.7001 - top_k_categorical_accuracy: 0.9233 - val_loss: 1.3405 - val_acc: 0.6556 - val_top_k_categorical_accuracy: 0.8917
+Epoch 18/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.0317 - acc: 0.7052 - top_k_categorical_accuracy: 0.9256 - val_loss: 1.3437 - val_acc: 0.6576 - val_top_k_categorical_accuracy: 0.8919
+Epoch 19/25
+186814/186814 [==============================] - 40s 212us/step - loss: 1.0159 - acc: 0.7095 - top_k_categorical_accuracy: 0.9275 - val_loss: 1.3530 - val_acc: 0.6581 - val_top_k_categorical_accuracy: 0.8909
+Epoch 20/25
+186814/186814 [==============================] - 40s 212us/step - loss: 0.9965 - acc: 0.7132 - top_k_categorical_accuracy: 0.9295 - val_loss: 1.3723 - val_acc: 0.6586 - val_top_k_categorical_accuracy: 0.8927
+Epoch 21/25
+186814/186814 [==============================] - 40s 212us/step - loss: 0.9835 - acc: 0.7181 - top_k_categorical_accuracy: 0.9309 - val_loss: 1.3847 - val_acc: 0.6566 - val_top_k_categorical_accuracy: 0.8900
+Epoch 22/25
+186814/186814 [==============================] - 40s 212us/step - loss: 0.9705 - acc: 0.7201 - top_k_categorical_accuracy: 0.9325 - val_loss: 1.3872 - val_acc: 0.6572 - val_top_k_categorical_accuracy: 0.8901
+Epoch 23/25
+186814/186814 [==============================] - 40s 212us/step - loss: 0.9508 - acc: 0.7256 - top_k_categorical_accuracy: 0.9355 - val_loss: 1.4193 - val_acc: 0.6554 - val_top_k_categorical_accuracy: 0.8905
+Epoch 24/25
+186814/186814 [==============================] - 40s 212us/step - loss: 0.9417 - acc: 0.7285 - top_k_categorical_accuracy: 0.9356 - val_loss: 1.4204 - val_acc: 0.6574 - val_top_k_categorical_accuracy: 0.8868
+Epoch 25/25
+186814/186814 [==============================] - 40s 212us/step - loss: 0.9256 - acc: 0.7314 - top_k_categorical_accuracy: 0.9381 - val_loss: 1.4224 - val_acc: 0.6573 - val_top_k_categorical_accuracy: 0.8886
+Using GloVe embeddings
+MLP: True
+CNN: False
+Trainable: True
+Loaded 400000 word vectors.
+20429 words not found in GloVe dataset out of 75094 training words: 27.204570271925853 %
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_6 (Embedding)      (None, 26, 100)           7509400   
+_________________________________________________________________
+flatten_6 (Flatten)          (None, 2600)              0         
+_________________________________________________________________
+dropout_9 (Dropout)          (None, 2600)              0         
+_________________________________________________________________
+dense_10 (Dense)             (None, 1024)              2663424   
+_________________________________________________________________
+dropout_10 (Dropout)         (None, 1024)              0         
+_________________________________________________________________
+dense_11 (Dense)             (None, 512)               524800    
+_________________________________________________________________
+dropout_11 (Dropout)         (None, 512)               0         
+_________________________________________________________________
+dense_12 (Dense)             (None, 32)                16416     
+=================================================================
+Total params: 10,714,040
+Trainable params: 10,714,040
+Non-trainable params: 0
+_________________________________________________________________
+None
+Train on 186814 samples, validate on 20758 samples
+Epoch 1/25
+186814/186814 [==============================] - 30s 158us/step - loss: 2.3013 - acc: 0.3615 - top_k_categorical_accuracy: 0.6794 - val_loss: 1.8282 - val_acc: 0.5111 - val_top_k_categorical_accuracy: 0.8235
+Epoch 2/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.9110 - acc: 0.4661 - top_k_categorical_accuracy: 0.7783 - val_loss: 1.6333 - val_acc: 0.5600 - val_top_k_categorical_accuracy: 0.8459
+Epoch 3/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.7504 - acc: 0.5115 - top_k_categorical_accuracy: 0.8099 - val_loss: 1.5351 - val_acc: 0.5816 - val_top_k_categorical_accuracy: 0.8595
+Epoch 4/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.6373 - acc: 0.5429 - top_k_categorical_accuracy: 0.8305 - val_loss: 1.4779 - val_acc: 0.5950 - val_top_k_categorical_accuracy: 0.8643
+Epoch 5/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.5523 - acc: 0.5671 - top_k_categorical_accuracy: 0.8447 - val_loss: 1.4330 - val_acc: 0.6080 - val_top_k_categorical_accuracy: 0.8694
+Epoch 6/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.4837 - acc: 0.5854 - top_k_categorical_accuracy: 0.8550 - val_loss: 1.4056 - val_acc: 0.6102 - val_top_k_categorical_accuracy: 0.8699
+Epoch 7/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.4268 - acc: 0.6018 - top_k_categorical_accuracy: 0.8640 - val_loss: 1.3878 - val_acc: 0.6234 - val_top_k_categorical_accuracy: 0.8733
+Epoch 8/25
+186814/186814 [==============================] - 29s 153us/step - loss: 1.3729 - acc: 0.6154 - top_k_categorical_accuracy: 0.8728 - val_loss: 1.3626 - val_acc: 0.6255 - val_top_k_categorical_accuracy: 0.8761
+Epoch 9/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.3318 - acc: 0.6275 - top_k_categorical_accuracy: 0.8785 - val_loss: 1.3545 - val_acc: 0.6279 - val_top_k_categorical_accuracy: 0.8762
+Epoch 10/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.2918 - acc: 0.6365 - top_k_categorical_accuracy: 0.8843 - val_loss: 1.3474 - val_acc: 0.6320 - val_top_k_categorical_accuracy: 0.8773
+Epoch 11/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.2577 - acc: 0.6470 - top_k_categorical_accuracy: 0.8895 - val_loss: 1.3419 - val_acc: 0.6332 - val_top_k_categorical_accuracy: 0.8759
+Epoch 12/25
+186814/186814 [==============================] - 28s 153us/step - loss: 1.2217 - acc: 0.6556 - top_k_categorical_accuracy: 0.8943 - val_loss: 1.3303 - val_acc: 0.6368 - val_top_k_categorical_accuracy: 0.8797
+Epoch 13/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.1915 - acc: 0.6645 - top_k_categorical_accuracy: 0.8989 - val_loss: 1.3327 - val_acc: 0.6385 - val_top_k_categorical_accuracy: 0.8777
+Epoch 14/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.1634 - acc: 0.6723 - top_k_categorical_accuracy: 0.9026 - val_loss: 1.3340 - val_acc: 0.6424 - val_top_k_categorical_accuracy: 0.8776
+Epoch 15/25
+186814/186814 [==============================] - 28s 153us/step - loss: 1.1378 - acc: 0.6797 - top_k_categorical_accuracy: 0.9053 - val_loss: 1.3382 - val_acc: 0.6401 - val_top_k_categorical_accuracy: 0.8789
+Epoch 16/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.1116 - acc: 0.6885 - top_k_categorical_accuracy: 0.9087 - val_loss: 1.3345 - val_acc: 0.6445 - val_top_k_categorical_accuracy: 0.8806
+Epoch 17/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.0824 - acc: 0.6958 - top_k_categorical_accuracy: 0.9133 - val_loss: 1.3419 - val_acc: 0.6428 - val_top_k_categorical_accuracy: 0.8811
+Epoch 18/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.0645 - acc: 0.7012 - top_k_categorical_accuracy: 0.9151 - val_loss: 1.3450 - val_acc: 0.6420 - val_top_k_categorical_accuracy: 0.8794
+Epoch 19/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.0434 - acc: 0.7072 - top_k_categorical_accuracy: 0.9174 - val_loss: 1.3582 - val_acc: 0.6398 - val_top_k_categorical_accuracy: 0.8786
+Epoch 20/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.0205 - acc: 0.7125 - top_k_categorical_accuracy: 0.9205 - val_loss: 1.3611 - val_acc: 0.6432 - val_top_k_categorical_accuracy: 0.8777
+Epoch 21/25
+186814/186814 [==============================] - 28s 152us/step - loss: 1.0021 - acc: 0.7178 - top_k_categorical_accuracy: 0.9226 - val_loss: 1.3700 - val_acc: 0.6401 - val_top_k_categorical_accuracy: 0.8748
+Epoch 22/25
+186814/186814 [==============================] - 28s 152us/step - loss: 0.9793 - acc: 0.7244 - top_k_categorical_accuracy: 0.9254 - val_loss: 1.3755 - val_acc: 0.6443 - val_top_k_categorical_accuracy: 0.8803
+Epoch 23/25
+186814/186814 [==============================] - 28s 152us/step - loss: 0.9598 - acc: 0.7296 - top_k_categorical_accuracy: 0.9273 - val_loss: 1.3868 - val_acc: 0.6467 - val_top_k_categorical_accuracy: 0.8778
+Epoch 24/25
+186814/186814 [==============================] - 28s 152us/step - loss: 0.9470 - acc: 0.7347 - top_k_categorical_accuracy: 0.9284 - val_loss: 1.3854 - val_acc: 0.6477 - val_top_k_categorical_accuracy: 0.8786
+Epoch 25/25
+186814/186814 [==============================] - 28s 152us/step - loss: 0.9285 - acc: 0.7384 - top_k_categorical_accuracy: 0.9305 - val_loss: 1.3924 - val_acc: 0.6455 - val_top_k_categorical_accuracy: 0.8776
+---------------------------------------------------------------------------
+MessageError                              Traceback (most recent call last)
+<ipython-input-11-4a7e7ae5e559> in <module>()
+     50 
+     51 genResults(epochs=25)
+---> 52 files.download('glove-simple.csv')
+     53 files.download('glove-cnn.csv')
+     54 files.download('glove-mlp.csv')
+
+/usr/local/lib/python3.6/dist-packages/google/colab/files.py in download(filename)
+    176       'port': port,
+    177       'path': _os.path.abspath(filename),
+--> 178       'name': _os.path.basename(filename),
+    179   })
+
+/usr/local/lib/python3.6/dist-packages/google/colab/output/_js.py in eval_js(script, ignore_result)
+     37   if ignore_result:
+     38     return
+---> 39   return _message.read_reply_from_input(request_id)
+     40 
+     41 
+
+/usr/local/lib/python3.6/dist-packages/google/colab/_message.py in read_reply_from_input(message_id, timeout_sec)
+    104         reply.get('colab_msg_id') == message_id):
+    105       if 'error' in reply:
+--> 106         raise MessageError(reply['error'])
+    107       return reply.get('data', None)
+    108 
+
+MessageError: TypeError: Failed to fetch
