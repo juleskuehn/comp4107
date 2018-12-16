@@ -134,13 +134,18 @@ As training the models is computationally intensive, we ran many of our tests on
 Eleven distinct models were tested. Each model was tuned in terms of hyperparameters and dropout layers through experimentation, so they each represent a fair example of the architecture.\\
 All models were run for at least 25 epochs, with a learning rate of 0.001, a batch size of 128, and a embedding length of 32 (except in the case of using the 100-dimensional GloVe embeddings). Of the 207572 labelled data, we took 9/10 for training and 1/10 for validation.\\
 The results of the naive model, in which no meaning is embedded in the input vector, were predictably poor. The MLP achieved only 9\% validation accuracy, while the CNN eventually reached 12\%. While these accuracies are better than chance (1/32), they are far from useful. There needs to be a meaningful representation of the input words in the input vectors, not arbitrary word indices.\\
-Adding an embedding layer drastically improved the results. The best 7 models performed very similarly, all falling between 62 and 66\%.
+Adding an embedding layer drastically improved the results. The best 7 models performed very similarly, all falling between 62 and 66\%.\\
 \begin{figure}[h!]
     \centering
      \includegraphics[width=0.5\textwidth]{images/good_models_comparison_small}
         \caption{Categorization accuracy for 7 best models}
 \end{figure}
-
+After training the model, we tested the dataset by category to get a prediction vector which represented the mean of the predictions for all titles in the validation set belonging to that category. Projecting these 32-dimensional means into 2 dimensions using T-SNE, we can see that meaningful spatial relationships between categories have emerged. For instance, fiction categories Literature, Romance, and Mystery are close to each other, but far away from personal growth categories like Parenting, Self-Help, and Fitness. These relationships can also be seen in the top 5 categorizations for titles in a given category (see Appendix).\\
+\begin{figure}[h!]
+    \centering
+     \includegraphics[width=0.5\textwidth]{images/tsne-categories-small}
+        \caption{Spatial relationships between categories}
+\end{figure}
 
 \subsection{Training embeddings from dataset}
 The simple model

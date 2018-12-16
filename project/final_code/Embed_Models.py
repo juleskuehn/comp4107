@@ -341,10 +341,10 @@ def main(epochs=10, lr=0.001, batch_size=512, embed_size=32, mlp=False, cnn=Fals
       plot_category_accuracy()
       print_category_accuracy()
     #   show_random_top_5()
-    #   test_string_loop()
+      test_string_loop()
 
   go()
   return history
 
 
-results = main(epochs=25, lr=0.001, embed_size=32, batch_size=128, mlp=False, cnn=False)
+results = main(epochs=3, lr=0.01, embed_size=32, batch_size=512, mlp=False, cnn=False)

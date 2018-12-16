@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1544853172 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1544853177
+["pdflatex"] 1544891506 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1544891512
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb30.pk" 1544853107 26416 be42586c93475e49c7e2cd9ec0cff5f8 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb4e.pk" 1544853117 48528 e1aa7b73bba3a9c622c83a16b3c2dfc5 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb59.pk" 1544853112 73516 ab3e9477ea4401d61002db13af08f990 ""
@@ -124,13 +124,14 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsya.fd" 977313960 310 cee07e4964749ccbc77d84fc49726a79 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyb.fd" 977313960 310 8c5467c8932c259af51b0f116c9734bd ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyc.fd" 977313960 310 4b5d6fe830337242ef847b3bff48ba21 ""
-  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1544853160 17547 9e34331e3c5211c9a2a6eaefeae8cfb0 ""
+  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1544891504 18372 d2df46e5bf7961f125aee708468ac334 ""
   "code/kerasModel.py" 1544563322 312 20121df4c9b62d44be9151b202634402 ""
-  "comp4107_project.aux" 1544853176 1398 d94b842585be3587f54e0bec979436fd ""
-  "comp4107_project.tex" 1544853160 17547 9e34331e3c5211c9a2a6eaefeae8cfb0 ""
+  "comp4107_project.aux" 1544891511 1523 55603716281c9c1518729525906d8670 ""
+  "comp4107_project.tex" 1544891504 18372 d2df46e5bf7961f125aee708468ac334 ""
   "images/good_models_comparison_small.png" 1544810625 64935 b747a3a49958fb9b9d8835de9d1ea8e3 ""
   "images/title_lengths.png" 1544852927 23215 056b4d48c6140225ab47c5d6d9797f84 ""
+  "images/tsne-categories-small.png" 1544887727 75636 43e57c3bf97f7e9f61dbaca6d855cba4 ""
   (generated)
-  "comp4107_project.aux"
   "comp4107_project.log"
   "comp4107_project.pdf"
+  "comp4107_project.aux"
