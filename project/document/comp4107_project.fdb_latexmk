@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1544891506 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1544891512
+["pdflatex"] 1544992038 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1544992041
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb30.pk" 1544853107 26416 be42586c93475e49c7e2cd9ec0cff5f8 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb4e.pk" 1544853117 48528 e1aa7b73bba3a9c622c83a16b3c2dfc5 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb59.pk" 1544853112 73516 ab3e9477ea4401d61002db13af08f990 ""
@@ -124,14 +124,17 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsya.fd" 977313960 310 cee07e4964749ccbc77d84fc49726a79 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyb.fd" 977313960 310 8c5467c8932c259af51b0f116c9734bd ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyc.fd" 977313960 310 4b5d6fe830337242ef847b3bff48ba21 ""
-  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1544891504 18372 d2df46e5bf7961f125aee708468ac334 ""
-  "code/kerasModel.py" 1544563322 312 20121df4c9b62d44be9151b202634402 ""
-  "comp4107_project.aux" 1544891511 1523 55603716281c9c1518729525906d8670 ""
-  "comp4107_project.tex" 1544891504 18372 d2df46e5bf7961f125aee708468ac334 ""
+  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1544992036 23380 4a0a9bae4985c88a6f604fcfebfe3041 ""
+  "code/kerasModel.py" 1544974433 329 bf2ddc85a8730a434a35c50bbe0ed348 ""
+  "comp4107_project.aux" 1544992040 1875 3ca83437e53dc1e92bcdf3a4fcb0fba7 ""
+  "comp4107_project.tex" 1544992036 23380 4a0a9bae4985c88a6f604fcfebfe3041 ""
+  "images/Training-Glove.png" 1544715804 18309 868fb3f69006ab0814117648df22c319 ""
+  "images/Training-GloveMLP.png" 1544716255 20615 4aa39de5a935b9d881d3651548d564eb ""
+  "images/Training-GloveTrainable.png" 1544715644 20998 40927176e2c4644dfac2cdcacbc98b56 ""
   "images/good_models_comparison_small.png" 1544810625 64935 b747a3a49958fb9b9d8835de9d1ea8e3 ""
   "images/title_lengths.png" 1544852927 23215 056b4d48c6140225ab47c5d6d9797f84 ""
   "images/tsne-categories-small.png" 1544887727 75636 43e57c3bf97f7e9f61dbaca6d855cba4 ""
   (generated)
+  "comp4107_project.aux"
   "comp4107_project.log"
   "comp4107_project.pdf"
-  "comp4107_project.aux"

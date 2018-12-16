@@ -14,9 +14,9 @@
 \twoauthors{Yunkai Wang}{Jules Kuehn}
 \twoaffiliations{Carleton University, School of Computer Science}{Carleton University, School of Computer Science}
 
-\abstract{Recently Convolutional Neural Networks (CNN) have been well-studied and be shown that they can archive incredible results on tasks like sentence classification (Kim, 2014; Zhang and Wallace, 2015). An interesting topic that has been studied is if we can categorize a book based on its cover picture (Iwana et al., 2016). "However, classification of books based on the cover image is a difficult task." (Iwana et al., 2016, p. 6). As being said, relationship between the book's cover image and its category does exist, but it's hard to to classify using a CNN as many books have a misleading cover images. Based on the idea of categorizing book, we conduct this experiment to see if we can use CNN to learn the potential relationship between a book's title and its categories. For this project, we experiment how well this task can be performed with different model setups and layers (Britz, 2015) using matrices that represent the titles as input(Mikolov et al., 2013; Karani, 2018; Britz, 2015).}
+\abstract{Recently Convolutional Neural Networks (CNN) have been well-studied and be shown that they can archive incredible results on tasks like sentence classification (Kim, 2014; Zhang and Wallace, 2015). An interesting topic that has been studied is if we can categorize a book based on its cover picture (Iwana et al., 2016). "However, classification of books based on the cover image is a difficult task." (Iwana et al., 2016, p. 6). That being said, the relationship between the book's cover image and its category does exist, but it's hard to to classify using a CNN as many books have misleading cover images. Based on the idea of categorizing books, we are conducting this experiment to see if we can use CNN to learn the potential relationship between a books title and its categories. For this project, we will experiment how accurately this task can be performed with different model setups and layers (Britz, 2015) using matrixes that represent the titles as input (Mikolov et al., 2013; Karani, 2018; Britz, 2015).}
 
-\leftheader{Jules, Yunkai}
+\leftheader{Wang, Kuehn}
 
 \begin{document}
 \maketitle    
@@ -27,12 +27,12 @@ Book titles will given the reader a first impression of what the book may be abo
 \section{\rom{2}. Background/Related work}
 
 \subsection{Dateset}
-The \textit{Data Mining} is a dataset that can be found on \textit{Github.com}, and it's made published by the researchers who conducted the experiment on testing the relationship between a book's cover image and its category (Iwana et al., 2016; uchidalab, 2018). The set consists of detailed information of $207572$ books from $32$ different categories. Some of the books are easy to classify, like 'calendar' and 'law', which are not similar to the other categories, or they contain some specific keyword among most books from the same category. However, many categories are pairwise similar, like 'Christian Books and Bibles' and 'Religion and Spirituality', these categories are the difficult part for the CNN to correctly classify. The dataset is not automatically splitted into training set and test set, so we use \textit{sklearn} library to split the data.
+The \textit{Data Mining} is a dataset that can be found on \textit{Github.com}, and it was published by the researchers who conducted the experiment on testing the relationship between a books cover image and its category (Iwana et al., 2016; uchidalab, 2018). The set consists of detailed information of $207572$ books from $32$ different categories. Some of the books are easy to classify, like 'calendar' and 'law', which are not similar to the other categories, or they contain some specific keyword among most books from the same category. However, many categories are similar, like 'Christian Books and Bibles' and 'Religion and Spirituality.'It is these categories that are the difficult part for the CNN to correctly classify. The dataset is not automatically splitted into training set and test set, so we use \textit{sklearn} library to split the data.
 
 \subsection{Loading and transforming the data}
-Here are the list of things we did to load the dataset:
+Here are the list of steps we took to load the dataset:
 
-\rule{0pt}{4ex}  1. First we load all the original data line by line, and for each line, we extract the book title and its category, as those are the only things that we are feeding to our neural network.
+\rule{0pt}{4ex}  1. First we loaded all the original data line by line, and for each line, we extracted the books title and its category, as that was the only information we fed to our neural network.
 
 \rule{0pt}{4ex}  2. Since most titles are of different length, and the maximum title length is $96$. We could expand the titles so that they all have length $96$. However, as Figure $1$ shows, most of titles have length less than $26$, only several titles have length $>26$. Therefore, we choose the maximum length to be $26$ instead of $96$. We used \textit{pad\_sequence} function from keras library to accomplish the task, which simply appends $0$ to the end of the titles that are shorter than the given length, and cut-off those long titles after $26$ words.
 
@@ -126,14 +126,14 @@ The second variation adds a single convolutional layer, followed by maxpool over
 
 \section{\rom{4}. Implementation}
 
-The naive models were implemented using the course-provided cnn.py and mlp.py code. All other models were implemented in Keras, in which the code for the model is extremely concise:\\
+The naive models were implemented using the course-provided cnn.py and mlp.py code. All other models were implemented in Keras, in which the code for the simple model is very concise:\\
 \lstinputlisting{code/kerasModel.py}
 As training the models is computationally intensive, we ran many of our tests on Google Colaboratory.\\
 
 \section{\rom{5}. Experiment}
 Eleven distinct models were tested. Each model was tuned in terms of hyperparameters and dropout layers through experimentation, so they each represent a fair example of the architecture.\\
 All models were run for at least 25 epochs, with a learning rate of 0.001, a batch size of 128, and a embedding length of 32 (except in the case of using the 100-dimensional GloVe embeddings). Of the 207572 labelled data, we took 9/10 for training and 1/10 for validation.\\
-The results of the naive model, in which no meaning is embedded in the input vector, were predictably poor. The MLP achieved only 9\% validation accuracy, while the CNN eventually reached 12\%. While these accuracies are better than chance (1/32), they are far from useful. There needs to be a meaningful representation of the input words in the input vectors, not arbitrary word indices.\\
+The results of the naive model, in which no meaning is embedded in the input vector, were predictably poor. The MLP achieved only 9\% validation accuracy, while the CNN eventually reached 12\%. While these accuracies are better than chance (~3\%), they are far from useful. There needs to be a meaningful representation of the input words in the input vectors, not arbitrary word indices.\\
 Adding an embedding layer drastically improved the results. The best 7 models performed very similarly, all falling between 62 and 66\%.\\
 \begin{figure}[h!]
     \centering
@@ -148,19 +148,43 @@ After training the model, we tested the dataset by category to get a prediction 
 \end{figure}
 
 \subsection{Training embeddings from dataset}
-The simple model
-The MLP model
-The CNN model
+The simple model (code shown above) simply trained the embedding for the vocabulary of the book titles, creating relationships between individual word embeddings and the book categories in the process. The input word vectors, previously organized in rows (one vector per word) were then flattened into a single input vector for the title and fully connected to the 32 category softmax output. This worked very well (~80 to 90\% accuracy) in certain categories for which specific words consistently appeared, like Calendars.\\
 
-\subsection {Using pre-trained GloVe embeddings}
-The simple model
-The MLP model
-The CNN model
+Adding fully connected layers to create a multi-layer perceptron did not improve this model. The MLP variant was prone to overfitting, and was slower to propagate error correction through to the embedding layer.\\
 
-\subsection {Re-training GloVe embeddings from dataset}
-The simple model
-The MLP model
-The CNN model
+The CNN model also didn't outperform the simple model. This suggests that the embedding layer, already taking advantage of word context and the labels of the specific dataset, is sufficient for the task.\\
+
+\subsection{Using pre-trained GloVe embeddings}
+The GloVe embeddings contain a vocabulary of 400,000 words. Since we disallowed training for this model, that meant words not found in the dataset would not be placed meaningfully in the embedding space. The missing words were set to the 0 vector. We did not explore whether the disclusion of rare words is a negative or positive for this problem, but this is the subject of other research in NLP. Out of the 75,094 words in the titles, 20,429 (27\%) were not found in GloVe dataset.
+
+Performing experiments on the pre-trained GloVe embeddings better supported our hypothesis that a CNN would be a good choice for this problem. With the simple model (title matrices flattened and fully connected to the softmax output), there was insufficient trainable parameters (83,232) to fit the data to the labels, reaching a plateau at roughly 50\% accuracy on the validation data, and less than 60\% even on the training data.\\
+
+\begin{figure}[h!]
+    \centering
+     \includegraphics[width=0.5\textwidth]{images/Training-Glove}
+        \caption{GloVe embeddings straight into softmax}
+\end{figure}
+
+The MLP model did little to improve validation accuracy, reaching 54\% after 14 epochs. While the millions of trainable parameters (3,204,640) improved training accuracy to 80\% at 50 epochs, the patterns it was learning were not generalizable.\\
+
+\begin{figure}[h!]
+    \centering
+     \includegraphics[width=0.5\textwidth]{images/Training-GloveMLP}
+        \caption{GloVe embeddings through MLP}
+\end{figure}
+
+Adding the convolutional model suggested by Britz (2015a) improved the validation accuracy to the point of being competitive with the embeddings trained from the titles (63\%) while having a modest number of trainable parameters (433,184). This was the most convincing result in support of our hypothesis that the CNN would improve categorization accuracy. In contrast with the MLP above, the training clearly had better ability to generalize to unseen titles. This is not surprising, as the MLP would be considering the position of words in the title, whereas the CNN would be looking for words, or combinations of words, in any location in the title, disregarding precisely where in the title they appear. This property of spatial invariance is crucial for creating closer associations between individual word vectors and the category labels.\\
+
+\subsection{Re-training GloVe embeddings from dataset}
+In this model, we initialized our embeddings to the pre-trained GloVe set and then re-trained based on the titles and labels. Instead of initializing the missing words to zero, we initialized them randomly and allowed them to be trained along with the rest of the pre-trained embeddings. The three tested variations on this model performed the best of all tested models.\\
+The simple model converged to a peak validation accuracy of 64.7\% in 9 epochs. The training accuracy continues to increase at 50 epochs, showing similarity to the MLP with non-trainable embeddings discussed previously. This makes sense, as this model also has a huge number of trainable parameters (7,592,632).\\
+\begin{figure}[h!]
+    \centering
+     \includegraphics[width=0.5\textwidth]{images/Training-GloveTrainable}
+        \caption{GloVe initialized but trainable}
+\end{figure}
+Adding fully connected layers didn't much improve on this result, reaching around the same accuracy (64.8\%) but taking 24 epochs to do so. As previously discussed, there are sufficient trainable parameters in the embedding to categorize the data - the addition of more parameters only slows down learning.\\
+The CNN model performed the best of all tested models, with 66\% validation accuracy at 20 epochs, and the best accuracy at any epoch of any model. Since the filters can learn spatially invariant word assocations with categories, the relationship between words and these categories does not need to be captured in the word embedding. Thus, the generalized semantic relationships of the words, captured in the GloVe training on a much larger dataset, is retained. Apart from the slow training on 7,942,584 parameters, this model is the most promising.\\
 
 \section{\rom{6}. Conclusion}
 In this project, we experimented using different neural network models to categorize book based on its title, and we archived a better result compared with the accuracies if the neural network judge the book based on its cover image (Iwana et al.). We have shown that with word embedding and a very simple CNN, we are able to categorize the books accurately, even though it's not categorizing well for some of the categories. However, since the neural network is very small, we are able to train the network within a reasonable short time, which makes it possible to train the network with a larger dataset in order to improve the result, especially feeding more training datas for those similar categories. For future improvement, we can try to make the CNN more complicated, or finding a new neural network model that is better at this job. but that will definitely make it harder to train the network with large data set because of the computational complexity. Another possibility to improve the result is to filter out some of the confusion words, or misleading words among the titles, where these words are the most common words that will cause a book title to be incorrectly categorized, but that's beyond the scope of this project as that requires a lot more data pre-processing and experiments on which set of words we should filter out in order to improve the result.
@@ -180,6 +204,7 @@ Mikolov, T., Chen, K., Corrado, G., \& Dean, J. (2013). Efficient Estimation of 
 \item This dataset contains 207,572 books from the Amazon.com, Inc. marketplace.: uchidalab/book-dataset. (2018). Python, \begin{CJK}{UTF8}{min}九州大学 ヒューマンインタフェース研究室\end{CJK}. Retrieved from https://github.com/uchidalab/book-dataset (Original work published 2017)
 \item Word2vec. (2018). In Wikipedia. Retrieved from https://en.wikipedia.org/w/index.php?title=Word2vec\& oldid=869116438
 \item Zhang, Y., \& Wallace, B. (2015). A Sensitivity Analysis of (and Practitioners’ Guide to) Convolutional Neural Networks for Sentence Classification. ArXiv:1510.03820 [Cs]. Retrieved from http://arxiv.org/abs/1510.03820
+\item https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html
 \end{enumerate}
 
 \end{document}
