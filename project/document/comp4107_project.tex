@@ -8,13 +8,13 @@
 \makeatletter
 \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
-\title{Classify a book's category based on its title}
-\shorttitle{Book classification using book titles}
+\title{Judging a book by its title}
+\shorttitle{Judging a book by its title}
 
 \twoauthors{Yunkai Wang}{Jules Kuehn}
 \twoaffiliations{Carleton University, School of Computer Science}{Carleton University, School of Computer Science}
 
-\abstract{Recently Convolutional Neural Networks (CNN) have been well-studied and be shown that they can archive incredible results on tasks like sentence classification (Kim, 2014; Zhang and Wallace, 2015). An interesting topic that has been studied is if we can categorize a book based on its cover picture (Iwana et al., 2016). "However, classification of books based on the cover image is a difficult task." (Iwana et al., 2016, p. 6). That being said, the relationship between the book's cover image and its category does exist, but it's hard to to classify using a CNN as many books have misleading cover images. Based on the idea of categorizing books, we are conducting this experiment to see if we can use CNN to learn the potential relationship between a books title and its categories. For this project, we will experiment how accurately this task can be performed with different model setups and layers (Britz, 2015) using matrixes that represent the titles as input (Mikolov et al., 2013; Karani, 2018; Britz, 2015).}
+\abstract{Recently Convolutional Neural Networks (CNN) have been well-studied. It has been shown that they can achieve incredible results on tasks like sentence classification (Kim, 2014; Zhang and Wallace, 2015). Also using CNN, one study tried to categorize a book based on its cover picture (Iwana et al., 2016). "However, classification of books based on the cover image is a difficult task." (Iwana et al., 2016, p. 6). While the relationship between the book's cover image and category does exist, it is difficult to classify using a CNN as many books have misleading cover images. Based on the idea of categorizing books, and using the same dataset, we experiment to determine if we can use a CNN to instead learn the potential relationship between a book's title and its categories. For this project, we will compare how accurately this task can be performed with different model configurations such as MLP and CNN (Britz, 2015), using matrices that represent the titles, where each row is a word embeddings (Mikolov et al., 2013; Karani, 2018; Britz, 2015). We will also evaluate training word embeddings from the dataset, compared with using pre-trained embeddings.}
 
 \leftheader{Wang, Kuehn}
 
@@ -22,19 +22,19 @@
 \maketitle    
                         
 \section{\rom{1}. Introduction}
-Book titles will given the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers from buying and reading the book, it makes the book different from other books (Peterson, 2018). But what does the book title really tells you? What can you say about the book by simply looking at the book title? If a title contains the word 'calendar', then most likely people will all agree that it's a calendar, but what if the book title doesn't contain a specific word that reveals its category, like if you are given the book title 'The Three-Body Problem' with knowing this book before, how will you categorize the book? Will the book title be sufficient for a CNN that has been pre-trained with titles and categories be able to detect that book as a science friction, or will the CNN think that it's a physics book? This is a very interesting question to ask, and that's why we conduct this experiment, to see if the computers are able to learn the potential relationship between a book's title and its category using CNN.
+Book titles give the reader a first impression of what the book may be about, and most of the time, a good book title will attract more readers to buy and read the book. A title effectively differentiates the book from others (Peterson, 2018). But what does the book title really tell you? What can you say about the book by simply looking at the book title? If a title contains the word 'calendar', then most people will agree that it is a calendar. But what if the book title doesn't contain a specific word that reveals its category? If you are given the book title "The Three-Body Problem" with no prior knowledge, how will you categorize the book? Will the book title be sufficient for a neural network that has been trained with titles and categories to categorize that book as a science fiction, or will the network determine that it is a physics book? Frankly, we didn't know the answer to this question. Here, we conduct this experiment to see if our network is able to learn the potential relationship between a book's title and its category - and what model is best suited to the task.
 
 \section{\rom{2}. Background/Related work}
 
-\subsection{Dateset}
-The \textit{Data Mining} is a dataset that can be found on \textit{Github.com}, and it was published by the researchers who conducted the experiment on testing the relationship between a books cover image and its category (Iwana et al., 2016; uchidalab, 2018). The set consists of detailed information of $207572$ books from $32$ different categories. Some of the books are easy to classify, like 'calendar' and 'law', which are not similar to the other categories, or they contain some specific keyword among most books from the same category. However, many categories are similar, like 'Christian Books and Bibles' and 'Religion and Spirituality.'It is these categories that are the difficult part for the CNN to correctly classify. The dataset is not automatically splitted into training set and test set, so we use \textit{sklearn} library to split the data.
+\subsection{Dataset}
+\textit{Book32} is a dataset of book information scraped from Amazon. It was published by the researchers who conducted the experiment on testing the relationship between a books cover image and its category (Iwana et al., 2016; uchidalab, 2018). The set consists of detailed information of $207572$ books from $32$ different categories. Some of the books are easy to classify, like 'calendar' and 'law', which are not similar to the other categories, or they contain some specific keyword among most books from the same category. However, many categories are similar, like 'Christian Books and Bibles' and 'Religion and Spirituality.'It is these categories that are the difficult part for the CNN to correctly classify. The dataset is not automatically splitted into training set and test set, so we use \textit{sklearn} library to split the data.
 
 \subsection{Loading and transforming the data}
-Here are the list of steps we took to load the dataset:
+The data was supplied as a comma separated values file, with more fields than we required, such as product page URLs, product number, and author.
 
-\rule{0pt}{4ex}  1. First we loaded all the original data line by line, and for each line, we extracted the books title and its category, as that was the only information we fed to our neural network.
+\rule{0pt}{4ex}  1. First we loaded all the original data line by line, and extracted each books title and its category, as that was the only information we fed to our neural network.
 
-\rule{0pt}{4ex}  2. Since most titles are of different length, and the maximum title length is $96$. We could expand the titles so that they all have length $96$. However, as Figure $1$ shows, most of titles have length less than $26$, only several titles have length $>26$. Therefore, we choose the maximum length to be $26$ instead of $96$. We used \textit{pad\_sequence} function from keras library to accomplish the task, which simply appends $0$ to the end of the titles that are shorter than the given length, and cut-off those long titles after $26$ words.
+\rule{0pt}{4ex}  2. Most titles are of different lengths, and the maximum title length is $96$. We could expanded the titles so that they all have length $96$. However, as Figure $1$ shows, most of titles have length less than $26$. Therefore, we choose the maximum length to be $26$ instead of $96$. We used \textit{pad\_sequence} function from keras library to accomplish the task, which simply appends $0$ to the end of the titles that are shorter than the given length, and truncate long titles after $26$ words.
 
 \begin{figure}[h!]
 \captionsetup{justification=centering}
@@ -42,34 +42,37 @@ Here are the list of steps we took to load the dataset:
      \caption{Distributions of title lengths}
 \end{figure}
 
-\rule{0pt}{4ex}  3. With the help of \textit{train\_test\_split} function, we split the training data and testing data by having a testing data of size $10\%$ of the original dataset.
+\rule{0pt}{4ex}  3. With the help of \textit{train\_test\_split} function, we split the training data and validation data. We used $10\%$ of the original dataset for validation data.
 
-\rule{0pt}{4ex}  4. We convert the titles into matrices that can represent these titles, more details about this can be found in the 'Representing titles using matrices' section.
+\rule{0pt}{4ex}  4. We converted the titles into matrices that can represent these titles. More details about this follow in "Representing titles using matrices".
 
 \subsection{Libraries}
-In this project, we used the following libraries to avoid re-writing a lot of the codes that are not so important for the context of this experiment:
+We used the following libraries to avoid reimplementing a lot of code which is not the subject of this experiment:
 
 \begin{itemize}
-\item Keras: We used keras library a lot, like the data preprocessing functions and the functions that create the layers automatically.
-\item Scikit-learn: We used sklearn to split the training and testing dataset, and the TSNE function to plot the categories on a 2D graph.
+\item Keras: We used keras library primarily, including the data preprocessing functions and the functions that create the model.
+\item Scikit-learn: We used sklearn to split the training and testing dataset, and the TSNE function to project the category means to a 2D plot.
 \item Tensorflow: Tensorflow was originally used in mlp.py and cnn.py files, and we used the models defined in those files to see how they perform on this task. It is also the backend for Keras.
 \item Numpy was used for various matrix processing tasks.
 \item Matplotlib was used to create all the graphics in this report.
 \end{itemize}
 
 \subsection{Representing titles using matrices}
-In order to apply CNNs to natural language processing (NLP) related tasks, the input are the words or sentences that are represented as matrices (Britz, 2015). Typically, we can use one of the two following mechanisms to represent the titles:
+In order to apply CNNs to natural language processing (NLP) related tasks, the input text must be represented as matrices of numbers (Britz, 2015). We can use the two following mechanisms to represent the words in the titles:
 \begin{itemize}
-\item Word embeddings: Using \textit{word2vec}("Word2vec", 2018) or \textit{GloVe}("GloVe: Global Vectors for Word Representation", 2014) to generate low-rank approximation of these titles (Karani, 2018).
-\item One-hot: Convert the words into unique indices that represent these words, so each title becomes a vector of indices. This can be done using the \textit{one\_hot} function that is available in \textit{keras} library.
+\item One-hot: Unique words are assigned indices in a lookup table. Each word in each title is then encoded into a one-hot vector, having the same dimensionality as the vocabulary size. This can be done using the \textit{one\_hot} function that is available in \textit{keras} library.
+\item Word embeddings: Using a system such as \textit{word2vec}("Word2vec", 2018) or \textit{GloVe}("GloVe: Global Vectors for Word Representation", 2014) we can generate low-rank approximations of each unique word with semantically meaningful relationships in their d-dimensional vector space (Karani, 2018).
 \end{itemize}
+With each word as a vector, a title can be represented as a matrix in which every row in a word vector. The first row represents the first word in the title, and so on.
 
 \section{\rom{3}. Problem Statement}
 
-We want computers to be able to handle the categorization tasks for books based on book titles, such that in the future, the computer will be able to auto-categorize a new book given only its title, which will be faster than manually categorizing the books. It's almost impossible to manually design a rule-based program, that will handle the categorization problem nicely and accurately. The titles and the categories don't have an obvious relationship which we can use to linearly separate the titles into categories, there may be infinitely many potential relationships. However, if we success with our experiment, then we can use CNN to learn the underlying relationship between the titles and the categories, and the CNN will achieve a high accuracy in the categorization task.
+We want computers to be able to learn the patterns in book titles, such that in the future, the computer will be able to predict the category of a new book given only its title (with good accuracy). It is almost impossible to manually design a rule-based program that will handle the categorization problem. The titles and the categories don't have an obvious relationship which we can use to linearly separate the titles into categories; there may be infinitely many potential relationships. We expect that using CNN to learn the underlying relationship between the titles and categories will achieve a high accuracy in the categorization task.\\
+
+Specifically, we want to determine empirically if the CNN is better suited for this task than the MLP model, and whether using pre-trained word embeddings will help to achieve higher accuracy.
 
 \section{\rom{4}. Model}
-We began with 2 naive implementations, in which each "word vector" was an arbitrary unique integer. Each title is then a vector of these integers (one for each word), zero padded to the length of the longest title (96 words). This representation of the titles has little semantic value as the integers representing the words are arbitrary.\\
+We began with two naive implementations, in which each "word vector" was an arbitrary unique integer. Each title is then a vector of these integers (one for each word), zero padded to the length of the longest title (96 words). This representation of the titles has little semantic value as the integers representing the words are arbitrary.\\
 
 % Insert diagram of naive model
 The first naive model was a fully connected MLP with the following configuration. Output size of each layer is indicated in parentheses.
@@ -251,9 +254,11 @@ Titles from certain categories also exhibit more overlap in terms of potential c
 Finally, such a system could never achieve 100\% accuracy while there are errors or inconsistency in the training and test data. The title "Carrying off the Cherokee: History of Buffington's Company Georgia Mounted Militia", which the network categorized as History, was actually labelled "Crafts, Hobbies \& Home". Other books do not fit cleanly into one category or another, such as "Indonesia (Country Explorers)", which the network categorized as Travel. The given label was "Children's Books". This title demonstrates how a children's travel book would never achieve good categorization accuracy, since one could reasonably place it in either category.
 
 \section{\rom{6}. Conclusion}
-In this project, we experimented using different neural network models to categorize book based on its title, and we archived a better result compared with the accuracies if the neural network judge the book based on its cover image (Iwana et al.). We have shown that with word embedding and a very simple neural network model, we are able to categorize the books accurately, even though it's not categorizing well for some of the categories. However, since the neural network is very small, we are able to train the network within a reasonable short time, which makes it possible to train the network with a larger dataset in order to improve the result, especially feeding more training datas for those similar categories. For future improvement, we can try to make the CNN more complicated, or finding a new neural network model that is better at this job. but that will definitely make it harder to train the network with large data set because of the computational complexity. Another possibility to improve the result is to filter out some of the confusion words, or misleading words among the titles, where these words are the most common words that will cause a book title to be incorrectly categorized, but that's beyond the scope of this project as that requires a lot more data pre-processing and experiments on which set of words we should filter out in order to improve the result.\\
+In this project, we experimented using different neural network models to categorize a book based on its title. We achieved better results using the titles than previous work on categorizing the same titles by their cover images (Iwana et al.). We have shown that with word embedding and a very simple neural network model, we are able to categorize the books fairly accurately, but accuracy is highly dependent on the book category. However, since the neural network is very small, we are able to train the network within a reasonable short time. This makes it possible to train the network with a larger dataset in order to improve the result, especially for those categories which had more diverse titles. Future work could involve a more complicated CNN, or finding a new neural network model that is better at this job, such as a RNN - but a more complex model would make it harder to rain the network with a large data set because of the computational complexity. Another possibility to improve the result is to filter out some of the confusing words, or misleading words among the titles, where these words are the most common words that will cause a book title to be incorrectly categorized. NLP research involves experimenting with much pre-processing which fell outside scope of this project, but would be interesting to apply on top of our current model.\\
 
- The \textit{Data Mining} dataset is an interesting dataset to be working on, as it provides the capability to conducting many different possible classification experiments, like the relationship between a book title and the book author, etc. However, if the original dataset can provide a typical sentence from each book (like the first sentence from the book or the best sentence from the book), then we can conduct even more interesting experiments. Also, it will be helpful if people can enrich that dataset with more books that belong those small sized categories like Education \& training, which will definitely improve the classification accuracy of our model, and possibly the others.
+ The \textit{Book32} dataset is an interesting dataset to be working with, as it provides the capability to conducting many different variations of this classification experiment, like the relationship between a book title and the book author, etc. However, if the original dataset could provide a typical sentence from each book (like the first sentence from the book or the best sentence from the book), then we would expect even better results. Also, it will be helpful if people can enrich that dataset with more books that belong those small sized categories like Education \& Training, which will definitely improve the classification accuracy of our model.\\
+
+ Returning to our initial problem statement, we conclude that convolution is indeed a powerful tool for NLP tasks, especially when starting from a pre-trained word embedding. Secondly, we find that initializing a trainable embedding to known meaningful values (such as the GloVe dataset) is a good starting point for an effective NLP neural network.
 
 \section{References}
 \begin{enumerate}[(1)]

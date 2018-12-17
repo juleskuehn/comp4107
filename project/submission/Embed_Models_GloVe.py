@@ -353,7 +353,7 @@ def main(epochs=10, lr=0.001, batch_size=512, embed_size=32, mlp=False, cnn=Fals
       plot_title_lengths()
       print_category_accuracy()
     #   show_random_top_5()
-    #   test_string_loop()
+      test_string_loop()
 
   go()
   return history

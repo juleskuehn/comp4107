@@ -185,8 +185,6 @@ OUTPUT comp4107_project.pdf
 INPUT ./images/title_lengths.png
 INPUT ./images/title_lengths.png
 INPUT ./images/title_lengths.png
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxr.tfm
@@ -207,8 +205,8 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmri.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxi.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txr.vf
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txmi.vf
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxmi.tfm
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
+INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/omstxr.fd
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/t1xr.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm
@@ -309,8 +307,6 @@ INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxb.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxb.pfb
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb
-INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxr.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxr.pfb
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/txsy.pfb

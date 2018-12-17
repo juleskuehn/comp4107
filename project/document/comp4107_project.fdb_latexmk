@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1545010239 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1545010245
+["pdflatex"] 1545020168 "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" "comp4107_project.pdf" "comp4107_project" 1545020173
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb30.pk" 1544853107 26416 be42586c93475e49c7e2cd9ec0cff5f8 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb4e.pk" 1544853117 48528 e1aa7b73bba3a9c622c83a16b3c2dfc5 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb59.pk" 1544853112 73516 ab3e9477ea4401d61002db13af08f990 ""
@@ -15,7 +15,6 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/jknappen/ec/ecrm1000.tfm" 993058522 3148 7e594c8240c71e432203f65ab5f95a51 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxb.tfm" 977313960 1020 c53143d3e3747b5c1149bd9a5ecd7b55 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxi.tfm" 977313960 1048 a97cff5f6b833b712079817ce7a40d4c ""
-  "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxmi.tfm" 977313960 1056 e2202af076e43d03fc17f87e104021b0 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmb.tfm" 977313960 4572 2c370d27bbb031f7592de9d41dc8cfca ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmr.tfm" 977313960 4452 0fd0a792eaab7113e4d4f1b941ff0367 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/txfonts/rtxptmri.tfm" 977313960 4640 ce59980bcbe9e6236fab46d0b5212c7e ""
@@ -45,7 +44,6 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb78.tfm" 1253725167 1172 a8bcab02ffa86ba9f8fabbca7711a59a ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb7a.tfm" 1253725167 1172 6fe4756ac6e5deb7e6a92758e909756f ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxb.pfb" 977313960 6330 bdd610a36762742dd8a518bf9f97b968 ""
-  "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb" 1231974540 13806 49b888f4605a088e66b9eb4fee320a6e ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxr.pfb" 977313960 6339 e2b78706efdc360ee6aec9b6e20211a7 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/txsy.pfb" 977313960 20336 69267d8a81bca8b24c9b42694a4a28f9 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb" 1136846148 45758 19968a0990191524e34e1994d4a31cb6 ""
@@ -56,7 +54,6 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xb.vf" 977313960 2144 bab2875eda5b2344ea7b1db74ccc03a4 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xi.vf" 977313960 2120 35084608d79b6b13dd746dfcffe98243 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/t1xr.vf" 977313960 2140 99e5b3a34695df6221a167ffa8b498d6 ""
-  "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txmi.vf" 1231975320 960 cfcc9d587b40b769f64408b3ca115941 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/public/txfonts/txr.vf" 977313960 904 e582cae2d8ae3f48a0a520440ebcdb51 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/context/base/supp-pdf.mkii" 1306914861 71592 fe353e1fbd982ffc647f3e98ff74da96 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/generic/ifxetex/ifxetex.sty" 1284257189 1458 43ab4710dc82f3edeabecd0d099626b2 ""
@@ -124,12 +121,12 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsya.fd" 977313960 310 cee07e4964749ccbc77d84fc49726a79 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyb.fd" 977313960 310 8c5467c8932c259af51b0f116c9734bd ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/txfonts/utxsyc.fd" 977313960 310 4b5d6fe830337242ef847b3bff48ba21 ""
-  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1545010237 28630 41af0fe52fca88ae37b330d2c63ae0c6 ""
+  "c:/Users/Jules/Dropbox/Carleton/Fall 2018/4107/comp4107/project/document/comp4107_project.tex" 1545020161 29403 fa37d2e2a25aea7d6537e32e76f16305 ""
   "code/Category_Predictions.txt" 1544801261 8250 e45a62cc22c3adad4301761e85f432ac ""
   "code/Category_Top1_Top5.txt" 1545001535 2164 7d42ef770a4513d489285183debff4b5 ""
   "code/kerasModel.py" 1544974433 329 bf2ddc85a8730a434a35c50bbe0ed348 ""
-  "comp4107_project.aux" 1545010244 3178 396d3ba3b4387b889c3b10aae87d73b4 ""
-  "comp4107_project.tex" 1545010237 28630 41af0fe52fca88ae37b330d2c63ae0c6 ""
+  "comp4107_project.aux" 1545020173 3180 ed639a0fcf203a1214fcec29919c0205 ""
+  "comp4107_project.tex" 1545020161 29403 fa37d2e2a25aea7d6537e32e76f16305 ""
   "images/Category_Top1_Top5.png" 1544811524 24579 d3d2e3635462b555e8e0b77cebf7c9fd ""
   "images/Training-Glove.png" 1544715804 18309 868fb3f69006ab0814117648df22c319 ""
   "images/Training-GloveMLP.png" 1544716255 20615 4aa39de5a935b9d881d3651548d564eb ""
@@ -143,5 +140,5 @@
   "images/tsne-categories.png" 1544554986 87038 c19027bc127cec208c84942da1cda770 ""
   (generated)
   "comp4107_project.aux"
-  "comp4107_project.pdf"
   "comp4107_project.log"
+  "comp4107_project.pdf"
