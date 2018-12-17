@@ -246,6 +246,16 @@ INPUT ./images/Training-GloveTrainable.png
 INPUT ./images/Training-GloveTrainable.png
 INPUT ./images/Training-GloveTrainable.png
 INPUT ./images/Training-GloveTrainable.png
+INPUT images/title-length-accuracy-white.png
+INPUT ./images/title-length-accuracy-white.png
+INPUT ./images/title-length-accuracy-white.png
+INPUT ./images/title-length-accuracy-white.png
+INPUT ./images/title-length-accuracy-white.png
+INPUT images/Category_Top1_Top5.png
+INPUT ./images/Category_Top1_Top5.png
+INPUT ./images/Category_Top1_Top5.png
+INPUT ./images/Category_Top1_Top5.png
+INPUT ./images/Category_Top1_Top5.png
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/UTF8.bdg
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/UTF8.enc
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cjk/UTF8/UTF8.chr
@@ -258,6 +268,29 @@ INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyber
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb30.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb78.tfm
 INPUT C:/Users/Jules/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/zhmetrics/cyberb/cyberb7a.tfm
+INPUT images/all_models_comparison.png
+INPUT ./images/all_models_comparison.png
+INPUT ./images/all_models_comparison.png
+INPUT ./images/all_models_comparison.png
+INPUT ./images/all_models_comparison.png
+INPUT images/good_models_comparison.png
+INPUT ./images/good_models_comparison.png
+INPUT ./images/good_models_comparison.png
+INPUT ./images/good_models_comparison.png
+INPUT ./images/good_models_comparison.png
+INPUT images/tsne-categories.png
+INPUT ./images/tsne-categories.png
+INPUT ./images/tsne-categories.png
+INPUT ./images/tsne-categories.png
+INPUT ./images/tsne-categories.png
+INPUT images/Category_Top1_Top5.png
+INPUT ./images/Category_Top1_Top5.png
+INPUT code/Category_Top1_Top5.txt
+INPUT code/Category_Top1_Top5.txt
+INPUT code/Category_Top1_Top5.txt
+INPUT code/Category_Predictions.txt
+INPUT code/Category_Predictions.txt
+INPUT code/Category_Predictions.txt
 INPUT comp4107_project.aux
 INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb7a.pk
 INPUT C:/Users/Jules/AppData/Local/MiKTeX/2.9/fonts/pk/modeless/zhmetrics/cyberb/dpi600/cyberb7a.pk

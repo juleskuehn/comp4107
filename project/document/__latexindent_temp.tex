@@ -50,11 +50,9 @@ Here are the list of steps we took to load the dataset:
 In this project, we used the following libraries to avoid re-writing a lot of the codes that are not so important for the context of this experiment:
 
 \begin{itemize}
-\item Keras: We used keras library a lot, like the data preprocessing functions and the functions that create the layers automatically.
-\item Scikit-learn: We used sklearn to split the training and testing dataset, and the TSNE function to plot the categories on a 2D graph.
-\item Tensorflow: Tensorflow was originally used in mlp.py and cnn.py files, and we used the models defined in those files to see how they perform on this task. It is also the backend for Keras.
-\item Numpy was used for various matrix processing tasks.
-\item Matplotlib was used to create all the graphics in this report.
+\item keras: We used keras library a lot, like the data preprocessing functions and the functions that create the layers automatically.
+\item sklearn: We used sklearn to split the training and testing dataset, and the TSNE function to plot the categories on a 2D graph.
+\item tensorflow: Tensorflow was originally used in mlp.py and cnn.py files, and we used the models defined in those files to see how they perform on this task.
 \end{itemize}
 
 \subsection{Representing titles using matrices}
@@ -101,52 +99,39 @@ A better word representation is to embed each word in a n-dimensional space, whe
 
 The first embedding model trained the embeddings from scratch, using only the book titles from the training set. Note that we truncated the titles from a maximum of 96 words to 26 words. We chose 32 for the embedding dimension, based on the rule of the thumb that the embedding should be the fourth root of the vocabulary size. There were roughly 70,000 words in the training dataset, which suggest that the embedding dimension should be 16, but we found that 32 offered a slight improvement in practice.
 \begin{itemize}
-    \item Input (26, 75094)
+    \item Input (26, 1)
     \item Embedding (26, 32)
     \item Flatten (832)
     \item Dropout 0.5 (832)
     \item Output Softmax (32)
 \end{itemize}
 
-The second embedding model loaded 400,000 pre-trained 100-dimensional word-vectors from the GloVe.6B dataset. These word vectors were trained on Wikipedia and Gigaword, a newswire dataset. The model is identical to EmbedTrain except that the embeddings are pre-trained and fixed, with the embedding dimension increased to 100. Dropout was also removed for this model.\\
-\begin{itemize}
-    \item Input (26, 75094)
-    \item Embedding (26, 100)
-    \item Flatten (2600)
-    \item Output Softmax (32)
-\end{itemize}
+The second embedding model loaded 400,000 pre-trained 100-dimensional word-vectors from the GloVe.6B dataset. These word vectors were trained on Wikipedia and Gigaword, a newswire dataset. The model is identical to EmbedTrain except that the embeddings are pre-trained and fixed, with the embedding dimension increased to 100.\\
 
 The third embedding model is identical to EmbedTrain except that the embeddings are initialized to the GloVe dataset as seen in EmbedGloveFixed. Embeddings are then retrained on the book titles.\\
 
-For each of the three embedding models, we also tested 2 variations to compare the performance of MLP vs CNN on the title embeddings. The first variation adds two fully connected (FC) layers:
+For each of the three embedding models, we also tested 2 variations to compare the performance of MLP vs CNN on the title embeddings. The first variation adds a single fully connected (FC) layer:
 
 \begin{itemize}
-    \item Input (26, 75094)
+    \item Input (26, 1)
     \item Embedding (26, 32)
     \item Flatten (832)
-    \item Dropout 0.5 (832)
-    \item FC ReLU (1024)
-    \item Dropout 0.5 (1024)
-    \item FC ReLU (512)
+    \item \textbf{FC ReLU (512)}
     \item Dropout 0.5 (512)
     \item Output Softmax (32)
 \end{itemize}
 
-The second variation adds a single convolutional layer, followed by maxpool over the entire length and finally a single FC layer:
+The second variation adds a single convolutional layer, followed by maxpool over the entire length:
 
 \begin{itemize}
-    \item Input (26, 75094)
+    \item Input (26, 1)
     \item Embedding (26, 32)
-    \item Dropout 0.5 (26, 32)
-    \item \textbf{FC ReLU: 3 kernel, 1 stride (24, 512)}
-    \item Max Pooling: 24 kernel (512)
-    \item Dropout 0.25 (512)
-    \item FC ReLU (512)
-    \item Dropout 0.5 (832)
-    \item Output Softmax (32)
+    \item \textbf{Conv ReLU: 3 kernel, 1 stride (24, 512)}
+    \item \textbf{Max pool: 24 kernel, 24 stride (1, 512)}
+    \item Flatten (512)
+    \item Dropout 0.5 (512)
+    \item Output Softmax (32)\\
 \end{itemize}
-
-The GloVe pre-trained (and fixed embedding) model variations are the same as above, except without the first dropout layer. The GloVe trainable models include the first dropout layer. All GloVe models necessarily have an embedding length of 100.
 
 \section{\rom{4}. Implementation}
 
@@ -159,7 +144,7 @@ The naive models were implemented using the course-provided cnn.py and mlp.py co
 \section{\rom{5}. Experiment}
 Eleven distinct models were tested. Each model was tuned in terms of hyperparameters and dropout layers through experimentation, so they each represent a fair example of the architecture.\\
 
-All models were run for at least 25 epochs, with the Adam optimizer at a learning rate of 0.001. We chose a batch size of 128, and an embedding length of 32 (except in the case of using the 100-dimensional GloVe embeddings). Of the 207572 labelled data, we took 9/10 for training and 1/10 for validation.\\
+All models were run for at least 25 epochs, with a learning rate of 0.001, a batch size of 128, and an embedding length of 32 (except in the case of using the 100-dimensional GloVe embeddings). Of the 207572 labelled data, we took 9/10 for training and 1/10 for validation.\\
 
 The results of the naive model, in which no meaning is embedded in the input vector, were predictably poor. The MLP achieved only 9\% validation accuracy, while the CNN eventually reached 12\%. While these accuracies are better than chance ($\approx$3\%), they are far from useful. There needs to be a meaningful representation of the input words in the input vectors, not arbitrary word indices.\\
 
@@ -247,8 +232,7 @@ The accuracy also varied by category. Based on manual inspection of the data, ce
     \end{figure}
 
 Titles from certain categories also exhibit more overlap in terms of potential categorization. By looking at the T-SNE plot of category means, and the accompanying table of categorical output by categorical input, we can see that certain categories cluster closely together and have high error between them. The top 5 accuracy for these categories is still fairly good.\\
-
-Finally, such a system could never achieve 100\% accuracy while there are errors or inconsistency in the training and test data. The title "Carrying off the Cherokee: History of Buffington's Company Georgia Mounted Militia", which the network categorized as History, was actually labelled "Crafts, Hobbies \& Home". Other books do not fit cleanly into one category or another, such as "Indonesia (Country Explorers)", which the network categorized as Travel. The given label was "Children's Books". This title demonstrates how a children's travel book would never achieve good categorization accuracy, since one could reasonably place it in either category.
+Finally, such a system could never achieve 100\% accuracy while there are errors or inconsistency in the training and test data. "Carrying off the Cherokee: History of Buffington's Company Georgia Mounted Militia", which the network categorized as History, was actually labelled "Crafts, Hobbies & Home". Other books do not fit cleanly into one category or another, such as "Indonesia (Country Explorers)", which the network categorized as Travel. The actual label was "Children's Books". This title demonstrates how a children's travel book would never achieve good categorization accuracy, since one could reasonably place it in either category.
 
 \section{\rom{6}. Conclusion}
 In this project, we experimented using different neural network models to categorize book based on its title, and we archived a better result compared with the accuracies if the neural network judge the book based on its cover image (Iwana et al.). We have shown that with word embedding and a very simple neural network model, we are able to categorize the books accurately, even though it's not categorizing well for some of the categories. However, since the neural network is very small, we are able to train the network within a reasonable short time, which makes it possible to train the network with a larger dataset in order to improve the result, especially feeding more training datas for those similar categories. For future improvement, we can try to make the CNN more complicated, or finding a new neural network model that is better at this job. but that will definitely make it harder to train the network with large data set because of the computational complexity. Another possibility to improve the result is to filter out some of the confusion words, or misleading words among the titles, where these words are the most common words that will cause a book title to be incorrectly categorized, but that's beyond the scope of this project as that requires a lot more data pre-processing and experiments on which set of words we should filter out in order to improve the result.\\
@@ -268,7 +252,7 @@ Mikolov, T., Chen, K., Corrado, G., \& Dean, J. (2013). Efficient Estimation of 
 \item This dataset contains 207,572 books from the Amazon.com, Inc. marketplace.: uchidalab/book-dataset. (2018). Python, \begin{CJK}{UTF8}{min}九州大学 ヒューマンインタフェース研究室\end{CJK}. Retrieved from https://github.com/uchidalab/book-dataset (Original work published 2017)
 \item Word2vec. (2018). In Wikipedia. Retrieved from https://en.wikipedia.org/w/index.php?title=Word2vec\& oldid=869116438
 \item Zhang, Y., \& Wallace, B. (2015). A Sensitivity Analysis of (and Practitioners’ Guide to) Convolutional Neural Networks for Sentence Classification. ArXiv:1510.03820 [Cs]. Retrieved from http://arxiv.org/abs/1510.03820
-\item Chollet, F. (2016) Using pre-trained word embeddings in a Keras model. Retrieved December 15, 2018, from https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html
+\item https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html
 \end{enumerate}
 
 \onecolumn
